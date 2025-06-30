@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GridsterConfig, GridsterItem, GridsterModule } from 'angular-gridster2';
+import {SideBar} from '../side-bar/side-bar'
 
 export interface DashboardItem extends GridsterItem {
   title: string;
@@ -10,7 +11,7 @@ export interface DashboardItem extends GridsterItem {
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CommonModule, GridsterModule],
+  imports: [CommonModule, GridsterModule, SideBar],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })
@@ -39,18 +40,18 @@ export class Dashboard implements OnInit {
       useTransformPositioning: true,
       mobileBreakpoint: 640,
       useBodyForBreakpoint: false,
-      minCols: 1,
-      maxCols: 12,
-      minRows: 1,
-      maxRows: 100,
+      minCols: 100,
+      // maxCols: 12,
+      minRows: 100,
+      // maxRows: 100,
       maxItemCols: 100,
       minItemCols: 1,
       maxItemRows: 100,
       minItemRows: 1,
       maxItemArea: 2500,
       minItemArea: 1,
-      defaultItemCols: 2,
-      defaultItemRows: 2,
+      defaultItemCols: 10,
+      defaultItemRows: 10,
       fixedColWidth: 105,
       fixedRowHeight: 105,
       keepFixedHeightInMobile: false,
@@ -105,37 +106,37 @@ export class Dashboard implements OnInit {
     this.dashboard = [
       {
         id: this.getNextId(),
-        cols: 2,
-        rows: 2,
-        y: 0,
-        x: 0,
+        cols: 20,
+        rows: 20,
+        y: 10,
+        x: 10,
         title: 'Виджет 1',
         content: 'Содержимое первого виджета. Вы можете перетаскивать и изменять размер этого элемента.'
       },
       {
         id: this.getNextId(),
-        cols: 2,
-        rows: 3,
+        cols: 20,
+        rows: 30,
         y: 0,
-        x: 2,
+        x: 20,
         title: 'Виджет 2',
         content: 'Второй виджет с большей высотой. Попробуйте изменить его размер или переместить.'
       },
       {
         id: this.getNextId(),
-        cols: 3,
-        rows: 2,
-        y: 2,
+        cols: 30,
+        rows: 12,
+        y: 20,
         x: 0,
         title: 'Широкий виджет',
         content: 'Этот виджет занимает больше места по ширине. Отлично подходит для графиков и диаграмм.'
       },
       {
         id: this.getNextId(),
-        cols: 1,
-        rows: 1,
-        y: 3,
-        x: 3,
+        cols: 10,
+        rows: 10,
+        y: 30,
+        x: 30,
         title: 'Мини',
         content: 'Компактный виджет'
       }
@@ -149,8 +150,8 @@ export class Dashboard implements OnInit {
   addItem(): void {
     const newItem: DashboardItem = {
       id: this.getNextId(),
-      cols: 2,
-      rows: 2,
+      cols: 10,
+      rows: 15,
       y: 0,
       x: 0,
       title: `Новый виджет ${this.itemIdCounter}`,
