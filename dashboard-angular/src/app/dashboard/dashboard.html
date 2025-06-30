@@ -24,17 +24,17 @@
 
 <div class="controls">
   <button
-  class="add-btn"
-  (click)="addItem()"
-  title="Добавить элемент">
-  + Добавить элемент
-</button>
-<button
-class="toggle-btn"
-(click)="toggleDragResize()"
-[class.active]="!options.draggable?.enabled">
-{{ options.draggable?.enabled ? 'Заблокировать' : 'Разблокировать' }}
-</button>
+    class="add-btn"
+    (click)="addItem()"
+    title="Добавить элемент">
+    + Добавить элемент
+  </button>
+  <button
+    class="toggle-btn"
+    (click)="toggleDragResize()"
+    [class.active]="!options.draggable?.enabled">
+    {{ options.draggable?.enabled ? 'Заблокировать' : 'Разблокировать' }}
+  </button>
 </div>
 </div>
 

@@ -95,7 +95,7 @@ export class Dashboard implements OnInit {
       disablePushOnResize: false,
       pushDirections: { north: true, east: true, south: true, west: true },
       pushResizeItems: false,
-      displayGrid: 'onDrag&Resize',
+      displayGrid: 'none',
       disableWindowResize: false,
       disableWarnings: false,
       scrollToNewItems: false
