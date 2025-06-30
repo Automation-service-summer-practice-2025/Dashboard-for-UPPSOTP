@@ -1,0 +1,147 @@
+.gridster-container {
+  height: 100vh;
+  padding: 20px;
+  background-color: #f5f5f5;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Основные стили для gridster */
+gridster {
+  background: #ddd;
+  border-radius: 8px;
+  min-height: 500px;
+}
+
+.gridster-item {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+  overflow: hidden;
+}
+
+.gridster-item:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Стили для содержимого элементов */
+.item-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+}
+
+.item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #eee;
+}
+
+.item-header h3 {
+  margin: 0;
+  color: #333;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.remove-btn {
+  background: white;
+  color: black;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.remove-btn:hover {
+  background: #ff3838;
+}
+
+.item-body {
+  flex: 1;
+  color: #666;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Стили для элементов управления */
+.controls {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.add-btn, .toggle-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.add-btn {
+  background: #2ed573;
+  color: white;
+}
+
+.add-btn:hover {
+  background: #26c765;
+}
+
+.toggle-btn {
+  background: #5352ed;
+  color: white;
+}
+
+.toggle-btn:hover {
+  background: #4641d4;
+}
+
+.toggle-btn.active {
+  background: #ff6b6b;
+}
+
+.toggle-btn.active:hover {
+  background: #ff5252;
+}
+
+/* Стили для перетаскивания */
+.gridster-item.gridster-item-moving {
+  opacity: 0.8;
+  transform: rotate(5deg);
+}
+
+.gridster-item.gridster-item-resizing {
+  opacity: 0.8;
+}
+
+/* Responsive стили */
+@media (max-width: 768px) {
+  .gridster-container {
+    padding: 10px;
+  }
+
+  .item-content {
+    padding: 10px;
+  }
+
+  .controls {
+    flex-direction: column;
+  }
+
+  .add-btn, .toggle-btn {
+    width: 100%;
+  }
+}
