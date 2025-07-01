@@ -19,6 +19,9 @@ export class DashboardService {
   dashboardItems$ = this.dashboardItems.asObservable();
   private itemIdCounter = 0;
 
+  private lockStatus = new BehaviorSubject<boolean>(false);
+  lockStatus$ = this.lockStatus.asObservable();
+
   constructor() {}
 
   addTextBlock(title: string = 'Текстовый блок', content: string = '') {
@@ -32,6 +35,14 @@ export class DashboardService {
       content: content || `Это новый текстовый блок #${this.itemIdCounter}`
     };
     this.dashboardItems.next([...this.dashboardItems.value, newItem]);
+  }
+
+  toggleLock(isLocked: boolean) {
+    this.lockStatus.next(isLocked);
+  }
+
+  isLocked(): boolean {
+    return this.lockStatus.value;
   }
 
   private getNextId(): number {

@@ -22,8 +22,14 @@ export class Dashboard implements OnInit {
   options: GridsterConfig = {};
   dashboard: any[] = [];
   private itemIdCounter = 0;
+  isLocked = false;
 
-  constructor(private dashboardService: DashboardService) {}
+  constructor(private dashboardService: DashboardService) {
+    this.dashboardService.lockStatus$.subscribe(isLocked => {
+    this.isLocked = isLocked;
+    this.toggleDragResize();
+  });
+  }
 
   ngOnInit(): void {
     this.initializeGridster();
@@ -164,10 +170,14 @@ export class Dashboard implements OnInit {
       content: `Содержимое нового виджета №${this.itemIdCounter}. Создан ${new Date().toLocaleTimeString()}.`
     };
 
+    if (this.isLocked) return;
+
     this.dashboard.push(newItem);
   }
 
   removeItem(item: DashboardItem): void {
+    if (this.isLocked) return;
+    
     const index = this.dashboard.findIndex(d => d.id === item.id);
     if (index !== -1) {
       this.dashboard.splice(index, 1);
@@ -176,8 +186,8 @@ export class Dashboard implements OnInit {
 
   toggleDragResize(): void {
     if (this.options.draggable && this.options.resizable) {
-      this.options.draggable.enabled = !this.options.draggable.enabled;
-      this.options.resizable.enabled = !this.options.resizable.enabled;
+      this.options.draggable.enabled = !this.isLocked;
+      this.options.resizable.enabled = !this.isLocked;
       this.options.api?.optionsChanged?.();
     }
   }

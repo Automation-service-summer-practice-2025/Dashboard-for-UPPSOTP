@@ -1,5 +1,42 @@
+.lock-toggle-group.mini-toggle {
+  padding: 0 1px;
+  border-radius: 12px;
+  height: 22px;
+  min-height: 22px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.07);
+}
+
+.lock-toggle-group.mini-toggle .mat-button-toggle {
+  min-width: 22px;
+  height: 22px;
+  line-height: 22px;
+  padding: 0;
+}
+
+.lock-toggle-group.mini-toggle .mat-icon {
+  font-size: 20px;
+  line-height: 22px;
+}
+
+.lock-toggle-group .mat-button-toggle-label-content {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  padding: 0 !important;
+  height: 100%;
+  width: 100%;
+}
+
+.mat-button-toggle-checked .mat-button-toggle-icon {
+  display: none !important;
+}
 .sidenav-container {
   height: 100vh;
+}
+
+.constructor-button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .menu-toggle {
@@ -24,6 +61,11 @@
   display: flex;
   align-items: center;
   margin-bottom: 20px;
+  gap: 10px;
+}
+
+.user-role {
+  margin-right: 8px;
 }
 
 .user-icon {

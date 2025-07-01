@@ -11,7 +11,8 @@
         <button
         class="remove-btn"
         (click)="removeItem(item)"
-        title="Удалить элемент">
+        title="Удалить элемент"
+        [disabled]="isLocked">
         x
       </button>
     </div>
@@ -26,13 +27,15 @@
   <button
   class="add-btn"
   (click)="addItem()"
-  title="Добавить элемент">
+  title="Добавить элемент"
+  [disabled]="isLocked">
   + Добавить элемент
 </button>
 <button
 class="toggle-btn"
 (click)="toggleDragResize()"
-[class.active]="!options.draggable?.enabled">
+[class.active]="!options.draggable?.enabled"
+[disabled]="isLocked">
 {{ options.draggable?.enabled ? 'Заблокировать' : 'Разблокировать' }}
 </button>
 </div>
