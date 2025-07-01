@@ -197,14 +197,27 @@ export class Dashboard implements OnInit {
   }
 
   toggleEditMode(item: DashboardItem, field: 'title' | 'content', value: boolean): void {
+    if (value) {
+      this.dashboard.forEach(dItem => {
+        if (dItem.id !== item.id) {
+          dItem.isEditingTitle = false;
+          dItem.isEditingContent = false;
+        }
+      });
+    }
+
     if (field === 'title') {
       item.isEditingTitle = value;
       if (value) {
         item.isEditingContent = false;
         setTimeout(() => {
           if (this.titleInputRef) {
-            this.titleInputRef.nativeElement.focus();
-            this.titleInputRef.nativeElement.select();
+            const inputElement = this.titleInputRef.nativeElement;
+            inputElement.focus();
+            inputElement.setSelectionRange(
+              inputElement.value.length,
+              inputElement.value.length
+            );
           }
         }, 0);
       }
@@ -214,8 +227,12 @@ export class Dashboard implements OnInit {
         item.isEditingTitle = false;
         setTimeout(() => {
           if (this.contentInputRef) {
-            this.contentInputRef.nativeElement.focus();
-            this.contentInputRef.nativeElement.select();
+            const textareaElement = this.contentInputRef.nativeElement;
+            textareaElement.focus();
+            textareaElement.setSelectionRange(
+              textareaElement.value.length,
+              textareaElement.value.length
+            );
           }
         }, 0);
       }
