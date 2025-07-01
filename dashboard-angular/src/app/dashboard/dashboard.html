@@ -8,7 +8,7 @@
         <div class="item-header">
           <h3
             *ngIf="!item.isEditingTitle"
-            (click)="toggleEditMode(item, 'title', true)">
+            (click)="options.draggable?.enabled && toggleEditMode(item, 'title', true)">
             {{ item.title }}
           </h3>
           <input
@@ -29,7 +29,7 @@
         <div class="item-body">
           <p
             *ngIf="!item.isEditingContent"
-            (click)="toggleEditMode(item, 'content', true)">
+            (click)="options.draggable?.enabled && toggleEditMode(item, 'content', true)">
             {{ item.content }}
           </p>
           <textarea

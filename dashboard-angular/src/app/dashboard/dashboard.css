@@ -159,3 +159,31 @@ gridster {
   min-height: 80px;
   resize: vertical;
 }
+
+.edit-input,
+.edit-textarea {
+  width: 100%; /* Занимает всю доступную ширину */
+  padding: 8px 10px; /* Увеличенный отступ для лучшего внешнего вида */
+  border: 1px solid #a0aec0; /* Более мягкий цвет границы */
+  border-radius: 6px; /* Более округлые углы */
+  font-size: 14px; /* Соответствует item-body font-size */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Наследует шрифт контейнера */
+  color: #333; /* Соответствует цвету текста заголовка/контента */
+  box-sizing: border-box;
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Плавный переход для фокуса */
+  background-color: #f8f8f8; /* Легкий фон */
+}
+
+.edit-input:focus,
+.edit-textarea:focus {
+  outline: none; /* Убираем стандартный outline браузера */
+  border-color: #5352ed; /* Цвет границы при фокусе */
+  box-shadow: 0 0 0 3px rgba(83, 82, 237, 0.2); /* Легкая тень при фокусе */
+  background-color: #ffffff; /* Белый фон при фокусе */
+}
+
+.edit-textarea {
+  min-height: 80px;
+  resize: vertical; /* Разрешаем вертикальное изменение размера */
+  margin-top: 5px; /* Небольшой отступ сверху, чтобы отделить от заголовка */
+}

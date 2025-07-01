@@ -185,6 +185,13 @@ export class Dashboard implements OnInit {
     if (this.options.draggable && this.options.resizable) {
       this.options.draggable.enabled = !this.options.draggable.enabled;
       this.options.resizable.enabled = !this.options.resizable.enabled;
+
+      if (!this.options.draggable.enabled) {
+        this.dashboard.forEach(item => {
+          item.isEditingTitle = false;
+          item.isEditingContent = false;
+        });
+      }
       this.options.api?.optionsChanged?.();
     }
   }
