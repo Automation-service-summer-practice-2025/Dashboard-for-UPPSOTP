@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GridsterConfig, GridsterItem, GridsterModule } from 'angular-gridster2';
-import {SideBar} from '../side-bar/side-bar'
 
 export interface DashboardItem extends GridsterItem {
   title: string;
@@ -11,7 +10,7 @@ export interface DashboardItem extends GridsterItem {
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CommonModule, GridsterModule, SideBar],
+  imports: [CommonModule, GridsterModule],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })

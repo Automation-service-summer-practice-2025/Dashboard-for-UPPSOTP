@@ -7,10 +7,10 @@ import { MatDividerModule } from '@angular/material/divider';
 @Component({
   selector: 'app-side-bar',
   imports: [
-    MatSidenavModule, 
-    MatButtonModule, 
+    MatSidenavModule,
+    MatButtonModule,
     MatIconModule,
-    MatDividerModule
+    MatDividerModule,
   ],
   templateUrl: './side-bar.html',
   styleUrl: './side-bar.css'
