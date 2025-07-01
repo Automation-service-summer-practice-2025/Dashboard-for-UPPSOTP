@@ -8,10 +8,10 @@ import { DashboardService } from '../services/dashboard.service';
 @Component({
   selector: 'app-side-bar',
   imports: [
-    MatSidenavModule, 
-    MatButtonModule, 
+    MatSidenavModule,
+    MatButtonModule,
     MatIconModule,
-    MatDividerModule
+    MatDividerModule,
   ],
   templateUrl: './side-bar.html',
   styleUrl: './side-bar.css'

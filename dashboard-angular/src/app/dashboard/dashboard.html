@@ -1,4 +1,3 @@
-<h1>Dashboard</h1>
 <div class="gridster-container">
   <gridster [options]="options">
     <gridster-item
@@ -24,18 +23,16 @@
 
 <div class="controls">
   <button
-  class="add-btn"
-  (click)="addItem()"
-  title="Добавить элемент">
-  + Добавить элемент
-</button>
-<button
-class="toggle-btn"
-(click)="toggleDragResize()"
-[class.active]="!options.draggable?.enabled">
-{{ options.draggable?.enabled ? 'Заблокировать' : 'Разблокировать' }}
-</button>
+    class="add-btn"
+    (click)="addItem()"
+    title="Добавить элемент">
+    + Добавить элемент
+  </button>
+  <button
+    class="toggle-btn"
+    (click)="toggleDragResize()"
+    [class.active]="!options.draggable?.enabled">
+    {{ options.draggable?.enabled ? 'Заблокировать' : 'Разблокировать' }}
+  </button>
 </div>
 </div>
-
-<app-side-bar><app-side-bar/>
