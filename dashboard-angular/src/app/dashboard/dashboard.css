@@ -145,3 +145,17 @@ gridster {
     width: 100%;
   }
 }
+
+.edit-input, .edit-textarea {
+  width: calc(100% - 20px);
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+  box-sizing: border-box;
+}
+
+.edit-textarea {
+  min-height: 80px;
+  resize: vertical;
+}
