@@ -3,6 +3,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
+import { DashboardService } from '../services/dashboard.service';
 
 @Component({
   selector: 'app-side-bar',
@@ -16,5 +17,9 @@ import { MatDividerModule } from '@angular/material/divider';
   styleUrl: './side-bar.css'
 })
 export class SideBar {
+  constructor(private dashboardService: DashboardService) {}
 
+  addTextBlock() {
+    this.dashboardService.addTextBlock();
+  }
 }

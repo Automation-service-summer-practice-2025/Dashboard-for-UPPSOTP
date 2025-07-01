@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GridsterConfig, GridsterItem, GridsterModule } from 'angular-gridster2';
 import {SideBar} from '../side-bar/side-bar'
+import { DashboardService } from '../services/dashboard.service';
 
 export interface DashboardItem extends GridsterItem {
   title: string;
@@ -19,12 +20,17 @@ export class Dashboard implements OnInit {
    title = 'angular-gridster-demo';
 
   options: GridsterConfig = {};
-  dashboard: DashboardItem[] = [];
+  dashboard: any[] = [];
   private itemIdCounter = 0;
+
+  constructor(private dashboardService: DashboardService) {}
 
   ngOnInit(): void {
     this.initializeGridster();
     this.loadInitialItems();
+    this.dashboardService.dashboardItems$.subscribe(items => {
+      this.dashboard = items;
+    });
   }
 
   private initializeGridster(): void {
