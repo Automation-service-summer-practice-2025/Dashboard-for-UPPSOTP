@@ -25,19 +25,25 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 })
 export class SideBar {
   isLocked = false;
-  editMode: 'view' | 'edit' = 'edit';
 
-  constructor(private dashboardService: DashboardService) {}
+  constructor(private dashboardService: DashboardService) {
+    this.dashboardService.lockStatus$.subscribe(isLocked => {
+      this.isLocked = isLocked;
+  });
+  }
 
-  addTextBlock() {
-    this.dashboardService.addTextBlock();
+   addTextBlock() {
+    if (!this.isLocked) {
+      this.dashboardService.addTextBlock();
+    }
   }
     
   toggleLock() {
     this.dashboardService.toggleLock(this.isLocked);
   }
 
-  onToggleMode(event: { value: 'view' | 'edit' }) {
-    this.dashboardService.toggleLock(event.value === 'view');
+  onToggleMode(event: any) {
+    this.isLocked = event.value === 'locked';
+    this.dashboardService.toggleLock(this.isLocked);
   }
 }

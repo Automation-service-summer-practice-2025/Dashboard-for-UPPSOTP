@@ -26,9 +26,10 @@ export class Dashboard implements OnInit {
 
   constructor(private dashboardService: DashboardService) {
     this.dashboardService.lockStatus$.subscribe(isLocked => {
-    this.isLocked = isLocked;
-    this.toggleDragResize();
-  });
+      console.log('Lock status changed:', isLocked);
+      this.isLocked = isLocked;
+      this.toggleDragResize();
+    });
   }
 
   ngOnInit(): void {

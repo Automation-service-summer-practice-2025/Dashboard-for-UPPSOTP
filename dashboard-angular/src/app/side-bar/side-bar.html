@@ -34,12 +34,12 @@
       <h3 class="constructor-title">Конструктор дашборда</h3>
 
       <div class="constructor-buttons">
-        <button mat-stroked-button class="constructor-button" (click)="addTextBlock()" [disabled]="editMode === 'view'">
+        <button mat-stroked-button class="constructor-button" (click)="addTextBlock()" [disabled]="isLocked">
           <mat-icon>text_fields</mat-icon>
           Добавить текстовый блок
         </button>
         
-        <button mat-stroked-button class="constructor-button" [disabled]="editMode === 'view'">
+        <button mat-stroked-button class="constructor-button" [disabled]="isLocked">
           <mat-icon>image</mat-icon>
           Добавить изображение
         </button>
