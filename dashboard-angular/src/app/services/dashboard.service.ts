@@ -24,15 +24,15 @@ export class DashboardService {
 
   constructor() {}
 
-  addTextBlock(title: string = 'Текстовый блок', content: string = '') {
+  addTextBlock() {
     const newItem: DashboardItem = {
       id: this.getNextId(),
-      cols: 10,
-      rows: 10,
+      cols: 30,
+      rows: 30,
       y: 0,
       x: 0,
-      title: title,
-      content: content || `Это новый текстовый блок #${this.itemIdCounter}`
+      title: 'Текстовый блок',
+      content: 'Это новый текстовый блок'
     };
     this.dashboardItems.next([...this.dashboardItems.value, newItem]);
   }

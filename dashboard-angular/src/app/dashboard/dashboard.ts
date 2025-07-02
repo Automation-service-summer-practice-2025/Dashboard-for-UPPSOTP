@@ -37,7 +37,6 @@ export class Dashboard implements OnInit {
 
   ngOnInit(): void {
     this.initializeGridster();
-    this.loadInitialItems();
     this.dashboardService.dashboardItems$.subscribe(items => {
       this.dashboard = items;
     });
@@ -72,77 +71,6 @@ export class Dashboard implements OnInit {
       pushItems: true, //Разрешить ли "выталкивание" других элементов при перетаскивании.
       displayGrid: 'none', // Показывать ли сетку
     };
-  }
-
-  private loadInitialItems(): void {
-    this.dashboard = [
-      {
-        id: this.getNextId(),
-        cols: 10,
-        rows: 10,
-        y: 10,
-        x: 10,
-        title: 'Виджет 1',
-        content: 'Содержимое первого виджета.',
-        isEditingTitle: false,
-        isEditingContent: false,
-      },
-      {
-        id: this.getNextId(),
-        cols: 20,
-        rows: 100,
-        y: 0,
-        x: 20,
-        title: 'Виджет 2',
-        content: 'Содержимое второго виджета',
-        isEditingTitle: false,
-        isEditingContent: false,
-      },
-      {
-        id: this.getNextId(),
-        cols: 100,
-        rows: 15,
-        y: 20,
-        x: 0,
-        title: 'Виджет 3',
-        content: 'Содержимое третьего виджета',
-        isEditingTitle: false,
-        isEditingContent: false,
-      },
-      {
-        id: this.getNextId(),
-        cols: 50,
-        rows: 50,
-        y: 30,
-        x: 30,
-        title: 'Виджет 4',
-        content: 'Содержимое четвертого виджета',
-        isEditingTitle: false,
-        isEditingContent: false,
-      }
-    ];
-  }
-
-  private getNextId(): number {
-    return ++this.itemIdCounter;
-  }
-
-  addItem(): void {
-    const newItem: DashboardItem = {
-      id: this.getNextId(),
-      cols: 20,
-      rows: 20,
-      y: 0,
-      x: 0,
-      title: `Новый виджет ${this.itemIdCounter}`,
-      content: `Содержимое нового виджета №${this.itemIdCounter}.`,
-      isEditingTitle: false,
-      isEditingContent: false,
-    };
-
-    if (this.isLocked) return;
-
-    this.dashboard.push(newItem);
   }
 
   removeItem(item: DashboardItem): void {
