@@ -21,7 +21,6 @@ export interface DashboardItem extends GridsterItem {
 export class Dashboard implements OnInit {
   options: GridsterConfig = {};
   dashboard: any[] = [];
-  private itemIdCounter = 0;
   isLocked = false;
 
   constructor(private dashboardService: DashboardService) {
@@ -75,7 +74,7 @@ export class Dashboard implements OnInit {
 
   removeItem(item: DashboardItem): void {
     if (this.isLocked) return;
-    
+
     const index = this.dashboard.findIndex(d => d.id === item.id);
     if (index !== -1) {
       this.dashboard.splice(index, 1);
@@ -141,9 +140,5 @@ export class Dashboard implements OnInit {
         }, 0);
       }
     }
-  }
-
-  trackByFn(index: number, item: DashboardItem): number {
-    return item.id;
   }
 }
