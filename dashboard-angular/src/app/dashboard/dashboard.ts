@@ -1,25 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GridsterConfig, GridsterItem, GridsterModule } from 'angular-gridster2';
+import { FormsModule } from '@angular/forms';
 
 export interface DashboardItem extends GridsterItem {
   title: string;
   content: string;
   id: number;
+  isEditingTitle?: boolean;
+  isEditingContent?: boolean;
 }
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CommonModule, GridsterModule],
+  imports: [CommonModule, GridsterModule, FormsModule],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })
 export class Dashboard implements OnInit {
-   title = 'angular-gridster-demo';
-
   options: GridsterConfig = {};
   dashboard: DashboardItem[] = [];
   private itemIdCounter = 0;
+
+  @ViewChild('titleInput') titleInputRef: ElementRef | undefined;
+  @ViewChild('contentInput') contentInputRef: ElementRef | undefined;
 
   ngOnInit(): void {
     this.initializeGridster();
@@ -66,7 +70,9 @@ export class Dashboard implements OnInit {
         y: 10,
         x: 10,
         title: 'Виджет 1',
-        content: 'Содержимое первого виджета. Вы можете перетаскивать и изменять размер этого элемента.'
+        content: 'Содержимое первого виджета.',
+        isEditingTitle: false,
+        isEditingContent: false,
       },
       {
         id: this.getNextId(),
@@ -75,7 +81,9 @@ export class Dashboard implements OnInit {
         y: 0,
         x: 20,
         title: 'Виджет 2',
-        content: 'Второй виджет с большей высотой. Попробуйте изменить его размер или переместить.'
+        content: 'Содержимое второго виджета',
+        isEditingTitle: false,
+        isEditingContent: false,
       },
       {
         id: this.getNextId(),
@@ -83,8 +91,10 @@ export class Dashboard implements OnInit {
         rows: 15,
         y: 20,
         x: 0,
-        title: 'Широкий виджет',
-        content: 'Этот виджет занимает больше места по ширине. Отлично подходит для графиков и диаграмм.'
+        title: 'Виджет 3',
+        content: 'Содержимое третьего виджета',
+        isEditingTitle: false,
+        isEditingContent: false,
       },
       {
         id: this.getNextId(),
@@ -92,8 +102,10 @@ export class Dashboard implements OnInit {
         rows: 50,
         y: 30,
         x: 30,
-        title: 'Мини',
-        content: 'Компактный виджет'
+        title: 'Виджет 4',
+        content: 'Содержимое четвертого виджета',
+        isEditingTitle: false,
+        isEditingContent: false,
       }
     ];
   }
@@ -105,12 +117,14 @@ export class Dashboard implements OnInit {
   addItem(): void {
     const newItem: DashboardItem = {
       id: this.getNextId(),
-      cols: 10,
-      rows: 15,
+      cols: 20,
+      rows: 20,
       y: 0,
       x: 0,
       title: `Новый виджет ${this.itemIdCounter}`,
-      content: `Содержимое нового виджета №${this.itemIdCounter}. Создан ${new Date().toLocaleTimeString()}.`
+      content: `Содержимое нового виджета №${this.itemIdCounter}.`,
+      isEditingTitle: false,
+      isEditingContent: false,
     };
 
     this.dashboard.push(newItem);
@@ -127,7 +141,57 @@ export class Dashboard implements OnInit {
     if (this.options.draggable && this.options.resizable) {
       this.options.draggable.enabled = !this.options.draggable.enabled;
       this.options.resizable.enabled = !this.options.resizable.enabled;
+
+      if (!this.options.draggable.enabled) {
+        this.dashboard.forEach(item => {
+          item.isEditingTitle = false;
+          item.isEditingContent = false;
+        });
+      }
       this.options.api?.optionsChanged?.();
+    }
+  }
+
+  toggleEditMode(item: DashboardItem, field: 'title' | 'content', value: boolean): void {
+    if (value) {
+      this.dashboard.forEach(dItem => {
+        if (dItem.id !== item.id) {
+          dItem.isEditingTitle = false;
+          dItem.isEditingContent = false;
+        }
+      });
+    }
+
+    if (field === 'title') {
+      item.isEditingTitle = value;
+      if (value) {
+        item.isEditingContent = false;
+        setTimeout(() => {
+          if (this.titleInputRef) {
+            const inputElement = this.titleInputRef.nativeElement;
+            inputElement.focus();
+            inputElement.setSelectionRange(
+              inputElement.value.length,
+              inputElement.value.length
+            );
+          }
+        }, 0);
+      }
+    } else if (field === 'content') {
+      item.isEditingContent = value;
+      if (value) {
+        item.isEditingTitle = false;
+        setTimeout(() => {
+          if (this.contentInputRef) {
+            const textareaElement = this.contentInputRef.nativeElement;
+            textareaElement.focus();
+            textareaElement.setSelectionRange(
+              textareaElement.value.length,
+              textareaElement.value.length
+            );
+          }
+        }, 0);
+      }
     }
   }
 
