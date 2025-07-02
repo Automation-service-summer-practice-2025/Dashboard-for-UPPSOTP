@@ -12,8 +12,8 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 @Component({
   selector: 'app-side-bar',
   imports: [
-    MatSidenavModule, 
-    MatButtonModule, 
+    MatSidenavModule,
+    MatButtonModule,
     MatIconModule,
     MatDividerModule,
     MatSlideToggleModule,

@@ -30,9 +30,6 @@
 .mat-button-toggle-checked .mat-button-toggle-icon {
   display: none !important;
 }
-.sidenav-container {
-  height: 100vh;
-}
 
 .constructor-button[disabled] {
   opacity: 0.5;

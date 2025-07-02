@@ -1,0 +1,17 @@
+.header {
+    background: #f5f5f5;
+    padding: 15px 0 15px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.logo-block {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 40px;
+    margin-right: 10px;
+}

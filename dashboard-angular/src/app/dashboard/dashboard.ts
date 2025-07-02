@@ -12,7 +12,7 @@ export interface DashboardItem extends GridsterItem {
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CommonModule, GridsterModule, SideBar],
+  imports: [CommonModule, GridsterModule],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })
@@ -107,7 +107,7 @@ export class Dashboard implements OnInit {
       disablePushOnResize: false,
       pushDirections: { north: true, east: true, south: true, west: true },
       pushResizeItems: false,
-      displayGrid: 'onDrag&Resize',
+      displayGrid: 'none',
       disableWindowResize: false,
       disableWarnings: false,
       scrollToNewItems: false

@@ -1,8 +1,8 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #sidenav 
-               mode="side" 
-               position="start" 
-               [fixedInViewport]="true" 
+  <mat-sidenav #sidenav
+               mode="side"
+               position="start"
+               [fixedInViewport]="true"
                [style.width.px]="300"
                class="no-scroll">
     <div class="sidebar-content">
@@ -24,15 +24,15 @@
           </mat-button-toggle>
         </mat-button-toggle-group>
       </div>
-      
+
       <button mat-raised-button color="primary" class="login-button">
         Войти
       </button>
-      
+
       <mat-divider class="divider"></mat-divider>
-      
+
       <h3 class="constructor-title">Конструктор дашборда</h3>
-      
+
       <div class="constructor-buttons">
         <button mat-stroked-button class="constructor-button" (click)="addTextBlock()" [disabled]="editMode === 'view'">
           <mat-icon>text_fields</mat-icon>
@@ -48,11 +48,12 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <button mat-icon-button 
+    <button mat-icon-button
             class="menu-toggle"
             [style.left.px]="sidenav.opened ? 310 : 10"
             (click)="sidenav.toggle()">
       <mat-icon>menu</mat-icon>
     </button>
+    <ng-content></ng-content>
   </mat-sidenav-content>
 </mat-sidenav-container>
