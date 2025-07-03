@@ -1,35 +1,79 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { BaseChartDirective } from 'ng2-charts';
 import { ChartUploadComponent } from './chart-upload.component';
-import { NgChartsModule } from 'ng2-charts';
+import { ChartType, ChartData, ChartOptions } from 'chart.js';
 
 @Component({
   selector: 'app-chart',
   standalone: true,
-  imports: [CommonModule, NgChartsModule, ChartUploadComponent],
+  imports: [CommonModule, BaseChartDirective, ChartUploadComponent],
   template: `
-    <div *ngIf="data; else uploadTemplate">
-      <canvas baseChart
-        [data]="data"
-        [options]="chartOptions"
-        [type]="chartType">
-      </canvas>
+    <div class="item-body">
+      <h3 *ngIf="title">{{title}}</h3>
+      <div class="chart-wrapper" *ngIf="data; else uploadTemplate">
+        <canvas baseChart
+          [data]="data"
+          [options]="chartOptions"
+          [type]="chartType">
+        </canvas>
+      </div>
+      <ng-template #uploadTemplate>
+        <app-chart-upload (fileLoaded)="onDataLoaded($event)"></app-chart-upload>
+      </ng-template>
     </div>
-    <ng-template #uploadTemplate>
-      <app-chart-upload (fileLoaded)="onDataLoaded($event)"></app-chart-upload>
-    </ng-template>
-  `
+  `,
+  styles: [`
+    .chart-container {
+      padding: 16px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      z-index: 10
+    }
+    .chart-wrapper {
+      flex: 1;
+      position: relative;
+    }
+    h3 {
+      margin: 0 0 16px 0;
+      text-align: center;
+    }
+    .upload-placeholder {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f5f5f5;
+      border: 2px dashed #ccc;
+      border-radius: 8px;
+    }
+  `]
 })
 export class ChartComponent {
-  @Input() chartType: string = 'bar';
+  @Input() chartType: 'pie' = 'pie';
+  title: string = '';
+
   @Input() data: any = null;
+
+constructor() {}
   
-  chartOptions = {
+  chartOptions: ChartOptions<'pie'> = {
     responsive: true,
-    maintainAspectRatio: false
+    maintainAspectRatio: false,
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
   };
 
-  onDataLoaded(data: any) {
-    this.data = data;
+  onDataLoaded(event: {data: any, title: string}) {
+    this.data = event.data;
+    this.title = event.title;
   }
+
+  ngOnChanges(changes: SimpleChanges) {
+  console.log('Data changed:', changes['data'].currentValue);
+}
 }

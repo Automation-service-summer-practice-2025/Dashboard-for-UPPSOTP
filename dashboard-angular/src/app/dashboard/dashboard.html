@@ -40,11 +40,14 @@
             class="edit-textarea"
             #contentInput>
           </textarea>
+
+          <div *ngIf="item.type === 'chart'" class="chart-container">
+            <app-chart 
+              [chartType]="item.chartType || 'pie'"
+              [data]="item.data">
+            </app-chart>
+          </div>
         </div>
-      </div>
-      
-      <div *ngIf="item.type === 'chart'" class="chart-container">
-        <app-chart [chartType]="item.chartType" [data]="item.data"></app-chart>
       </div>
   </gridster-item>
 </gridster>

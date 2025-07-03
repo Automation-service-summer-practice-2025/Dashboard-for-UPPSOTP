@@ -7,10 +7,12 @@ import { DashboardService } from '../services/dashboard.service';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FormsModule } from '@angular/forms';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-side-bar',
+  standalone: true,
   imports: [
     MatSidenavModule,
     MatButtonModule,
@@ -18,7 +20,8 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     MatDividerModule,
     MatSlideToggleModule,
     FormsModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    CommonModule
   ],
   templateUrl: './side-bar.html',
   styleUrl: './side-bar.css'
