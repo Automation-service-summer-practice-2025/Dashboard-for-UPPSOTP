@@ -78,6 +78,11 @@ export class Dashboard implements OnInit {
     const index = this.dashboard.findIndex(d => d.id === item.id);
     if (index !== -1) {
       this.dashboard.splice(index, 1);
+
+      const previewEl = document.querySelector('gridster-preview');
+      if (previewEl && previewEl.parentNode) {
+        previewEl.parentNode.removeChild(previewEl);
+      }
     }
   }
 

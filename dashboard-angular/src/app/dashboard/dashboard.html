@@ -1,5 +1,5 @@
-<div class="gridster-container">
-  <gridster [options]="options">
+<div>
+  <gridster [options]="options" class="gridster">
     <gridster-item
       [item]="item"
       *ngFor="let item of dashboard;"
@@ -20,6 +20,7 @@
             type="text"
             #titleInput>
           <button
+            *ngIf="!isLocked"
             class="remove-btn"
             (click)="removeItem(item)"
             title="Удалить элемент">

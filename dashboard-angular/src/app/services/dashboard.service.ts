@@ -27,7 +27,7 @@ export class DashboardService {
   addTextBlock() {
     const newItem: DashboardItem = {
       id: this.getNextId(),
-      cols: 30,
+      cols: 40,
       rows: 30,
       y: 0,
       x: 0,
