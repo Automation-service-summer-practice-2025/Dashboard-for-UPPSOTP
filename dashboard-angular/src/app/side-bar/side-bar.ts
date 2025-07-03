@@ -37,6 +37,12 @@ export class SideBar {
       this.dashboardService.addTextBlock();
     }
   }
+
+  addChart() {
+    if (!this.isLocked) {
+      this.dashboardService.addChart();
+    }
+  }
     
   toggleLock() {
     this.dashboardService.toggleLock(this.isLocked);

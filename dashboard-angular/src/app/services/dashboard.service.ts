@@ -9,6 +9,10 @@ export interface DashboardItem {
   x: number;
   title: string;
   content: string;
+  type?: 'text' | 'chart'; // Добавляем тип элемента
+  chartType?: 'bar' | 'pie' | 'line'; // Тип графика
+  data?: any; // Данные для графика
+  file?: File | null; // Загруженный файл
 }
 
 @Injectable({
@@ -33,6 +37,23 @@ export class DashboardService {
       x: 0,
       title: 'Текстовый блок',
       content: 'Это новый текстовый блок'
+    };
+    this.dashboardItems.next([...this.dashboardItems.value, newItem]);
+  }
+
+  addChart() {
+    const newItem: DashboardItem = {
+      id: this.getNextId(),
+      cols: 40,
+      rows: 40,
+      y: 0,
+      x: 0,
+      title: 'Новый график',
+      content: '',
+      type: 'chart',
+      chartType: 'bar',
+      data: null,
+      file: null
     };
     this.dashboardItems.next([...this.dashboardItems.value, newItem]);
   }

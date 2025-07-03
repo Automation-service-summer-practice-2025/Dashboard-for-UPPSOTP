@@ -43,6 +43,12 @@
           <mat-icon>image</mat-icon>
           Добавить изображение
         </button>
+
+        <button mat-stroked-button class="constructor-button" (click)="addChart()" [disabled]="isLocked">
+          <mat-icon>bar_chart</mat-icon>
+          Добавить график
+        </button>
+        
       </div>
     </div>
   </mat-sidenav>

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { GridsterConfig, GridsterItem, GridsterModule } from 'angular-gridster2';
 import { FormsModule } from '@angular/forms';
 import { DashboardService } from '../services/dashboard.service';
+import { ChartComponent } from './chart.component';
 
 export interface DashboardItem extends GridsterItem {
   title: string;
@@ -14,7 +15,7 @@ export interface DashboardItem extends GridsterItem {
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CommonModule, GridsterModule, FormsModule],
+  imports: [CommonModule, GridsterModule, FormsModule, ChartComponent],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })
