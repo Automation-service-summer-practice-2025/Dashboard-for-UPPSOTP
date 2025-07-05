@@ -44,8 +44,8 @@ export class Dashboard implements OnInit {
       minItemCols: 5,
       minItemRows: 5,
       minItemArea: 25,
-      fixedColWidth: 20,
-      fixedRowHeight: 20,
+      fixedColWidth: 40,
+      fixedRowHeight: 40,
       scrollSensitivity: 10,
       scrollSpeed: 20,
       draggable: {
