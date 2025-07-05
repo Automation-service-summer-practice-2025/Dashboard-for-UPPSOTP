@@ -1,0 +1,21 @@
+.item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.item-header h3 {
+  margin: 0;
+  color: #333;
+  font-size: 16px;
+  font-weight: 600;
+  height: 24px;
+}
+
+.item-body {
+  flex: 1;
+  color: #666;
+  font-size: 14px;
+  line-height: 1.5;
+}
