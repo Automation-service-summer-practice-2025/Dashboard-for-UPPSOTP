@@ -32,17 +32,7 @@ export class Dashboard implements OnInit {
     });
   }
 
-  @ViewChild('titleInput') titleInputRef: ElementRef | undefined;
-  @ViewChild('contentInput') contentInputRef: ElementRef | undefined;
-
   ngOnInit(): void {
-    this.initializeGridster();
-    this.dashboardService.dashboardItems$.subscribe(items => {
-      this.dashboard = items;
-    });
-  }
-
-  private initializeGridster(): void {
     this.options = {
       gridType: 'fixed',
       compactType: 'none',
@@ -66,8 +56,12 @@ export class Dashboard implements OnInit {
       },
       swap: false,
       pushItems: true,
-      displayGrid: 'always',
+      displayGrid: 'none',
     };
+
+    this.dashboardService.dashboardItems$.subscribe(items => {
+      this.dashboard = items;
+    });
   }
 
   removeItem(item: DashboardItem): void {
@@ -76,11 +70,6 @@ export class Dashboard implements OnInit {
     const index = this.dashboard.findIndex(d => d.id === item.id);
     if (index !== -1) {
       this.dashboard.splice(index, 1);
-
-      const previewEl = document.querySelector('gridster-preview');
-      if (previewEl && previewEl.parentNode) {
-        previewEl.parentNode.removeChild(previewEl);
-      }
     }
   }
 
@@ -88,57 +77,7 @@ export class Dashboard implements OnInit {
     if (this.options.draggable && this.options.resizable) {
       this.options.draggable.enabled = !this.isLocked;
       this.options.resizable.enabled = !this.isLocked;
-
-      if (!this.options.draggable.enabled) {
-        this.dashboard.forEach(item => {
-          item.isEditingTitle = false;
-          item.isEditingContent = false;
-        });
-      }
       this.options.api?.optionsChanged?.();
-    }
-  }
-
-  toggleEditMode(item: DashboardItem, field: 'title' | 'content', value: boolean): void {
-    if (value) {
-      this.dashboard.forEach(dItem => {
-        if (dItem.id !== item.id) {
-          dItem.isEditingTitle = false;
-          dItem.isEditingContent = false;
-        }
-      });
-    }
-
-    if (field === 'title') {
-      item.isEditingTitle = value;
-      if (value) {
-        item.isEditingContent = false;
-        setTimeout(() => {
-          if (this.titleInputRef) {
-            const inputElement = this.titleInputRef.nativeElement;
-            inputElement.focus();
-            inputElement.setSelectionRange(
-              inputElement.value.length,
-              inputElement.value.length
-            );
-          }
-        }, 0);
-      }
-    } else if (field === 'content') {
-      item.isEditingContent = value;
-      if (value) {
-        item.isEditingTitle = false;
-        setTimeout(() => {
-          if (this.contentInputRef) {
-            const textareaElement = this.contentInputRef.nativeElement;
-            textareaElement.focus();
-            textareaElement.setSelectionRange(
-              textareaElement.value.length,
-              textareaElement.value.length
-            );
-          }
-        }, 0);
-      }
     }
   }
 }

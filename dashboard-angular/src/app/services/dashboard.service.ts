@@ -7,7 +7,6 @@ export interface DashboardItem {
   rows: number;
   y: number;
   x: number;
-  title: string;
   content: string;
 }
 
@@ -31,8 +30,7 @@ export class DashboardService {
       rows: 10,
       y: 0,
       x: 0,
-      title: 'Текстовый блок',
-      content: 'Это новый текстовый блок'
+      content: 'Текстовый блок'
     };
     this.dashboardItems.next([...this.dashboardItems.value, newItem]);
   }
