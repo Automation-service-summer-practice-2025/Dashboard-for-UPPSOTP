@@ -12,14 +12,4 @@ export class TextBlock {
   @Input() item: any;
   @Input() isLocked: boolean = false;
   @Output() onRemove = new EventEmitter<any>();
-
-  toggleEditMode(field: 'title' | 'content', editing: boolean) {
-    if (this.item) {
-      if (field === 'title') {
-        this.item.isEditingTitle = editing;
-      } else if (field === 'content') {
-        this.item.isEditingContent = editing;
-      }
-    }
-  }
 }
