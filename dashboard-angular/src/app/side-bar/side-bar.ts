@@ -37,7 +37,7 @@ export class SideBar {
       this.dashboardService.addTextBlock();
     }
   }
-    
+
   toggleLock() {
     this.dashboardService.toggleLock(this.isLocked);
   }
