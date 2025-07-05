@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { GridsterConfig, GridsterItem, GridsterModule } from 'angular-gridster2';
 import { FormsModule } from '@angular/forms';
 import { DashboardService } from '../services/dashboard.service';
+import { TextBlock } from '../blocks/text-block/text-block';
 
 export interface DashboardItem extends GridsterItem {
   title: string;
@@ -14,7 +15,7 @@ export interface DashboardItem extends GridsterItem {
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CommonModule, GridsterModule, FormsModule],
+  imports: [CommonModule, GridsterModule, FormsModule, TextBlock],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })
@@ -50,14 +51,11 @@ export class Dashboard implements OnInit {
       maxCols: 320,
       minRows: 10,
       maxRows: 5000,
-      maxItemCols: 1000,
-      minItemCols: 10,
-      maxItemRows: 1000,
-      minItemRows: 10,
-      maxItemArea: 18000,
+      minItemCols: 5,
+      minItemRows: 5,
       minItemArea: 25,
-      fixedColWidth: 1,
-      fixedRowHeight: 1,
+      fixedColWidth: 20,
+      fixedRowHeight: 20,
       scrollSensitivity: 10,
       scrollSpeed: 20,
       draggable: {
@@ -66,9 +64,9 @@ export class Dashboard implements OnInit {
       resizable: {
         enabled: true,
       },
-      swap: false, // Разрешить ли менять местами элементы при перетаскивании.
-      pushItems: true, //Разрешить ли "выталкивание" других элементов при перетаскивании.
-      displayGrid: 'none', // Показывать ли сетку
+      swap: false,
+      pushItems: true,
+      displayGrid: 'always',
     };
   }
 
@@ -88,9 +86,6 @@ export class Dashboard implements OnInit {
 
   toggleDragResize(): void {
     if (this.options.draggable && this.options.resizable) {
-      this.options.draggable.enabled = !this.options.draggable.enabled;
-      this.options.resizable.enabled = !this.options.resizable.enabled;
-
       this.options.draggable.enabled = !this.isLocked;
       this.options.resizable.enabled = !this.isLocked;
 

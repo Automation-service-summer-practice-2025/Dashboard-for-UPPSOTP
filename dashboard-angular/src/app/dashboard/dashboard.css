@@ -1,4 +1,3 @@
-/* Основные стили для gridster */
 .gridster {
   background: #ddd;
   border-radius: 8px;
@@ -18,55 +17,11 @@
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
-/* Стили для содержимого элементов */
 .item-content {
   height: 100%;
   display: flex;
   flex-direction: column;
-  padding: 15px;
-}
-
-.item-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid #eee;
-}
-
-.item-header h3 {
-  margin: 0;
-  color: #333;
-  font-size: 16px;
-  font-weight: 600;
-  height: 24px;
-}
-
-.remove-btn {
-  background: white;
-  color: black;
-  border: none;
-  border-radius: 50%;
-  width: 24px;
-  height: 24px;
-  font-size: 16px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.3s ease;
-}
-
-.remove-btn:hover {
-  background: #ff3838;
-}
-
-.item-body {
-  flex: 1;
-  color: #666;
-  font-size: 14px;
-  line-height: 1.5;
+  padding: 12px;
 }
 
 .gridster-item.gridster-item-moving {
@@ -78,30 +33,19 @@
   opacity: 0.8;
 }
 
-.edit-input,
-.edit-textarea {
-  width: 100%;
-  padding: 8px 10px;
-  border: 1px solid #a0aec0;
-  border-radius: 6px;
-  font-size: 14px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #333;
-  box-sizing: border-box;
-  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  background-color: #f8f8f8;
-}
-
-.edit-input:focus,
-.edit-textarea:focus {
-  outline: none;
-  border-color: #5352ed;
-  box-shadow: 0 0 0 3px rgba(83, 82, 237, 0.2);
-  background-color: #ffffff;
-}
-
-.edit-textarea {
-  min-height: 80px;
-  resize: vertical;
-  margin-top: 5px;
+.remove-btn {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: white;
+  color: black;
+  border: none;
+  width: 15px;
+  height: 15px;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
 }
