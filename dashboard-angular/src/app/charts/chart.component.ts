@@ -2,7 +2,7 @@ import { Component, Input, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartUploadComponent } from './chart-upload.component';
-import { ChartType, ChartData, ChartOptions } from 'chart.js';
+import { ChartOptions } from 'chart.js';
 
 @Component({
   selector: 'app-chart',
@@ -51,14 +51,14 @@ import { ChartType, ChartData, ChartOptions } from 'chart.js';
   `]
 })
 export class ChartComponent {
-  @Input() chartType: 'pie' = 'pie';
+  @Input() chartType: 'bar' = 'bar';
   title: string = '';
 
   @Input() data: any = null;
 
 constructor() {}
   
-  chartOptions: ChartOptions<'pie'> = {
+  chartOptions: ChartOptions<'bar'> = {
     responsive: true,
     maintainAspectRatio: false,
     scales: {
