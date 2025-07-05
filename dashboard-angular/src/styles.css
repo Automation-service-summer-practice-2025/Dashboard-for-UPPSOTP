@@ -18,3 +18,7 @@ body {
   height: 0 !important;
   overflow: hidden;
 }
+
+gridster-preview {
+  display: none !important;
+}
