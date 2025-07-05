@@ -9,6 +9,7 @@
     </button>
     <div class="gridster-item-content">
       <app-text-block
+        *ngIf="item.type === 'text'"
         [item]="item"
         [isLocked]="isLocked"
         (onRemove)="removeItem($event)">
