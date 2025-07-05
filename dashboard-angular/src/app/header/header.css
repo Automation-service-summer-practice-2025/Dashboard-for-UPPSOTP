@@ -6,12 +6,40 @@
     justify-content: flex-end;
 }
 
-.logo-block {
+.btn-redirect {
     display: flex;
     align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    height: 40px;
+    margin-right: 40px;
+    width: 40px;
+    transition: width 0.3s ease;
+    white-space: nowrap;
+    /* padding: 0 0 0 40px; */
 }
 
-.logo {
-    height: 40px;
-    margin-right: 10px;
+.btn-redirect mat-icon{
+  flex-shrink: 0;
+  padding-left: 40px;
+}
+
+.btn-redirect .btn-text {
+  max-width: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.btn-redirect:hover {
+  width: 120px;
+  padding-left: 0;
+  padding-right: 40px;
+  justify-content: flex-start
+}
+
+.btn-redirect:hover .btn-text {
+  opacity: 1;
+  pointer-events: auto;
 }
