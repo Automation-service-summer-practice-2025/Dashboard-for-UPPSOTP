@@ -7,8 +7,8 @@ export interface DashboardItem {
   rows: number;
   y: number;
   x: number;
-  title: string;
   content: string;
+  type: string;
 }
 
 @Injectable({
@@ -27,12 +27,12 @@ export class DashboardService {
   addTextBlock() {
     const newItem: DashboardItem = {
       id: this.getNextId(),
-      cols: 40,
-      rows: 30,
+      cols: 5,
+      rows: 5,
       y: 0,
       x: 0,
-      title: 'Текстовый блок',
-      content: 'Это новый текстовый блок'
+      content: 'Текстовый блок',
+      type: "text",
     };
     this.dashboardItems.next([...this.dashboardItems.value, newItem]);
   }
