@@ -19,7 +19,7 @@ import { ChartOptions, TooltipItem } from 'chart.js';
         </canvas>
       </div>
       <ng-template #uploadTemplate>
-        <app-chart-upload (fileLoaded)="onDataLoaded($event)"></app-chart-upload>
+        <app-chart-upload (fileLoaded)="onDataLoaded($event)" [isLocked]="isLocked"></app-chart-upload>
       </ng-template>
     </div>
   `,
@@ -57,6 +57,8 @@ export class ChartComponent {
   title: string = '';
 
   @Input() data: any = null;
+
+  @Input() isLocked: boolean = false;
 
   constructor() {}
   

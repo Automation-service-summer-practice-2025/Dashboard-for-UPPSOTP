@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
@@ -13,7 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
   imports: [CommonModule, MatButtonModule, MatDialogModule, MatInputModule, FormsModule, MatIconModule],
   template: `
     <div class="upload-placeholder">
-      <button mat-raised-button color="primary" (click)="openUploadDialog()">
+      <button mat-raised-button color="primary" (click)="openUploadDialog()" [disabled]="isLocked">
         <mat-icon>upload</mat-icon>
         Загрузить данные
       </button>
@@ -30,10 +30,13 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class ChartUploadComponent {
   @Output() fileLoaded = new EventEmitter<{data: any, title: string, chartType: string}>();
+  @Input() isLocked: boolean = false;
   
   constructor(private dialog: MatDialog) {}
 
   openUploadDialog() {
+    if (this.isLocked) return;
+
     const dialogRef = this.dialog.open(ChartUploadDialogComponent, {
       width: '500px',
       height: '400px'
@@ -46,8 +49,8 @@ export class ChartUploadComponent {
           result.title, 
           result.xAxis, 
           result.yAxis,
-          result.column, // Добавляем column
-          result.chartType // Добавляем chartType
+          result.column, 
+          result.chartType
         );
       }
     });

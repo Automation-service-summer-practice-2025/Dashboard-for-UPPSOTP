@@ -16,12 +16,14 @@
         (onRemove)="removeItem($event)">
         
       </app-text-block>
-                <div *ngIf="item.type === 'chart'" class="chart-container">
-            <app-chart 
-              [chartType]="'line'"
-              [data]="item.data">
-            </app-chart>
-          </div>
+
+      <div *ngIf="item.type === 'chart'" class="chart-container">
+        <app-chart 
+          [chartType]="'line'"
+          [data]="item.data"
+          [isLocked]="isLocked">
+        </app-chart>
+      </div>
     </div>
   </gridster-item>
 </gridster>
