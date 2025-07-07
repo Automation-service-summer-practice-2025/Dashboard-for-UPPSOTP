@@ -43,7 +43,7 @@
 
           <div *ngIf="item.type === 'chart'" class="chart-container">
             <app-chart 
-              [chartType]="item.chartType || 'bar'"
+              [chartType]="'line'"
               [data]="item.data">
             </app-chart>
           </div>

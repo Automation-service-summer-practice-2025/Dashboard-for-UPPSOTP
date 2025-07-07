@@ -2,7 +2,7 @@ import { Component, Input, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartUploadComponent } from './chart-upload.component';
-import { ChartOptions } from 'chart.js';
+import { ChartOptions, TooltipItem } from 'chart.js';
 
 @Component({
   selector: 'app-chart',
@@ -50,30 +50,90 @@ import { ChartOptions } from 'chart.js';
     }
   `]
 })
+
+
 export class ChartComponent {
-  @Input() chartType: 'bar' = 'bar';
+  @Input() chartType: 'line' = 'line';
   title: string = '';
 
   @Input() data: any = null;
 
-constructor() {}
+  constructor() {}
   
-  chartOptions: ChartOptions<'bar'> = {
-    responsive: true,
-    maintainAspectRatio: false,
-    scales: {
-      y: {
-        beginAtZero: true
+chartOptions: ChartOptions<'line'> = {
+  responsive: true,
+  maintainAspectRatio: false,
+  scales: {
+    x: {
+      type: 'linear',
+      position: 'bottom',
+      title: { display: true, text: 'X Axis' }
+    },
+    y: {
+      title: { display: true, text: 'Y Axis' },
+      beginAtZero: false
+    }
+  },
+  plugins: {
+    legend: { display: true },
+    tooltip: {
+      callbacks: {
+        label: (context: TooltipItem<'line'>) => {
+          return `${context.dataset.label}: (${context.parsed['x']}, ${context.parsed['y']})`;
+        }
       }
     }
-  };
+  }
+};
 
-  onDataLoaded(event: {data: any, title: string}) {
+
+  onDataLoaded(event: {data: any, title: string, chartType: string}) {
     this.data = event.data;
     this.title = event.title;
+    
+    if (event.chartType === 'distribution') {
+      // Логика для графика распределения
+      this.chartOptions = {
+        ...this.chartOptions,
+        scales: {
+          ...this.chartOptions.scales,
+          x: {
+            ...this.chartOptions.scales?.['x'],
+            title: { display: true, text: 'Значение' }
+          },
+          y: {
+            ...this.chartOptions.scales?.['y'],
+            title: { display: true, text: 'Частота' },
+            beginAtZero: true // Для гистограммы лучше начинать с 0
+          }
+        }
+      };
+    } else {
+      // Оригинальная логика для XY графика
+      if (this.data?.datasets?.length) {
+        const labelParts = this.data.datasets[0].label.split(' по ');
+        if (labelParts.length === 2) {
+          this.chartOptions = {
+            ...this.chartOptions,
+            scales: {
+              ...this.chartOptions.scales,
+              x: {
+                ...this.chartOptions.scales?.['x'],
+                title: { display: true, text: labelParts[1] }
+              },
+              y: {
+                ...this.chartOptions.scales?.['y'],
+                title: { display: true, text: labelParts[0] },
+                beginAtZero: false
+              }
+            }
+          };
+        }
+      }
+    }
   }
 
   ngOnChanges(changes: SimpleChanges) {
-  console.log('Data changed:', changes['data'].currentValue);
-}
+    console.log('Data changed:', changes['data'].currentValue);
+  }
 }

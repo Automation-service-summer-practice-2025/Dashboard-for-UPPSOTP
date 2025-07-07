@@ -29,48 +29,115 @@ import { MatIconModule } from '@angular/material/icon';
   `]
 })
 export class ChartUploadComponent {
-  @Output() fileLoaded = new EventEmitter<{data: any, title: string}>();
+  @Output() fileLoaded = new EventEmitter<{data: any, title: string, chartType: string}>();
   
   constructor(private dialog: MatDialog) {}
 
   openUploadDialog() {
     const dialogRef = this.dialog.open(ChartUploadDialogComponent, {
-      width: '400px'
+      width: '500px',
+      height: '400px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.parseFile(result.file, result.title);
+        this.parseFile(
+          result.file, 
+          result.title, 
+          result.xAxis, 
+          result.yAxis,
+          result.column, // Добавляем column
+          result.chartType // Добавляем chartType
+        );
       }
     });
   }
 
-  private parseFile(file: File, title: string) {
+  private parseFile(file: File, title: string, xAxis: string, yAxis: string, column: string, chartType: string) {
     const reader = new FileReader();
     reader.onload = (e) => {
       const content = e.target?.result as string;
-      const chartData = this.parseCSV(content);
-      this.fileLoaded.emit({data: chartData, title});
+      const chartData = this.parseCSV(content, xAxis, yAxis, column, chartType);
+      this.fileLoaded.emit({
+        data: chartData, 
+        title,
+        chartType // Добавляем тип графика в эмит
+      });
     };
     reader.readAsText(file);
   }
 
-  private parseCSV(csv: string): any {
+  private parseCSV(csv: string, xAxis: string, yAxis: string, column: string, chartType: string): any {
     const lines = csv.split('\n').filter(line => line.trim() !== '');
     const headers = lines[0].split(',').map(h => h.trim());
-    const datasets = [];
-    
-    for (let i = 1; i < lines.length; i++) {
-      const values = lines[i].split(',');
-      datasets.push({
-        data: values.slice(1).map(Number),
-        label: values[0].trim()
-      });
+
+    if (chartType === 'distribution') {
+      const colIndex = headers.indexOf(column);
+      if (colIndex === -1) return null;
+
+      const values = lines.slice(1)
+        .map(line => parseFloat(line.split(',')[colIndex]))
+        .filter(val => !isNaN(val));
+
+      const histogramData = this.createHistogramData(values);
+
+      return {
+        datasets: [{
+          label: `Распределение ${column}`,
+          data: histogramData,
+          borderColor: 'rgba(75, 192, 192, 1)',
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          tension: 0.1,
+          pointRadius: 3,
+          pointHoverRadius: 5
+        }]
+      };
+    } else {
+      // Оригинальная логика для XY графика
+      const xIndex = headers.indexOf(xAxis);
+      const yIndex = headers.indexOf(yAxis);
+      
+      if (xIndex === -1 || yIndex === -1) return null;
+
+      const dataPoints = lines.slice(1)
+        .map(line => {
+          const values = line.split(',');
+          return {
+            x: parseFloat(values[xIndex]),
+            y: parseFloat(values[yIndex])
+          };
+        })
+        .filter(point => !isNaN(point.x) && !isNaN(point.y));
+
+      return {
+        datasets: [{
+          label: `${yAxis} по ${xAxis}`,
+          data: dataPoints,
+          borderColor: 'rgba(75, 192, 192, 1)',
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          tension: 0.1,
+          pointRadius: 3,
+          pointHoverRadius: 5
+        }]
+      };
     }
+  }
+
+  private createHistogramData(values: number[], bins = 20): {x: number, y: number}[] {
+    const min = Math.min(...values);
+    const max = Math.max(...values);
+    const binSize = (max - min) / bins;
     
-    return {
-      labels: headers.slice(1),
-      datasets: datasets
-    };
+    const histogram = new Array(bins).fill(0);
+    
+    values.forEach(value => {
+      const binIndex = Math.min(Math.floor((value - min) / binSize), bins - 1);
+      histogram[binIndex]++;
+    });
+
+    return histogram.map((count, i) => ({
+      x: min + (i * binSize) + (binSize / 2),
+      y: count
+    }));
   }
 }
