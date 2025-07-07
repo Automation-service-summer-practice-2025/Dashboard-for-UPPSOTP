@@ -1,0 +1,12 @@
+<div class="upload-container" [class.locked]="isLocked">
+  <input type="file" accept="image/png, image/jpeg, image/webp" (change)="onFileSelected($event)" hidden #fileInput />
+  <div class="upload-box" (click)="fileInput.click()" *ngIf="!imageSrc">
+    <div class="icon">&#8682;</div>
+    <div class="text">
+      Перетащите или загрузите фото<br />
+      <small>PNG / JPEG / WEBP. До 50 МБ.</small>
+    </div>
+    <button class="upload-button">Выбрать фото</button>
+  </div>
+  <img *ngIf="imageSrc" [src]="imageSrc" class="preview" />
+</div>
