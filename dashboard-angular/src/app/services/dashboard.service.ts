@@ -55,6 +55,23 @@ export class DashboardService {
     this.dashboardItems.next([...this.dashboardItems.value, newItem]);
   }
 
+    addChart() {
+    const newItem: DashboardItem = {
+      id: this.getNextId(),
+      cols: 5,
+      rows: 5,
+      y: 0,
+      x: 0,
+      title: 'Новый график',
+      content: '',
+      type: 'chart',
+      chartType: 'bar',
+      data: null,
+      file: null
+    };
+    this.dashboardItems.next([...this.dashboardItems.value, newItem]);
+  }
+
   toggleLock(isLocked: boolean) {
     this.lockStatus.next(isLocked);
   }
