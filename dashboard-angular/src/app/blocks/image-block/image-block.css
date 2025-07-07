@@ -28,7 +28,6 @@
 
 .upload-container.locked {
   pointer-events: none;
-  opacity: 0.5;
 }
 
 /* Ключевые изменения для блока с изображением */
