@@ -3,90 +3,130 @@ import { CommonModule } from '@angular/common';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartUploadComponent } from './chart-upload.component';
 import { ChartOptions, TooltipItem } from 'chart.js';
+import { MatIconModule } from '@angular/material/icon';
+import { FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { ChartEditorComponent } from './chart-editor.component';
 
 @Component({
   selector: 'app-chart',
   standalone: true,
-  imports: [CommonModule, BaseChartDirective, ChartUploadComponent],
+  imports: [CommonModule, BaseChartDirective, ChartUploadComponent, MatIconModule, FormsModule, MatInputModule, ChartEditorComponent],
   template: `
-    <div class="item-body">
-      <h3 *ngIf="title">{{title}}</h3>
-      <div class="chart-wrapper" *ngIf="data; else uploadTemplate">
-        <canvas baseChart
-          [data]="data"
-          [options]="chartOptions"
-          [type]="chartType">
-        </canvas>
+    <div class="chart-container">
+      <div class="chart-header">
+        <h3>{{title}}</h3>
+        <button 
+          mat-icon-button 
+          class="edit-btn" 
+          (click)="showEditor = !showEditor"
+          *ngIf="!isLocked">
+          <mat-icon>edit</mat-icon>
+        </button>
       </div>
-      <ng-template #uploadTemplate>
-        <app-chart-upload (fileLoaded)="onDataLoaded($event)" [isLocked]="isLocked"></app-chart-upload>
-      </ng-template>
+      
+      <app-chart-editor
+        [opened]="showEditor"
+        [title]="title"
+        [lineColor]="lineColor"
+        [lineWidth]="lineWidth"
+        [showGrid]="showGrid"
+        [showLegend]="showLegend"
+        (close)="showEditor = false"
+        (apply)="applyChanges($event)">
+        
+        <div class="chart-content">
+          <div class="chart-wrapper" *ngIf="data; else uploadTemplate">
+            <canvas baseChart
+              [data]="data"
+              [options]="chartOptions"
+              [type]="chartType">
+            </canvas>
+          </div>
+          <ng-template #uploadTemplate>
+            <app-chart-upload 
+              (fileLoaded)="onDataLoaded($event)" 
+              [isLocked]="isLocked">
+            </app-chart-upload>
+          </ng-template>
+        </div>
+      </app-chart-editor>
     </div>
   `,
   styles: [`
     .chart-container {
-      padding: 16px;
       height: 100%;
       display: flex;
       flex-direction: column;
-      z-index: 10
     }
-    .chart-wrapper {
+    
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px;
+    }
+    
+    .chart-content {
       flex: 1;
+      padding: 8px;
+    }
+    
+    .chart-wrapper {
+      height: 100%;
       position: relative;
     }
-    h3 {
-      margin: 0 0 16px 0;
-      text-align: center;
+    
+    .edit-btn {
+      margin-left: 8px;
     }
-    .upload-placeholder {
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #f5f5f5;
-      border: 2px dashed #ccc;
-      border-radius: 8px;
+    
+    h3 {
+      margin: 0;
+      font-size: 16px;
     }
   `]
 })
 
 
 export class ChartComponent {
-  @Input() chartType: 'line' = 'line';
-  title: string = '';
-
+  @Input() chartType: 'scatter' = 'scatter';
   @Input() data: any = null;
-
   @Input() isLocked: boolean = false;
+  title: string = 'Новый график';
+  showEditor = false;
+  
+  editorWidth = 300;
+  isResizing = false;
+
+  lineColor = '#4bc0c0';
+  lineWidth = 3;
+  showGrid = true;
+  showLegend = true;
 
   constructor() {}
   
-chartOptions: ChartOptions<'line'> = {
-  responsive: true,
-  maintainAspectRatio: false,
-  scales: {
-    x: {
-      type: 'linear',
-      position: 'bottom',
-      title: { display: true, text: 'X Axis' }
-    },
-    y: {
-      title: { display: true, text: 'Y Axis' },
-      beginAtZero: false
-    }
-  },
-  plugins: {
-    legend: { display: true },
-    tooltip: {
-      callbacks: {
-        label: (context: TooltipItem<'line'>) => {
-          return `${context.dataset.label}: (${context.parsed['x']}, ${context.parsed['y']})`;
-        }
+  chartOptions: ChartOptions<'scatter'> = {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      x: {
+        type: 'linear',
+        position: 'bottom',
+        title: { display: true, text: 'X Axis' },
+        grid: { display: true }
+      },
+      y: {
+        title: { display: true, text: 'Y Axis' },
+        beginAtZero: false,
+        grid: { display: true }
       }
+    },
+    plugins: {
+      legend: { display: true }
     }
-  }
-};
+  };
+
 
 
   onDataLoaded(event: {data: any, title: string, chartType: string}) {
@@ -94,7 +134,6 @@ chartOptions: ChartOptions<'line'> = {
     this.title = event.title;
     
     if (event.chartType === 'distribution') {
-      // Логика для графика распределения
       this.chartOptions = {
         ...this.chartOptions,
         scales: {
@@ -106,12 +145,12 @@ chartOptions: ChartOptions<'line'> = {
           y: {
             ...this.chartOptions.scales?.['y'],
             title: { display: true, text: 'Частота' },
-            beginAtZero: true // Для гистограммы лучше начинать с 0
+            beginAtZero: true
           }
         }
       };
     } else {
-      // Оригинальная логика для XY графика
+
       if (this.data?.datasets?.length) {
         const labelParts = this.data.datasets[0].label.split(' по ');
         if (labelParts.length === 2) {
@@ -137,5 +176,63 @@ chartOptions: ChartOptions<'line'> = {
 
   ngOnChanges(changes: SimpleChanges) {
     console.log('Data changed:', changes['data'].currentValue);
+  }
+
+  toggleEditor() {
+    this.showEditor = !this.showEditor;
+  }
+
+  startResize(event: MouseEvent) {
+    this.isResizing = true;
+    const startX = event.clientX;
+    const startWidth = this.editorWidth;
+    
+    const doResize = (moveEvent: MouseEvent) => {
+      this.editorWidth = startWidth + (startX - moveEvent.clientX);
+    };
+    
+    const stopResize = () => {
+      document.removeEventListener('mousemove', doResize);
+      document.removeEventListener('mouseup', stopResize);
+      this.isResizing = false;
+    };
+    
+    document.addEventListener('mousemove', doResize);
+    document.addEventListener('mouseup', stopResize);
+  }
+
+  applyChanges(editorData: any) {
+    this.title = editorData.title;
+    this.lineColor = editorData.lineColor;
+    this.lineWidth = editorData.lineWidth;
+    this.showGrid = editorData.showGrid;
+    this.showLegend = editorData.showLegend;
+    this.updateChartOptions();
+    this.showEditor = false;
+  }
+
+  private updateChartOptions() {
+    this.chartOptions = {
+      ...this.chartOptions,
+      scales: {
+        x: {
+          ...this.chartOptions.scales?.['x'],
+          grid: { display: this.showGrid }
+        },
+        y: {
+          ...this.chartOptions.scales?.['y'],
+          grid: { display: this.showGrid }
+        }
+      },
+      plugins: {
+        legend: { display: this.showLegend }
+      }
+    };
+    
+    if (this.data?.datasets?.length) {
+      this.data.datasets[0].borderColor = this.lineColor;
+      this.data.datasets[0].borderWidth = this.lineWidth;
+      this.data = {...this.data};
+    }
   }
 }

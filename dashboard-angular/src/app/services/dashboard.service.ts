@@ -58,6 +58,15 @@ export class DashboardService {
     this.dashboardItems.next([...this.dashboardItems.value, newItem]);
   }
 
+  updateItem(item: DashboardItem) {
+    const items = this.dashboardItems.value;
+    const index = items.findIndex(i => i.id === item.id);
+    if (index !== -1) {
+      items[index] = item;
+      this.dashboardItems.next([...items]);
+    }
+  }
+
   toggleLock(isLocked: boolean) {
     this.lockStatus.next(isLocked);
   }

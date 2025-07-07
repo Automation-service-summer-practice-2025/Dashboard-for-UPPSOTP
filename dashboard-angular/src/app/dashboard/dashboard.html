@@ -19,9 +19,10 @@
 
       <div *ngIf="item.type === 'chart'" class="chart-container">
         <app-chart 
-          [chartType]="'line'"
+          [chartType]="'scatter'"
           [data]="item.data"
-          [isLocked]="isLocked">
+          [isLocked]="isLocked"
+          >
         </app-chart>
       </div>
     </div>

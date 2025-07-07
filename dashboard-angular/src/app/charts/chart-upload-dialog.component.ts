@@ -153,7 +153,7 @@ export class ChartUploadDialogComponent {
         xAxis: this.selectedXAxis,
         yAxis: this.selectedYAxis,
         column: this.selectedColumn,
-        chartType: this.chartType // Добавляем тип графика в результат
+        chartType: this.chartType
       });
     }
   }
