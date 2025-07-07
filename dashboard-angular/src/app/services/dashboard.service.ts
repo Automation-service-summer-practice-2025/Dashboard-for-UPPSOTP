@@ -8,7 +8,7 @@ export interface DashboardItem {
   y: number;
   x: number;
   content: string;
-  type?: 'text' | 'chart'; // Добавляем тип элемента
+  type?: 'text' | 'image' | 'chart'; // Добавляем тип элемента
   chartType?: 'bar' | 'pie' | 'line'; // Тип графика
   data?: any; // Данные для графика
   file?: File | null; // Загруженный файл
@@ -41,7 +41,21 @@ export class DashboardService {
     this.dashboardItems.next([...this.dashboardItems.value, newItem]);
   }
 
-  addChart() {
+  addImageBlock() {
+    const newItem: DashboardItem = {
+      id: this.getNextId(),
+      cols: 5,
+      rows: 5,
+      y: 0,
+      x: 0,
+      content: '',
+      type: "image"
+    }
+
+    this.dashboardItems.next([...this.dashboardItems.value, newItem]);
+  }
+
+    addChart() {
     const newItem: DashboardItem = {
       id: this.getNextId(),
       cols: 5,

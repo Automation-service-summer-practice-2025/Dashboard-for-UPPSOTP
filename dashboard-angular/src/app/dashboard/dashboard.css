@@ -1,5 +1,5 @@
 .gridster {
-  background: #E6F0FA;
+  background: #e6f0fa;
   border-radius: 8px;
   min-height: calc(100vh - 70px);
   max-width: 100vw;
@@ -17,32 +17,54 @@
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
-.gridster-item-content {
-  padding: 19px 10px 10px 10px;
-}
-
-.gridster-item.gridster-item-moving {
-  opacity: 0.8;
-  transform: rotate(5deg);
-}
-
-.gridster-item.gridster-item-resizing {
-  opacity: 0.8;
-}
-
-.remove-btn {
+.action-buttons {
   position: absolute;
   top: 4px;
+  left: 4px;
   right: 4px;
-  background: white;
-  color: black;
-  border: none;
+  display: flex;
+  justify-content: space-between;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.gridster-item:hover .action-buttons {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.action-button {
   width: 15px;
   height: 15px;
-  font-size: 16px;
+  font-size: 15px;
+  background: transparent;
+  color: black;
+  border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  user-select: none;
+  border-radius: 50%;
   transition: background-color 0.3s ease;
+}
+
+.action-button:hover {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+.drag-handle {
+  cursor: move;
+}
+
+.gridster-item-content {
+  width: 100%;
+  height: 100%;
+}
+
+.gridster-item.gridster-item-moving,
+.gridster-item.gridster-item-resizing {
+  opacity: 0.8;
 }

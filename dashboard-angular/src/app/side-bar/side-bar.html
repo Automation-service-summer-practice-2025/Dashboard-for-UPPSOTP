@@ -34,11 +34,11 @@
           Текст
         </button>
 
-        <button mat-raised-button class="constructor-button" [disabled]="isLocked">
+        <button mat-raised-button class="constructor-button" (click)="addImageBlock()" [disabled]="isLocked">
           <mat-icon>image</mat-icon>
           Картинка
         </button>
-
+        
         <button mat-raised-button class="constructor-button" (click)="addChart()" [disabled]="isLocked">
           <mat-icon>bar_chart</mat-icon>
           Добавить график
