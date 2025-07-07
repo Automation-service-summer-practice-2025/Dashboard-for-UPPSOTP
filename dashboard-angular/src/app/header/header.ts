@@ -3,22 +3,34 @@ import { Router, NavigationEnd } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { filter } from 'rxjs/operators';
+import { DashboardService } from '../services/dashboard.service';
 
 @Component({
   selector: 'app-header',
-  // standalone: true,
   imports: [MatButtonModule, MatIconModule, CommonModule],
   templateUrl: './header.html',
   styleUrl: './header.css'
 })
 export class Header {
   currentUrl: string = '';
+  isLocked = true;
 
-  constructor (private router: Router) { }
+  constructor (private router: Router, private dashboardService: DashboardService) { }
 
   ngOnInit(): void {
     this.currentUrl = this.router.url;
+
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.currentUrl = event.urlAfterRedirects;
+      }
+    });
+
+    if (this.currentUrl === '/') {
+      this.dashboardService.toggleLock(true);
+    } else {
+      this.dashboardService.toggleLock(false);
+    }
   }
 
   isAdminPage(): boolean {
