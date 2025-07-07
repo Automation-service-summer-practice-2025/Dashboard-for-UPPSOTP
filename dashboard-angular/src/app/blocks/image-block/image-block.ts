@@ -55,4 +55,9 @@ export class ImageBlock {
       alert("Файл слишком большой или недопустимый формат.");
     }
   }
+
+  focusContainer() {
+    const container = document.querySelector('.upload-container');
+    (container as HTMLElement)?.focus();
+  }
 }
