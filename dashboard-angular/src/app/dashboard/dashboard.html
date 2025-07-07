@@ -1,54 +1,26 @@
-<div>
-  <gridster [options]="options" class="gridster">
-    <gridster-item
-      [item]="item"
-      *ngFor="let item of dashboard;"
-      class="gridster-item">
-      <div class="item-content">
-        <div class="item-header">
-          <h3
-            *ngIf="!item.isEditingTitle"
-            (click)="options.draggable?.enabled && toggleEditMode(item, 'title', true)">
-            {{ item.title }}
-          </h3>
-          <input
-            *ngIf="item.isEditingTitle"
-            [(ngModel)]="item.title"
-            (blur)="toggleEditMode(item, 'title', false)"
-            (keydown.enter)="toggleEditMode(item, 'title', false)"
-            class="edit-input"
-            type="text"
-            #titleInput>
-          <button
-            *ngIf="!isLocked"
-            class="remove-btn"
-            (click)="removeItem(item)"
-            title="Удалить элемент">
-            x
-          </button>
-        </div>
-        <div class="item-body">
-          <p
-            *ngIf="!item.isEditingContent"
-            (click)="options.draggable?.enabled && toggleEditMode(item, 'content', true)">
-            {{ item.content }}
-          </p>
-          <textarea
-            *ngIf="item.isEditingContent"
-            [(ngModel)]="item.content"
-            (blur)="toggleEditMode(item, 'content', false)"
-            class="edit-textarea"
-            #contentInput>
-          </textarea>
-
-          <div *ngIf="item.type === 'chart'" class="chart-container">
+<gridster [options]="options" class="gridster">
+  <gridster-item [item]="item" *ngFor="let item of dashboard;" class="gridster-item">
+    <button
+      *ngIf="!isLocked"
+      class="remove-btn"
+      (click)="removeItem(item)"
+      title="Удалить элемент">
+      x
+    </button>
+    <div class="gridster-item-content">
+      <app-text-block
+        *ngIf="item.type === 'text'"
+        [item]="item"
+        [isLocked]="isLocked"
+        (onRemove)="removeItem($event)">
+        
+      </app-text-block>
+                <div *ngIf="item.type === 'chart'" class="chart-container">
             <app-chart 
               [chartType]="'line'"
               [data]="item.data">
             </app-chart>
           </div>
-        </div>
-      </div>
+    </div>
   </gridster-item>
 </gridster>
-</div>

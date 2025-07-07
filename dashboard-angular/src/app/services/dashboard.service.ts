@@ -7,12 +7,12 @@ export interface DashboardItem {
   rows: number;
   y: number;
   x: number;
-  title: string;
   content: string;
   type?: 'text' | 'chart'; // Добавляем тип элемента
   chartType?: 'bar' | 'pie' | 'line'; // Тип графика
   data?: any; // Данные для графика
   file?: File | null; // Загруженный файл
+  title?: string;
 }
 
 @Injectable({
@@ -31,12 +31,12 @@ export class DashboardService {
   addTextBlock() {
     const newItem: DashboardItem = {
       id: this.getNextId(),
-      cols: 40,
-      rows: 30,
+      cols: 5,
+      rows: 5,
       y: 0,
       x: 0,
-      title: 'Текстовый блок',
-      content: 'Это новый текстовый блок'
+      content: 'Текстовый блок',
+      type: "text",
     };
     this.dashboardItems.next([...this.dashboardItems.value, newItem]);
   }
@@ -44,8 +44,8 @@ export class DashboardService {
   addChart() {
     const newItem: DashboardItem = {
       id: this.getNextId(),
-      cols: 40,
-      rows: 40,
+      cols: 5,
+      rows: 5,
       y: 0,
       x: 0,
       title: 'Новый график',
