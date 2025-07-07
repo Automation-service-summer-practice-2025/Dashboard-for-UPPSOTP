@@ -1,5 +1,10 @@
-<div class="upload-container" [class.locked]="isLocked">
-  <input type="file" accept="image/png, image/jpeg, image/webp" (change)="onFileSelected($event)" hidden #fileInput />
+<div class="upload-container" [class.locked]="isLocked" tabindex="0">
+  <input 
+    type="file" 
+    accept="image/png, image/jpeg, image/webp" 
+    (change)="onFileSelected($event)" 
+    hidden 
+    #fileInput />
   <div class="upload-box" (click)="fileInput.click()" *ngIf="!imageSrc">
     <div class="icon">&#8682;</div>
     <div class="text">

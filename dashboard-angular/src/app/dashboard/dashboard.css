@@ -6,7 +6,6 @@
 }
 
 .gridster-item {
-  position: relative;
   background: white;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -36,7 +35,6 @@
   pointer-events: auto;
 }
 
-/* Общий стиль для кнопок */
 .action-button {
   width: 15px;
   height: 15px;
