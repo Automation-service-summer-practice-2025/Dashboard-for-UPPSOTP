@@ -13,7 +13,7 @@ import { DashboardService } from '../services/dashboard.service';
 })
 export class Header {
   currentUrl: string = '';
-  isLocked = true;
+  isLocked = false;
 
   constructor (private router: Router, private dashboardService: DashboardService) { }
 
@@ -28,8 +28,6 @@ export class Header {
 
     if (this.currentUrl === '/') {
       this.dashboardService.toggleLock(true);
-    } else {
-      this.dashboardService.toggleLock(false);
     }
   }
 
