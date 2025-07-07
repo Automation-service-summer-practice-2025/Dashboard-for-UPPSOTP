@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GridsterConfig, GridsterItem, GridsterModule } from 'angular-gridster2';
 import { FormsModule } from '@angular/forms';
 import { DashboardService } from '../services/dashboard.service';
 import { Header } from '../header/header';
 import { TextBlock } from '../blocks/text-block/text-block';
+import { ChartComponent } from '../charts/chart.component';
 
 export interface DashboardItem extends GridsterItem {
   title: string;
@@ -16,7 +17,7 @@ export interface DashboardItem extends GridsterItem {
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CommonModule, GridsterModule, FormsModule, Header, TextBlock],
+  imports: [CommonModule, GridsterModule, FormsModule, TextBlock, ChartComponent, Header],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })
