@@ -30,11 +30,11 @@ import { MatRadioModule } from '@angular/material/radio';
       </mat-form-field>
 
       <mat-radio-group [(ngModel)]="chartType" class="chart-type-group">
-        <mat-radio-button value="xy">График X-Y</mat-radio-button>
-        <mat-radio-button value="distribution">Распределение</mat-radio-button>
+        <mat-radio-button value="scatter">График X-Y (Scatter)</mat-radio-button>
+        <mat-radio-button value="bar">Гистограмма (Bar)</mat-radio-button>
       </mat-radio-group>
 
-      <div *ngIf="chartType === 'xy'">
+      <div *ngIf="chartType === 'scatter'">
         <mat-form-field appearance="outline" class="w-full" *ngIf="headers.length > 0">
           <mat-label>Ось X</mat-label>
           <mat-select [(ngModel)]="selectedXAxis">
@@ -54,7 +54,7 @@ import { MatRadioModule } from '@angular/material/radio';
         </mat-form-field>
       </div>
 
-      <div *ngIf="chartType === 'distribution'">
+      <div *ngIf="chartType === 'bar'">
         <mat-form-field appearance="outline" class="w-full" *ngIf="headers.length > 0">
           <mat-label>Признак для распределения</mat-label>
           <mat-select [(ngModel)]="selectedColumn">
@@ -77,7 +77,10 @@ import { MatRadioModule } from '@angular/material/radio';
     </mat-dialog-content>
     <mat-dialog-actions align="end">
       <button mat-button mat-dialog-close>Отмена</button>
-      <button mat-raised-button color="primary" [disabled]="!selectedFile || !selectedXAxis || !selectedYAxis" (click)="onUpload()">
+      <button mat-raised-button color="primary" 
+        [disabled]="!selectedFile || 
+          (chartType === 'scatter' && (!selectedXAxis || !selectedYAxis)) ||
+          (chartType === 'bar' && !selectedColumn)">
         Загрузить
       </button>
     </mat-dialog-actions>
@@ -118,7 +121,7 @@ export class ChartUploadDialogComponent {
   selectedXAxis: string = '';
   selectedYAxis: string = '';
   selectedColumn: string = '';
-  chartType: 'xy' | 'distribution' = 'xy';
+  chartType: 'scatter' | 'bar' = 'scatter';
 
   constructor(private dialogRef: MatDialogRef<ChartUploadDialogComponent>) {}
 
@@ -129,7 +132,7 @@ export class ChartUploadDialogComponent {
 
   private parseHeaders(file: File | null) {
     if (!file) return;
-    
+
     const reader = new FileReader();
     reader.onload = (e) => {
       const content = e.target?.result as string;

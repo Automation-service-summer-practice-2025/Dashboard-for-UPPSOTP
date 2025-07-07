@@ -8,10 +8,10 @@ export interface DashboardItem {
   y: number;
   x: number;
   content: string;
-  type?: 'text' | 'chart'; // Добавляем тип элемента
-  chartType?: 'bar' | 'pie' | 'line'; // Тип графика
-  data?: any; // Данные для графика
-  file?: File | null; // Загруженный файл
+  type?: 'text' | 'chart';
+  chartType?: 'bar' | 'pie' | 'line' | 'scatter';
+  data?: any;
+  file?: File | null;
   title?: string;
 }
 
@@ -51,7 +51,7 @@ export class DashboardService {
       title: 'Новый график',
       content: '',
       type: 'chart',
-      chartType: 'bar',
+      chartType: 'scatter',
       data: null,
       file: null
     };

@@ -64,17 +64,17 @@ export class ChartUploadComponent {
       this.fileLoaded.emit({
         data: chartData, 
         title,
-        chartType // Добавляем тип графика в эмит
+        chartType
       });
     };
     reader.readAsText(file);
   }
 
-  private parseCSV(csv: string, xAxis: string, yAxis: string, column: string, chartType: string): any {
+  private parseCSV(csv: string, xAxis: string, yAxis: string, column: string, chartType: 'scatter' | 'bar'): any {
     const lines = csv.split('\n').filter(line => line.trim() !== '');
     const headers = lines[0].split(',').map(h => h.trim());
 
-    if (chartType === 'distribution') {
+    if (chartType === 'bar') {
       const colIndex = headers.indexOf(column);
       if (colIndex === -1) return null;
 
@@ -85,9 +85,10 @@ export class ChartUploadComponent {
       const histogramData = this.createHistogramData(values);
 
       return {
+        labels: histogramData.map(d => d.x.toString()),
         datasets: [{
           label: `Распределение ${column}`,
-          data: histogramData,
+          data: histogramData.map(d => d.y),
           borderColor: 'rgba(75, 192, 192, 1)',
           backgroundColor: 'rgba(75, 192, 192, 0.2)',
           tension: 0.1,

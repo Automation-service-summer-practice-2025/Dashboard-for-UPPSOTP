@@ -40,7 +40,7 @@ import { ChartEditorComponent } from './chart-editor.component';
             <canvas baseChart
               [data]="data"
               [options]="chartOptions"
-              [type]="chartType">
+              [type]="chartType === 'bar' ? 'bar' : 'scatter'">
             </canvas>
           </div>
           <ng-template #uploadTemplate>
@@ -90,7 +90,7 @@ import { ChartEditorComponent } from './chart-editor.component';
 
 
 export class ChartComponent {
-  @Input() chartType: 'scatter' = 'scatter';
+  @Input() chartType: string = '';
   @Input() data: any = null;
   @Input() isLocked: boolean = false;
   title: string = 'Новый график';
@@ -106,20 +106,18 @@ export class ChartComponent {
 
   constructor() {}
   
-  chartOptions: ChartOptions<'scatter'> = {
+  chartOptions: ChartOptions = {
     responsive: true,
     maintainAspectRatio: false,
     scales: {
       x: {
         type: 'linear',
         position: 'bottom',
-        title: { display: true, text: 'X Axis' },
-        grid: { display: true }
+        title: { display: true, text: 'X Axis' }
       },
       y: {
         title: { display: true, text: 'Y Axis' },
-        beginAtZero: false,
-        grid: { display: true }
+        beginAtZero: false
       }
     },
     plugins: {
@@ -127,20 +125,18 @@ export class ChartComponent {
     }
   };
 
-
-
-  onDataLoaded(event: {data: any, title: string, chartType: string}) {
+  onDataLoaded(event: {data: any, title: string, chartType: 'scatter' | 'bar'}) {
     this.data = event.data;
     this.title = event.title;
     
-    if (event.chartType === 'distribution') {
+    if (event.chartType === 'bar') {
       this.chartOptions = {
         ...this.chartOptions,
         scales: {
-          ...this.chartOptions.scales,
           x: {
             ...this.chartOptions.scales?.['x'],
-            title: { display: true, text: 'Значение' }
+            type: 'category',
+            title: { display: true, text: 'Значения' }
           },
           y: {
             ...this.chartOptions.scales?.['y'],
@@ -150,27 +146,20 @@ export class ChartComponent {
         }
       };
     } else {
-
-      if (this.data?.datasets?.length) {
-        const labelParts = this.data.datasets[0].label.split(' по ');
-        if (labelParts.length === 2) {
-          this.chartOptions = {
-            ...this.chartOptions,
-            scales: {
-              ...this.chartOptions.scales,
-              x: {
-                ...this.chartOptions.scales?.['x'],
-                title: { display: true, text: labelParts[1] }
-              },
-              y: {
-                ...this.chartOptions.scales?.['y'],
-                title: { display: true, text: labelParts[0] },
-                beginAtZero: false
-              }
-            }
-          };
+      this.chartOptions = {
+        ...this.chartOptions,
+        scales: {
+          x: {
+            ...this.chartOptions.scales?.['x'],
+            title: { display: true, text: event.data.datasets[0].label.split(' по ')[1] || 'X Axis' }
+          },
+          y: {
+            ...this.chartOptions.scales?.['y'],
+            title: { display: true, text: event.data.datasets[0].label.split(' по ')[0] || 'Y Axis' },
+            beginAtZero: false
+          }
         }
-      }
+      };
     }
   }
 
