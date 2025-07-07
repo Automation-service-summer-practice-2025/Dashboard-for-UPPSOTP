@@ -1,0 +1,15 @@
+.layout-container {
+  display: flex;
+  height: 100vh; /* чтобы занять всю высоту */
+}
+
+app-side-bar {
+  flex-shrink: 0; /* чтобы не сжимался */
+  /* ширина задается из компонента через binding */
+}
+
+.main-content {
+  flex-grow: 1;
+  transition: margin-left 0.3s ease; /* плавный сдвиг */
+  overflow: auto;
+}

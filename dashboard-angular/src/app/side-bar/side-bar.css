@@ -102,3 +102,18 @@
   color: #6200ea;
   margin-left: 8px;
 }
+
+.resize-handle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 5px;
+  height: 100%;
+  cursor: ew-resize;
+  z-index: 10;
+  background-color: transparent;
+}
+
+.resize-handle:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}

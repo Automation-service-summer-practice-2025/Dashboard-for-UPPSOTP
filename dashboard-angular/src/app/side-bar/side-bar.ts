@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, Output, EventEmitter, HostListener } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -28,6 +28,11 @@ import { CommonModule } from '@angular/common';
 })
 export class SideBar {
   isLocked = false;
+  // sidenavWidth = 300;
+  @Input() width = 300;
+  @Output() widthChange = new EventEmitter<number>();
+  private resizing = false;
+  private lastDownX = 0;
 
   constructor(private dashboardService: DashboardService) {
     this.dashboardService.lockStatus$.subscribe(isLocked => {
@@ -54,5 +59,27 @@ export class SideBar {
   onToggleMode(event: any) {
     this.isLocked = event.value === 'locked';
     this.dashboardService.toggleLock(this.isLocked);
+  }
+
+  onResizeStart(event: MouseEvent) {
+    this.resizing = true;
+    this.lastDownX = event.clientX;
+    event.preventDefault();
+  }
+
+  @HostListener('document:mousemove', ['$event'])
+  onResizeMove(event: MouseEvent) {
+    if (!this.resizing) {
+      return;
+    }
+    const dx = event.clientX - this.lastDownX;
+    this.width = Math.min(Math.max(this.width + dx, 200), 600); // ограничение ширины от 200 до 600px
+    this.lastDownX = event.clientX;
+    this.widthChange.emit(this.width);
+  }
+
+  @HostListener('document:mouseup')
+  onResizeEnd() {
+    this.resizing = false;
   }
 }
