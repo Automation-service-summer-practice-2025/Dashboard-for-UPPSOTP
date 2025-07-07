@@ -46,7 +46,7 @@ export class SideBar {
       this.dashboardService.addChart();
     }
   }
-    
+
   toggleLock() {
     this.dashboardService.toggleLock(this.isLocked);
   }

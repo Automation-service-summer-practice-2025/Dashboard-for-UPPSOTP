@@ -1,7 +1,22 @@
-  <body>
-    <div class="header">
-        <div class="logo-block">
-            <img src="assets/avsv.svg" alt="Газпромнефть" class="logo">
-        </div>
-    </div>
-  </body>
+<body>
+  <div class="header">
+    <button
+      mat-raised-button
+      *ngIf="isHomePage()"
+      color="primary"
+      class="btn-redirect"
+      (click)="redirect()">
+      <mat-icon>login</mat-icon>
+      <span class="btn-text">Вход</span>
+    </button>
+    <button
+      mat-raised-button
+      *ngIf="isAdminPage()"
+      color="primary"
+      class="btn-redirect"
+      (click)="redirect()">
+      <mat-icon>logout</mat-icon>
+      <span class="btn-text">Выход</span>
+    </button>
+  </div>
+</body>

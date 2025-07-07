@@ -1,0 +1,17 @@
+<body>
+    <div class="center-box">
+      <h1 class="constructor-title">Вход</h1>
+      <div class="form-group">
+          <label for="email">Почта</label>
+          <input type="text" id="email" value="email@gmail.com">
+      </div>
+      <div class="form-group">
+          <label for="password">Пароль</label>
+          <input type="password" id="password" value="password">
+      </div>
+      <div class="constructor-buttons">
+        <button mat-raised-button class="constructor-button" (click)="login()"><mat-icon>login</mat-icon>Вход</button>
+        <button mat-raised-button class="constructor-button" (click)="logout()"><mat-icon>logout</mat-icon>Выход</button>
+      </div>
+    </div>
+</body>
