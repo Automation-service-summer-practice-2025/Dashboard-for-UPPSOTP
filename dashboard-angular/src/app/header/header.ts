@@ -9,11 +9,12 @@ import { DashboardService } from '../services/dashboard.service';
   selector: 'app-header',
   imports: [MatButtonModule, MatIconModule, CommonModule],
   templateUrl: './header.html',
-  styleUrl: './header.css'
+  styleUrls: ['./header.css']
 })
 export class Header {
   currentUrl: string = '';
   isLocked = false;
+  hasChanges = false;
 
   constructor (private router: Router, private dashboardService: DashboardService) { }
 
@@ -46,5 +47,6 @@ export class Header {
 
   save() {
     console.log('Данные сохранены!');
+    this.hasChanges = false;
   }
 }

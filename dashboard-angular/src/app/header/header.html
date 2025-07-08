@@ -1,7 +1,7 @@
 <div class="header">
   <button
     mat-raised-button
-    *ngIf="isAdminPage()"
+    *ngIf="hasChanges && isAdminPage()"
     color="primary"
     class="btn-redirect"
     (click)="save()">
