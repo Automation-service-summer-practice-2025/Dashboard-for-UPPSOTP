@@ -1,43 +1,56 @@
-<app-header></app-header>
-<gridster [options]="options" class="gridster">
-  <gridster-item [item]="item" *ngFor="let item of dashboard;" class="gridster-item">
+<app-edit-side-bar
+[isOpen]="isEditPanelOpen"
+[currentItem]="selectedItem"
+(closed)="closeEditPanel()"
+(saved)="saveItem($event)">
 
-    <div *ngIf="!isLocked" class="action-buttons">
-      <div
-        class="action-button drag-handle"
-        title="Переместить">
-        ☰
+  <app-header></app-header>
+  <gridster [options]="options" class="gridster">
+    <gridster-item [item]="item" *ngFor="let item of dashboard;" class="gridster-item">
+
+      <div *ngIf="!isLocked" class="action-buttons">
+        <div class="btn-block">
+          <div
+            class="action-button drag-handle"
+            title="Переместить">
+            ☰
+          </div>
+          <button class="action-button"
+              (click)="editItem(item)"
+              title="Редактировать">
+            ✎
+          </button>
+        </div>
+        <button
+          class="action-button"
+          (click)="removeItem(item)"
+          title="Удалить">
+          x
+        </button>
       </div>
 
-      <button
-        class="action-button remove-btn"
-        (click)="removeItem(item)"
-        title="Удалить">
-        x
-      </button>
-    </div>
+      <div class="gridster-item-content">
+        <app-text-block
+          *ngIf="item.type === 'text'"
+          [item]="item"
+          [isLocked]="isLocked"
+          (onRemove)="removeItem($event)">
+        </app-text-block>
 
-    <div class="gridster-item-content">
-      <app-text-block
-        *ngIf="item.type === 'text'"
-        [item]="item"
-        [isLocked]="isLocked"
-        (onRemove)="removeItem($event)">
-      </app-text-block>
+        <app-image-block
+          *ngIf="item.type === 'image'"
+          [item]="item"
+          [isLocked]="isLocked"
+          (onRemove)="removeItem($event)">
+        </app-image-block>
 
-      <app-image-block
-        *ngIf="item.type === 'image'"
-        [item]="item"
-        [isLocked]="isLocked"
-        (onRemove)="removeItem($event)">
-      </app-image-block>
-
-      <div *ngIf="item.type === 'chart'" class="chart-container">
-        <app-chart 
-          [chartType]="'line'"
-          [data]="item.data">
-        </app-chart>
+        <div *ngIf="item.type === 'chart'" class="chart-container">
+          <app-chart
+            [chartType]="'line'"
+            [data]="item.data">
+          </app-chart>
+        </div>
       </div>
-    </div>
-  </gridster-item>
-</gridster>
+    </gridster-item>
+  </gridster>
+</app-edit-side-bar>
