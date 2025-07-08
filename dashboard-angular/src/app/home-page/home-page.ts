@@ -12,9 +12,5 @@ import { Dashboard } from "../dashboard/dashboard";
   styleUrl: './home-page.css'
 })
 export class HomePage {
-  sidenavWidth = 300;
 
-  onSidenavWidthChange(newWidth: number) {
-    this.sidenavWidth = newWidth;
-  }
 }

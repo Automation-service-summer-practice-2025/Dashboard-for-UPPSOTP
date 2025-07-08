@@ -38,7 +38,7 @@
           <mat-icon>image</mat-icon>
           Картинка
         </button>
-        
+
         <button mat-raised-button class="constructor-button" (click)="addChart()" [disabled]="isLocked">
           <mat-icon>bar_chart</mat-icon>
           Добавить график
@@ -52,11 +52,11 @@
     </div>
   </mat-sidenav>
 
-  <mat-sidenav-content>
+  <mat-sidenav-content [style.margin-left.px]="sidenav.opened ? width : 0">
     <button
       mat-icon-button
       class="menu-toggle"
-      [style.left.px]="sidenav.opened ? 310 : 10"
+      [style.left.px]="sidenav.opened ? width + 10 : 10"
       (click)="sidenav.toggle()">
       <mat-icon>menu</mat-icon>
     </button>

@@ -28,8 +28,7 @@ import { CommonModule } from '@angular/common';
 export class SideBar {
   isLocked = false;
   // sidenavWidth = 300;
-  @Input() width = 300;
-  @Output() widthChange = new EventEmitter<number>();
+  width = 300;
   private resizing = false;
   private lastDownX = 0;
 
@@ -80,7 +79,6 @@ export class SideBar {
     const dx = event.clientX - this.lastDownX;
     this.width = Math.min(Math.max(this.width + dx, 200), 600); // ограничение ширины от 200 до 600px
     this.lastDownX = event.clientX;
-    this.widthChange.emit(this.width);
   }
 
   @HostListener('document:mouseup')
