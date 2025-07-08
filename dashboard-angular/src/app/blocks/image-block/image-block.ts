@@ -45,14 +45,14 @@ export class ImageBlock {
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0];
 
-    if (file && file.size <= 50 * 1024 * 1024) {
+    if (file) {
       const reader = new FileReader();
       reader.onload = () => {
         this.imageSrc = reader.result as string;
       };
       reader.readAsDataURL(file);
     } else {
-      alert("Файл слишком большой или недопустимый формат.");
+      alert("Файла нет");
     }
   }
 
