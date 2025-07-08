@@ -1,0 +1,39 @@
+<div class="chart-container">
+    <div class="chart-header">
+    <h3>{{title}}</h3>
+    <button 
+        mat-icon-button 
+        class="edit-btn" 
+        (click)="showEditor = !showEditor"
+        *ngIf="!isLocked">
+        <mat-icon>edit</mat-icon>
+    </button>
+    </div>
+    
+    <app-chart-editor
+    [opened]="showEditor"
+    [title]="title"
+    [lineColor]="lineColor"
+    [lineWidth]="lineWidth"
+    [showGrid]="showGrid"
+    [showLegend]="showLegend"
+    (close)="showEditor = false"
+    (apply)="applyChanges($event)">
+    
+    <div class="chart-content">
+        <div class="chart-wrapper" *ngIf="data; else uploadTemplate">
+        <canvas baseChart
+            [data]="data"
+            [options]="chartOptions"
+            [type]="chartType === 'bar' ? 'bar' : 'scatter'">
+        </canvas>
+        </div>
+        <ng-template #uploadTemplate>
+        <app-chart-upload 
+            (fileLoaded)="onDataLoaded($event)" 
+            [isLocked]="isLocked">
+        </app-chart-upload>
+        </ng-template>
+    </div>
+    </app-chart-editor>
+</div>

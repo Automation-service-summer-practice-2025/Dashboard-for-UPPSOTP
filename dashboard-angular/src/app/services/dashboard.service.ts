@@ -41,7 +41,7 @@ export class DashboardService {
     this.dashboardItems.next([...this.dashboardItems.value, newItem]);
   }
 
-  addChart() {
+  addChart(chartType: 'bar' | 'scatter' = 'scatter') {
     const newItem: DashboardItem = {
       id: this.getNextId(),
       cols: 5,
@@ -51,7 +51,7 @@ export class DashboardService {
       title: 'Новый график',
       content: '',
       type: 'chart',
-      chartType: 'scatter',
+      chartType: chartType,
       data: null,
       file: null
     };

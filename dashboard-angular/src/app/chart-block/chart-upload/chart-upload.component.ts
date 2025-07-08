@@ -4,32 +4,18 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
-import { ChartUploadDialogComponent } from './chart-upload-dialog.component'
+import { ChartUploadDialogComponent } from '../chart-upload-dialog/chart-upload-dialog.component'
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-chart-upload',
   standalone: true,
   imports: [CommonModule, MatButtonModule, MatDialogModule, MatInputModule, FormsModule, MatIconModule],
-  template: `
-    <div class="upload-placeholder">
-      <button mat-raised-button color="primary" (click)="openUploadDialog()" [disabled]="isLocked">
-        <mat-icon>upload</mat-icon>
-        Загрузить данные
-      </button>
-    </div>
-  `,
-  styles: [`
-    .chart-upload {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100%;
-    }
-  `]
+  templateUrl: './chart-upload.html',
+  styleUrls: ['./chart-upload.css']
 })
 export class ChartUploadComponent {
-  @Output() fileLoaded = new EventEmitter<{data: any, title: string, chartType: string}>();
+  @Output() fileLoaded = new EventEmitter<{data: any, title: string, chartType: 'scatter' | 'bar'}>();
   @Input() isLocked: boolean = false;
   
   constructor(private dialog: MatDialog) {}
@@ -56,7 +42,7 @@ export class ChartUploadComponent {
     });
   }
 
-  private parseFile(file: File, title: string, xAxis: string, yAxis: string, column: string, chartType: string) {
+  private parseFile(file: File, title: string, xAxis: string, yAxis: string, column: string, chartType: 'scatter' | 'bar') {
     const reader = new FileReader();
     reader.onload = (e) => {
       const content = e.target?.result as string;
@@ -85,7 +71,7 @@ export class ChartUploadComponent {
       const histogramData = this.createHistogramData(values);
 
       return {
-        labels: histogramData.map(d => d.x.toString()),
+        labels: histogramData.map(d => d.x.toFixed(2)),
         datasets: [{
           label: `Распределение ${column}`,
           data: histogramData.map(d => d.y),
@@ -93,7 +79,10 @@ export class ChartUploadComponent {
           backgroundColor: 'rgba(75, 192, 192, 0.2)',
           tension: 0.1,
           pointRadius: 3,
-          pointHoverRadius: 5
+          pointHoverRadius: 5,
+          borderWidth: 1,
+          barPercentage: 0.9,
+          categoryPercentage: 0.9
         }]
       };
     } else {

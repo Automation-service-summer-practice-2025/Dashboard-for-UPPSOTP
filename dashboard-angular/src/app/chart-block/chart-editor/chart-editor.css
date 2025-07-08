@@ -1,0 +1,40 @@
+.editor-container {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.editor-sidenav {
+    background: white;
+    box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+    padding: 16px;
+    position: relative;
+}
+
+.editor-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    height: 100%;
+}
+
+.editor-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.editor-header h3 {
+    margin: 0;
+}
+
+.resize-handle {
+    position: absolute;
+    top: 0;
+    left: -5px;
+    width: 10px;
+    height: 100%;
+    cursor: col-resize;
+    z-index: 100;
+}

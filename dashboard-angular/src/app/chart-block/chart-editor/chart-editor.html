@@ -1,0 +1,46 @@
+<mat-sidenav-container class="editor-container">
+    <mat-sidenav 
+    #editorSidenav
+    mode="side"
+    position="end"
+    [fixedInViewport]="true"
+    [style.width.px]="width"
+    [opened]="opened"
+    class="editor-sidenav">
+    
+    <div class="editor-content">
+        <div class="editor-header">
+        <h3>Настройки графика</h3>
+        <button mat-icon-button (click)="close.emit()">
+            <mat-icon>close</mat-icon>
+        </button>
+        </div>
+        
+        <mat-form-field>
+        <mat-label>Заголовок</mat-label>
+        <input matInput [(ngModel)]="title">
+        </mat-form-field>
+        
+        <mat-form-field>
+        <mat-label>Цвет линии</mat-label>
+        <input type="color" matInput [(ngModel)]="lineColor">
+        </mat-form-field>
+        
+        <mat-slider min="1" max="10" step="1" [(ngModel)]="lineWidth">
+        <mat-label>Толщина линии</mat-label>
+        </mat-slider>
+        
+        <mat-checkbox [(ngModel)]="showGrid">Сетка</mat-checkbox>
+        <mat-checkbox [(ngModel)]="showLegend">Легенда</mat-checkbox>
+        
+        <button mat-raised-button color="primary" (click)="applyChanges()">
+        Применить
+        </button>
+    </div>
+    <div class="resize-handle" (mousedown)="startResize($event)"></div>
+    </mat-sidenav>
+    
+    <mat-sidenav-content>
+    <ng-content></ng-content>
+    </mat-sidenav-content>
+</mat-sidenav-container>
