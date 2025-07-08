@@ -5,7 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { DashboardService } from '../services/dashboard.service';
 import { Header } from '../header/header';
 import { TextBlock } from '../blocks/text-block/text-block';
-import { ChartComponent } from '../charts/chart.component';
+import { ImageBlock } from '../blocks/image-block/image-block';
+import { ChartComponent } from '../chart-block/chart/chart.component';
 
 export interface DashboardItem extends GridsterItem {
   title: string;
@@ -17,7 +18,7 @@ export interface DashboardItem extends GridsterItem {
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CommonModule, GridsterModule, FormsModule, TextBlock, ChartComponent, Header],
+  imports: [CommonModule, GridsterModule, FormsModule, TextBlock, ImageBlock, ChartComponent, Header],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })
@@ -49,6 +50,7 @@ export class Dashboard implements OnInit {
       fixedRowHeight: 40,
       scrollSensitivity: 10,
       scrollSpeed: 20,
+      dragHandleClass: 'drag-handle',
       draggable: {
         enabled: true,
       },

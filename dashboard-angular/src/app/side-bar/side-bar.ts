@@ -9,7 +9,6 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { CommonModule } from '@angular/common';
 
-
 @Component({
   selector: 'app-side-bar',
   standalone: true,
@@ -32,16 +31,22 @@ export class SideBar {
   constructor(private dashboardService: DashboardService) {
     this.dashboardService.lockStatus$.subscribe(isLocked => {
       this.isLocked = isLocked;
-  });
+    });
   }
 
-   addTextBlock() {
+  addTextBlock() {
     if (!this.isLocked) {
       this.dashboardService.addTextBlock();
     }
   }
 
-  addChart() {
+  addImageBlock() {
+    if (!this.isLocked) {
+      this.dashboardService.addImageBlock();
+    }
+  }
+
+    addChart() {
     if (!this.isLocked) {
       this.dashboardService.addChart();
     }

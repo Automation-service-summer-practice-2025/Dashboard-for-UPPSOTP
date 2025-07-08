@@ -8,10 +8,10 @@ export interface DashboardItem {
   y: number;
   x: number;
   content: string;
-  type?: 'text' | 'chart';
-  chartType?: 'bar' | 'pie' | 'line' | 'scatter';
-  data?: any;
-  file?: File | null;
+  type?: 'text' | 'image' | 'chart'; // Добавляем тип элемента
+  chartType?: 'bar' | 'pie' | 'line' | 'scatter'; // Тип графика
+  data?: any; // Данные для графика
+  file?: File | null; // Загруженный файл
   title?: string;
 }
 
@@ -41,7 +41,21 @@ export class DashboardService {
     this.dashboardItems.next([...this.dashboardItems.value, newItem]);
   }
 
-  addChart(chartType: 'bar' | 'scatter' = 'scatter') {
+  addImageBlock() {
+    const newItem: DashboardItem = {
+      id: this.getNextId(),
+      cols: 5,
+      rows: 5,
+      y: 0,
+      x: 0,
+      content: '',
+      type: "image"
+    }
+
+    this.dashboardItems.next([...this.dashboardItems.value, newItem]);
+  }
+
+    addChart(chartType: 'bar' | 'scatter' = 'scatter') {
     const newItem: DashboardItem = {
       id: this.getNextId(),
       cols: 5,
