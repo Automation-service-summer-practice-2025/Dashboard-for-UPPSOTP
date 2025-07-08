@@ -1,45 +1,28 @@
 .header {
-    background: #f5f5f5;
-    padding: 15px 0 15px 30px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+  background: #f5f5f5;
+  padding: 15px 0 15px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .btn-redirect {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    height: 40px;
-    margin-right: 40px;
-    width: 40px;
-    transition: width 0.3s ease;
-    white-space: nowrap;
-    /* padding: 0 0 0 40px; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  margin-right: 10px;
+  padding: 0 10px;
+  width: 120px;
+  transition: background-color 0.3s ease;
+  white-space: nowrap;
 }
 
 .btn-redirect mat-icon{
   flex-shrink: 0;
-  padding-left: 40px;
+  padding-left: 8px;
 }
 
 .btn-redirect .btn-text {
-  max-width: 0;
-  opacity: 0;
-  transition: opacity 0.3s ease;
   pointer-events: none;
-  overflow: hidden;
-}
-
-.btn-redirect:hover {
-  width: 120px;
-  padding-left: 0;
-  padding-right: 40px;
-  justify-content: flex-start
-}
-
-.btn-redirect:hover .btn-text {
-  opacity: 1;
-  pointer-events: auto;
 }

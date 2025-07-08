@@ -43,4 +43,8 @@ export class Header {
     if (this.isAdminPage()) this.router.navigate(['/']);
     if (this.isHomePage()) this.router.navigate(['/authorization']);
   }
+
+  save() {
+    console.log('Данные сохранены!');
+  }
 }
