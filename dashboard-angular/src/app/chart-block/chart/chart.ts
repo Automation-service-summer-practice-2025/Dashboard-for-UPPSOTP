@@ -1,12 +1,12 @@
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BaseChartDirective } from 'ng2-charts';
-import { ChartUploadComponent } from '../chart-upload/chart-upload.component';
+import { ChartUploadComponent } from '../chart-upload/chart-upload';
 import { ChartOptions } from 'chart.js';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import { ChartEditorComponent } from '../chart-editor/chart-editor.component';
+import { ChartEditorComponent } from '../chart-editor/chart-editor';
 
 @Component({
   selector: 'app-chart',
@@ -15,7 +15,6 @@ import { ChartEditorComponent } from '../chart-editor/chart-editor.component';
   templateUrl: './chart.html',
   styleUrls: ['./chart.css'] 
 })
-
 
 export class ChartComponent {
   @Input() chartType: string = '';

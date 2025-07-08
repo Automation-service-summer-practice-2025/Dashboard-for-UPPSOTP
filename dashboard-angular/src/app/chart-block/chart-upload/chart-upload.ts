@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
-import { ChartUploadDialogComponent } from '../chart-upload-dialog/chart-upload-dialog.component'
+import { ChartUploadDialogComponent } from '../chart-upload-dialog/chart-upload-dialog'
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
