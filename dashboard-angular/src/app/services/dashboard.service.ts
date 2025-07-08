@@ -55,7 +55,7 @@ export class DashboardService {
     this.dashboardItems.next([...this.dashboardItems.value, newItem]);
   }
 
-    addChart() {
+  addChart() {
     const newItem: DashboardItem = {
       id: this.getNextId(),
       cols: 5,

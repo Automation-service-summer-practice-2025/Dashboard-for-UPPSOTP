@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, HostListener } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -27,7 +27,6 @@ import { CommonModule } from '@angular/common';
 })
 export class SideBar {
   isLocked = false;
-  // sidenavWidth = 300;
   width = 300;
   private resizing = false;
   private lastDownX = 0;
