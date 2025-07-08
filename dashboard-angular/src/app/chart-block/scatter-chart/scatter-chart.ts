@@ -5,7 +5,6 @@ import { ChartOptions } from 'chart.js';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import { ChartEditorComponent } from '../chart-editor/chart-editor';
 import { ScatterUploadComponent } from './scatter-upload';
 
 @Component({
@@ -18,7 +17,6 @@ import { ScatterUploadComponent } from './scatter-upload';
     MatIconModule, 
     FormsModule, 
     MatInputModule, 
-    ChartEditorComponent
   ],
   templateUrl: './scatter-chart.html',
   styleUrls: ['./scatter-chart.css']

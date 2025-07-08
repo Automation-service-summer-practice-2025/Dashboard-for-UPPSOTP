@@ -6,7 +6,8 @@ import { DashboardService } from '../services/dashboard.service';
 import { Header } from '../header/header';
 import { TextBlock } from '../blocks/text-block/text-block';
 import { ImageBlock } from '../blocks/image-block/image-block';
-import { ChartComponent } from '../chart-block/chart/chart';
+import { ScatterChartComponent } from '../chart-block/scatter-chart/scatter-chart';
+import { HistogramChartComponent } from '../chart-block/histogram-chart/histogram-chart';
 
 export interface DashboardItem extends GridsterItem {
   title: string;
@@ -18,10 +19,20 @@ export interface DashboardItem extends GridsterItem {
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CommonModule, GridsterModule, FormsModule, TextBlock, ImageBlock, ChartComponent, Header],
+  imports: [
+    CommonModule, 
+    GridsterModule, 
+    FormsModule, 
+    TextBlock, 
+    ImageBlock, 
+    Header,
+    ScatterChartComponent,
+    HistogramChartComponent
+  ],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })
+
 export class Dashboard implements OnInit {
   options: GridsterConfig = {};
   dashboard: any[] = [];

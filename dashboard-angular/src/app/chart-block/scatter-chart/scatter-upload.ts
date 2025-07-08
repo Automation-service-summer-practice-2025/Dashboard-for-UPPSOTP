@@ -9,8 +9,8 @@ import { MatIconModule } from '@angular/material/icon';
   selector: 'app-scatter-upload',
   standalone: true,
   imports: [CommonModule, MatButtonModule, MatIconModule],
-  template: '',
-  styles: ''
+  templateUrl: './scatter-upload.html',
+  styleUrls: ['./scatter-upload.css']
 })
 export class ScatterUploadComponent {
   @Output() fileLoaded = new EventEmitter<{data: any, title: string}>();

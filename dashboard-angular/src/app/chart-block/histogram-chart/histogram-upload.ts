@@ -9,8 +9,8 @@ import { MatIconModule } from '@angular/material/icon';
   selector: 'app-histogram-upload',
   standalone: true,
   imports: [CommonModule, MatButtonModule, MatIconModule],
-  template:``,
-  styles: ''
+  templateUrl: './histogram-upload.html',
+  styleUrls: ['./histogram-upload.css']
 })
 export class HistogramUploadComponent {
   @Output() fileLoaded = new EventEmitter<{data: any, title: string}>();

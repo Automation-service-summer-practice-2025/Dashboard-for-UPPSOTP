@@ -5,7 +5,6 @@ import { ChartOptions } from 'chart.js';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import { ChartEditorComponent } from '../chart-editor/chart-editor';
 import { HistogramUploadComponent } from './histogram-upload';
 
 @Component({
@@ -18,7 +17,6 @@ import { HistogramUploadComponent } from './histogram-upload';
     MatIconModule, 
     FormsModule, 
     MatInputModule, 
-    ChartEditorComponent
   ],
   templateUrl: './histogram-chart.html',
   styleUrls: ['./histogram-chart.css']
