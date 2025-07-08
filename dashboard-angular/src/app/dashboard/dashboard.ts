@@ -6,7 +6,7 @@ import { DashboardService } from '../services/dashboard.service';
 import { Header } from '../header/header';
 import { TextBlock } from '../blocks/text-block/text-block';
 import { ImageBlock } from '../blocks/image-block/image-block';
-import { ChartComponent } from '../chart-block/chart/chart.component';
+import { ChartComponent } from '../chart-block/chart/chart';
 
 export interface DashboardItem extends GridsterItem {
   title: string;
