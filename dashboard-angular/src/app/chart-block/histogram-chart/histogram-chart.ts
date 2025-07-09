@@ -24,7 +24,7 @@ import { HistogramUploadComponent } from './histogram-upload';
 export class HistogramChartComponent {
   @Input() data: any = null;
   @Input() isLocked: boolean = false;
-  title: string = 'Гистограмма';
+  title: string = '';
   showEditor = false;
   
   editorWidth = 300;

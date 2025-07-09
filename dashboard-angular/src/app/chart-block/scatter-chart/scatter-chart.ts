@@ -24,7 +24,7 @@ import { ScatterUploadComponent } from './scatter-upload';
 export class ScatterChartComponent {
   @Input() data: any = null;
   @Input() isLocked: boolean = false;
-  title: string = 'Точечный график';
+  title: string = '';
   showEditor = false;
   
   editorWidth = 300;

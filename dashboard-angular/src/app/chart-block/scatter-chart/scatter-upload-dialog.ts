@@ -23,7 +23,7 @@ import { MatSelectModule } from '@angular/material/select';
   styleUrls: ['./scatter-upload-dialog.css']
 })
 export class ScatterUploadDialogComponent {
-  title = 'Новый график';
+  title = '';
   selectedFile: File | null = null;
   headers: string[] = [];
   selectedXAxis: string = '';

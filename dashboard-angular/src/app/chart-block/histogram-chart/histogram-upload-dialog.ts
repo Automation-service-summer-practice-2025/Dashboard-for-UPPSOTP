@@ -23,7 +23,7 @@ import { MatSelectModule } from '@angular/material/select';
   styleUrls: ['./histogram-upload-dialog.css']
 })
 export class HistogramUploadDialogComponent {
-  title = 'Новый график';
+  title = '';
   selectedFile: File | null = null;
   headers: string[] = [];
   selectedColumn: string = '';

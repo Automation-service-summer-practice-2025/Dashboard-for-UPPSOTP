@@ -58,11 +58,11 @@ export class DashboardService {
     addChart(chartType: 'bar' | 'scatter' = 'scatter') {
     const newItem: DashboardItem = {
       id: this.getNextId(),
-      cols: 5,
-      rows: 5,
+      cols: 17.5,
+      rows: 7.5,
       y: 0,
       x: 0,
-      title: 'Новый график',
+      title: '',
       content: '',
       type: 'chart',
       chartType: chartType,
