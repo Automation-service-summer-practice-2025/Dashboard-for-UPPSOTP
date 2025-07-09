@@ -49,7 +49,7 @@ export class SideBar {
     }
   }
 
-    addChart() {
+  addChart() {
     if (!this.isLocked) {
       this.dashboardService.addChart();
     }
@@ -76,7 +76,7 @@ export class SideBar {
       return;
     }
     const dx = event.clientX - this.lastDownX;
-    this.width = Math.min(Math.max(this.width + dx, 200), 600); // ограничение ширины от 200 до 600px
+    this.width = Math.min(Math.max(this.width + dx, 200), 600);
     this.lastDownX = event.clientX;
   }
 

@@ -41,7 +41,7 @@
   top: 10px;
   z-index: 2;
   background: white;
-  transition: left 0.1s ease;
+  transition: left 0s ease;
   border: 1px solid #ddd;
 }
 
