@@ -1,0 +1,16 @@
+.w-full { 
+  width: 100%;
+  margin-top: 16px;
+}
+
+.file-info { 
+  margin-top: 16px; 
+  color: #666;
+}
+
+mat-dialog-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}

@@ -38,12 +38,16 @@
           <mat-icon>image</mat-icon>
           Картинка
         </button>
-        
-        <button mat-raised-button class="constructor-button" (click)="addChart()" [disabled]="isLocked">
-          <mat-icon>bar_chart</mat-icon>
-          Добавить график
-        </button>
 
+        <button mat-raised-button class="constructor-button" (click)="addScatterChart()" [disabled]="isLocked">
+          <mat-icon>scatter_plot</mat-icon>
+          Точечный график
+        </button>
+  
+        <button mat-raised-button class="constructor-button" (click)="addHistogramChart()" [disabled]="isLocked">
+          <mat-icon>bar_chart</mat-icon>
+          Гистограмма
+        </button>
       </div>
     </div>
   </mat-sidenav>
