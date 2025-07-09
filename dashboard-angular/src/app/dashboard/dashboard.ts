@@ -6,8 +6,8 @@ import { DashboardService } from '../services/dashboard.service';
 import { Header } from '../header/header';
 import { TextBlock } from '../blocks/text-block/text-block';
 import { ImageBlock } from '../blocks/image-block/image-block';
-import { ScatterChartComponent } from '../chart-block/scatter-chart/scatter-chart';
-import { HistogramChartComponent } from '../chart-block/histogram-chart/histogram-chart';
+import { ScatterChartComponent } from '../blocks/chart-block/scatter-chart/scatter-chart';
+import { HistogramChartComponent } from '../blocks/chart-block/histogram-chart/histogram-chart';
 
 export interface DashboardItem extends GridsterItem {
   title: string;
