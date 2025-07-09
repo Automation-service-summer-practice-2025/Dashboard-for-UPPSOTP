@@ -1,0 +1,21 @@
+<div class="chart-container">
+  <div class="chart-header">
+    <h3>{{title}}</h3>
+  </div>
+    
+  <div class="chart-content">
+    <div class="chart-wrapper" *ngIf="data; else uploadTemplate">
+      <canvas baseChart
+          [data]="data"
+          [options]="chartOptions"
+          type="bar">
+      </canvas>
+    </div>
+    <ng-template #uploadTemplate>
+      <app-histogram-upload 
+          (fileLoaded)="onDataLoaded($event)" 
+          [isLocked]="isLocked">
+      </app-histogram-upload>
+    </ng-template>
+  </div>
+</div>

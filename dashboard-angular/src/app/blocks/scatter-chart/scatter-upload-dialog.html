@@ -1,0 +1,43 @@
+<h2 mat-dialog-title>Загрузка данных для точечного графика</h2>
+<mat-dialog-content>
+  <mat-form-field appearance="outline" class="w-full">
+    <mat-label>Название графика</mat-label>
+    <input matInput [(ngModel)]="title">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="w-full" *ngIf="headers.length > 0">
+    <mat-label>Ось X</mat-label>
+    <mat-select [(ngModel)]="selectedXAxis">
+      <mat-option *ngFor="let header of headers" [value]="header">
+        {{header}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  
+  <mat-form-field appearance="outline" class="w-full" *ngIf="headers.length > 0">
+    <mat-label>Ось Y</mat-label>
+    <mat-select [(ngModel)]="selectedYAxis">
+      <mat-option *ngFor="let header of headers" [value]="header">
+        {{header}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <input type="file" #fileInput accept=".csv" (change)="onFileSelected($event)" hidden>
+  <button mat-raised-button color="primary" (click)="fileInput.click()">
+    <mat-icon>attach_file</mat-icon>
+    Выбрать CSV файл
+  </button>
+  
+  <div *ngIf="selectedFile" class="file-info">
+    <div>Выбран файл: {{selectedFile.name}}</div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Отмена</button>
+  <button mat-raised-button color="primary" 
+          [disabled]="!selectedFile || !selectedXAxis || !selectedYAxis" 
+          (click)="onUpload()">
+    Загрузить
+  </button>
+</mat-dialog-actions>

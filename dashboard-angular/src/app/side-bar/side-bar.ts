@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -27,6 +27,9 @@ import { CommonModule } from '@angular/common';
 })
 export class SideBar {
   isLocked = false;
+  
+  @Output() addScatter = new EventEmitter<void>();
+  @Output() addHistogram = new EventEmitter<void>();
 
   constructor(private dashboardService: DashboardService) {
     this.dashboardService.lockStatus$.subscribe(isLocked => {
@@ -46,9 +49,15 @@ export class SideBar {
     }
   }
 
-    addChart() {
+  addScatterChart() {
     if (!this.isLocked) {
-      this.dashboardService.addChart();
+      this.dashboardService.addChart('scatter');
+    }
+  }
+
+  addHistogramChart() {
+    if (!this.isLocked) {
+      this.dashboardService.addChart('bar');
     }
   }
 
