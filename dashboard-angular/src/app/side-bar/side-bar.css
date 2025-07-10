@@ -46,12 +46,13 @@
 }
 
 .sidebar-content {
-  padding: 20px;
+  padding: 10px;
   background: #f5f5f5;
   height: 100%;
   -ms-overflow-style: none;
   display: flex;
   flex-direction: column;
+  text-align: center;
 }
 
 .user-block {
@@ -59,6 +60,7 @@
   align-items: center;
   margin-bottom: 20px;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
 .user-role {
@@ -89,18 +91,21 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  align-items: center;
 }
 
 .constructor-button {
-  text-align: left;
-  justify-content: flex-start;
-  padding-left: 20px;
+  text-align: center;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+  padding-left: 0 20px;
 }
 
 .constructor-button mat-icon {
-  margin-right: 12px;
   color: #6200ea;
-  margin-left: 8px;
+  position: absolute;
+  left: 20px;
 }
 
 .resize-handle {
