@@ -61,22 +61,11 @@
   overflow: hidden;
 }
 
-/* Для редактора */
-.editor-container {
-  height: 100%;
-  width: 100%;
-}
-
-.editor-sidenav {
-  background: #f5f5f5;
-  border-left: 1px solid #ddd;
-}
-
 .action-button:hover {
   background-color: rgba(255, 255, 255, 0.6);
 }
 
-.drag-handle {
+.drag-handle-btn {
   cursor: move;
 }
 
