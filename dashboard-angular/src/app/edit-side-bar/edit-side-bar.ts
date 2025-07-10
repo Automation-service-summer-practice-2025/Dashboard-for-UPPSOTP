@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output, HostListener } from '@angular/core';
-import { DashboardItem } from '../services/dashboard.service'
+import { DashboardItem } from '../models/dashboard-item.model'
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatSidenavModule } from '@angular/material/sidenav';
