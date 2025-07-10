@@ -7,7 +7,6 @@
   transform: scale(calc(var(--zoom-level, 100) / 100));
   transition: transform 0.2s ease, width 0.2s ease, height 0.2s ease;
   overflow: auto;
-  /* min-height: 1200px; */
 }
 
 .gridster-item {
@@ -56,7 +55,6 @@
   transition: background-color 0.3s ease;
 }
 
-/* Для контейнера графика */
 .chart-container {
   height: 100%;
   display: flex;
