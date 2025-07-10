@@ -8,13 +8,15 @@
     class="no-scroll">
     <div class="sidebar-content">
       <div class="user-block">
-        <mat-icon class="user-icon">account_circle</mat-icon>
-        <div class="user-role">Админ</div>
+        <div class="user-role">
+          <mat-icon>account_circle</mat-icon>
+          <a>Админ</a>
+        </div>
         <mat-button-toggle-group
           [value]="isLocked ? 'locked' : 'edit'"
           (change)="onToggleMode($event)"
           exclusive
-          class="lock-toggle-group small-toggle">
+          class="lock-toggle-group">
           <mat-button-toggle value="locked" aria-label="Только просмотр">
             <mat-icon>visibility</mat-icon>
           </mat-button-toggle>
