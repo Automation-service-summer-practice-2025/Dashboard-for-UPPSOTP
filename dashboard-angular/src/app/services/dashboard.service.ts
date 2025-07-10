@@ -26,12 +26,6 @@ export class DashboardService {
   private lockStatus = new BehaviorSubject<boolean>(false);
   lockStatus$ = this.lockStatus.asObservable();
 
-  private zoomLevel = new BehaviorSubject<number>(100);
-  zoomLevel$ = this.zoomLevel.asObservable();
-  private readonly minZoom = 50;
-  private readonly maxZoom = 200;
-  private readonly zoomStep = 10;
-
   constructor() {}
 
   addTextBlock() {
@@ -92,27 +86,6 @@ export class DashboardService {
 
   isLocked(): boolean {
     return this.lockStatus.value;
-  }
-
-  setZoom(level: number): void {
-    const newLevel = Math.max(this.minZoom, Math.min(this.maxZoom, level));
-    this.zoomLevel.next(newLevel);
-  }
-
-  zoomIn(): void {
-    this.setZoom(this.zoomLevel.value + this.zoomStep);
-  }
-
-  zoomOut(): void {
-    this.setZoom(this.zoomLevel.value - this.zoomStep);
-  }
-
-  resetZoom(): void {
-    this.setZoom(100);
-  }
-
-  getCurrentZoom(): number {
-    return this.zoomLevel.value;
   }
 
   private getNextId(): number {
