@@ -4,7 +4,7 @@
 
     <div *ngIf="!isLocked" class="action-buttons">
       <div
-        class="action-button drag-handle"
+        class="action-button drag-handle-btn"
         title="Переместить">
         ☰
       </div>
@@ -21,30 +21,24 @@
       <app-text-block
         *ngIf="item.type === 'text'"
         [item]="item"
-        [isLocked]="isLocked"
-        (onRemove)="removeItem($event)">
+        [isLocked]="isLocked">
       </app-text-block>
 
       <app-image-block
         *ngIf="item.type === 'image'"
         [item]="item"
-        [isLocked]="isLocked"
-        (onRemove)="removeItem($event)">
+        [isLocked]="isLocked">
       </app-image-block>
 
-      <div *ngIf="item.type === 'chart'" class="chart-container">
-        <app-scatter-chart 
-          *ngIf="item.chartType === 'scatter'"
-          [data]="item.data"
-          [isLocked]="isLocked">
-        </app-scatter-chart>
+      <app-scatter-chart 
+        *ngIf="item.type === 'scatter-chart'"
+        [isLocked]="isLocked">
+      </app-scatter-chart>
         
-        <app-histogram-chart 
-          *ngIf="item.chartType === 'bar'"
-          [data]="item.data"
-          [isLocked]="isLocked">
-        </app-histogram-chart>
-      </div>
+      <app-bar-chart 
+        *ngIf="item.type === 'bar-chart'"
+        [isLocked]="isLocked">
+      </app-bar-chart>
     </div>
   </gridster-item>
 </gridster>

@@ -1,21 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { GridsterConfig, GridsterItem, GridsterModule } from 'angular-gridster2';
+import { GridsterConfig, GridsterModule } from 'angular-gridster2';
 import { FormsModule } from '@angular/forms';
 import { DashboardService } from '../services/dashboard.service';
 import { Header } from '../header/header';
 import { TextBlock } from '../blocks/text-block/text-block';
 import { ImageBlock } from '../blocks/image-block/image-block';
-import { ScatterChartComponent } from '../blocks/scatter-chart/scatter-chart';
-import { HistogramChartComponent } from '../blocks/histogram-chart/histogram-chart';
-
-export interface DashboardItem extends GridsterItem {
-  title: string;
-  content: string;
-  id: number;
-  isEditingTitle?: boolean;
-  isEditingContent?: boolean;
-}
+import { ScatterChart } from '../blocks/scatter-chart/scatter-chart';
+import { BarChart } from '../blocks/bar-chart/bar-chart';
+import { DashboardItem } from '../models/dashboard-item.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -26,8 +19,8 @@ export interface DashboardItem extends GridsterItem {
     TextBlock, 
     ImageBlock, 
     Header,
-    ScatterChartComponent,
-    HistogramChartComponent
+    ScatterChart,
+    BarChart
   ],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
@@ -35,7 +28,7 @@ export interface DashboardItem extends GridsterItem {
 
 export class Dashboard implements OnInit {
   options: GridsterConfig = {};
-  dashboard: any[] = [];
+  dashboard: DashboardItem[] = [];
   isLocked = false;
 
   constructor(private dashboardService: DashboardService) {
@@ -78,7 +71,7 @@ export class Dashboard implements OnInit {
       this.dashboard = items;
     });
     
-      this.updateGridDisplay();
+    this.updateGridDisplay();
   }
 
   removeItem(item: DashboardItem): void {
