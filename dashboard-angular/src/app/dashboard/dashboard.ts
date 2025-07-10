@@ -8,14 +8,7 @@ import { TextBlock } from '../blocks/text-block/text-block';
 import { ImageBlock } from '../blocks/image-block/image-block';
 import { ScatterChartComponent } from '../blocks/scatter-chart/scatter-chart';
 import { HistogramChartComponent } from '../blocks/histogram-chart/histogram-chart';
-
-export interface DashboardItem extends GridsterItem {
-  title: string;
-  content: string;
-  id: number;
-  isEditingTitle?: boolean;
-  isEditingContent?: boolean;
-}
+import { DashboardItem } from '../services/dashboard.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -35,7 +28,7 @@ export interface DashboardItem extends GridsterItem {
 
 export class Dashboard implements OnInit {
   options: GridsterConfig = {};
-  dashboard: any[] = [];
+  dashboard: DashboardItem[] = [];
   isLocked = false;
 
   constructor(private dashboardService: DashboardService) {
