@@ -51,13 +51,13 @@ export class SideBar {
 
   addScatterChart() {
     if (!this.isLocked) {
-      this.dashboardService.addChart('scatter');
+      this.dashboardService.addScatterChart();
     }
   }
 
   addHistogramChart() {
     if (!this.isLocked) {
-      this.dashboardService.addChart('bar');
+      this.dashboardService.addBarChart();
     }
   }
 

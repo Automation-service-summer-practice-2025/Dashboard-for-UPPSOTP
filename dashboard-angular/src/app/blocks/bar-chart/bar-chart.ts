@@ -5,23 +5,23 @@ import { ChartOptions } from 'chart.js';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import { HistogramUploadComponent } from './histogram-upload';
+import { BarUpload } from './bar-upload';
 
 @Component({
-  selector: 'app-histogram-chart',
+  selector: 'app-bar-chart',
   standalone: true,
   imports: [
     CommonModule, 
     BaseChartDirective, 
-    HistogramUploadComponent, 
+    BarUpload, 
     MatIconModule, 
     FormsModule, 
     MatInputModule, 
   ],
-  templateUrl: './histogram-chart.html',
-  styleUrls: ['./histogram-chart.css']
+  templateUrl: './bar-chart.html',
+  styleUrls: ['./bar-chart.css']
 })
-export class HistogramChartComponent {
+export class BarChart {
   @Input() data: any = null;
   @Input() isLocked: boolean = false;
   title: string = '';

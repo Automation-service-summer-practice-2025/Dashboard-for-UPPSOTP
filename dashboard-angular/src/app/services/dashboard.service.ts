@@ -1,25 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import * as Dashboard from '../models/dashboard-item.model';
 
-export interface DashboardItem {
-  id: number;
-  cols: number;
-  rows: number;
-  y: number;
-  x: number;
-  content: string;
-  type?: 'text' | 'image' | 'chart';
-  chartType?: 'bar' | 'pie' | 'line' | 'scatter';
-  data?: any;
-  file?: File | null;
-  title?: string;
-}
 
 @Injectable({
   providedIn: 'root'
 })
 export class DashboardService {
-  private dashboardItems = new BehaviorSubject<DashboardItem[]>([]);
+  private dashboardItems = new BehaviorSubject<Dashboard.DashboardItem[]>([]);
   dashboardItems$ = this.dashboardItems.asObservable();
   private itemIdCounter = 0;
 
@@ -29,55 +17,27 @@ export class DashboardService {
   constructor() {}
 
   addTextBlock() {
-    const newItem: DashboardItem = {
-      id: this.getNextId(),
-      cols: 5,
-      rows: 5,
-      y: 0,
-      x: 0,
-      content: 'Текстовый блок',
-      type: "text",
-    };
+    const newItem = new Dashboard.TextItem();
+    newItem.id = this.getNextId();
     this.dashboardItems.next([...this.dashboardItems.value, newItem]);
   }
 
   addImageBlock() {
-    const newItem: DashboardItem = {
-      id: this.getNextId(),
-      cols: 5,
-      rows: 5,
-      y: 0,
-      x: 0,
-      content: '',
-      type: "image"
-    }
+    const newItem = new Dashboard.ImageItem();
+    newItem.id = this.getNextId();
     this.dashboardItems.next([...this.dashboardItems.value, newItem]);
   }
 
-  addChart(chartType: 'bar' | 'scatter' = 'scatter') {
-    const newItem: DashboardItem = {
-      id: this.getNextId(),
-      cols: 17,
-      rows: 7,
-      y: 0,
-      x: 0,
-      title: '',
-      content: '',
-      type: 'chart',
-      chartType: chartType,
-      data: null,
-      file: null
-    };
+  addScatterChart() {
+    const newItem = new Dashboard.ScatterItem();
+    newItem.id = this.getNextId();
     this.dashboardItems.next([...this.dashboardItems.value, newItem]);
   }
 
-  updateItem(item: DashboardItem) {
-    const items = this.dashboardItems.value;
-    const index = items.findIndex(i => i.id === item.id);
-    if (index !== -1) {
-      items[index] = item;
-      this.dashboardItems.next([...items]);
-    }
+  addBarChart() {
+    const newItem = new Dashboard.BarItem();
+    newItem.id = this.getNextId();
+    this.dashboardItems.next([...this.dashboardItems.value, newItem]);
   }
 
   toggleLock(isLocked: boolean) {

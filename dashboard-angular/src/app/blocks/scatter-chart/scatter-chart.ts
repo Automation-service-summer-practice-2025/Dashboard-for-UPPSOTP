@@ -21,7 +21,7 @@ import { ScatterUploadComponent } from './scatter-upload';
   templateUrl: './scatter-chart.html',
   styleUrls: ['./scatter-chart.css']
 })
-export class ScatterChartComponent {
+export class ScatterChart {
   @Input() data: any = null;
   @Input() isLocked: boolean = false;
   title: string = '';
