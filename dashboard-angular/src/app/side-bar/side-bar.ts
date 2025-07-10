@@ -69,17 +69,4 @@ export class SideBar {
     this.isLocked = event.value === 'locked';
     this.dashboardService.toggleLock(this.isLocked);
   }
-
-    // Методы зума
-  zoomIn() {
-    this.dashboardService.zoomIn();
-  }
-
-  zoomOut() {
-    this.dashboardService.zoomOut();
-  }
-
-  get zoomLevel$() {
-    return this.dashboardService.zoomLevel$;
-  }
 }

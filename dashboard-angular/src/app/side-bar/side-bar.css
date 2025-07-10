@@ -102,19 +102,3 @@
   color: #6200ea;
   margin-left: 8px;
 }
-
-.zoom-controls {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px;
-  background: white;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  margin-top: 16px;
-}
-
-.zoom-controls span {
-  min-width: 40px;
-  text-align: center;
-}

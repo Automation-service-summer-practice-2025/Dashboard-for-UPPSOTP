@@ -34,7 +34,6 @@ export class DashboardService {
 
   constructor() {}
 
-  // Методы для работы с элементами дашборда
   addTextBlock() {
     const newItem: DashboardItem = {
       id: this.getNextId(),
@@ -87,7 +86,6 @@ export class DashboardService {
     }
   }
 
-  // Методы для блокировки/разблокировки
   toggleLock(isLocked: boolean) {
     this.lockStatus.next(isLocked);
   }
@@ -117,7 +115,6 @@ export class DashboardService {
     return this.zoomLevel.value;
   }
 
-  // Вспомогательные методы
   private getNextId(): number {
     return ++this.itemIdCounter;
   }

@@ -8,6 +8,7 @@ import { TextBlock } from '../blocks/text-block/text-block';
 import { ImageBlock } from '../blocks/image-block/image-block';
 import { ScatterChartComponent } from '../blocks/scatter-chart/scatter-chart';
 import { HistogramChartComponent } from '../blocks/histogram-chart/histogram-chart';
+import { MatIconModule } from "@angular/material/icon";
 
 export interface DashboardItem extends GridsterItem {
   title: string;
@@ -20,15 +21,16 @@ export interface DashboardItem extends GridsterItem {
 @Component({
   selector: 'app-dashboard',
   imports: [
-    CommonModule, 
-    GridsterModule, 
-    FormsModule, 
-    TextBlock, 
-    ImageBlock, 
+    CommonModule,
+    GridsterModule,
+    FormsModule,
+    TextBlock,
+    ImageBlock,
     Header,
     ScatterChartComponent,
-    HistogramChartComponent
-  ],
+    HistogramChartComponent,
+    MatIconModule
+],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })
@@ -37,10 +39,10 @@ export class Dashboard implements OnInit {
   options: GridsterConfig = {};
   dashboard: any[] = [];
   isLocked = false;
-  zoomLevel: number = 100; // Начальный уровень зума 100%
-  minZoom: number = 50;    // Минимальный зум 50%
-  maxZoom: number = 200;   // Максимальный зум 200%
-  zoomStep: number = 10;   // Шаг изменения зума
+  zoomLevel: number = 100;
+  minZoom: number = 50;
+  maxZoom: number = 200;
+  zoomStep: number = 10;
 
   constructor(private dashboardService: DashboardService) {
     this.dashboardService.lockStatus$.subscribe(isLocked => {
@@ -129,10 +131,8 @@ export class Dashboard implements OnInit {
   }
 
   private updateZoom(): void {
-    // Обновляем CSS переменную
     document.documentElement.style.setProperty('--zoom-level', this.zoomLevel.toString());
     
-    // Обновляем размеры ячеек
     this.options.fixedColWidth = 40 * (this.zoomLevel / 100);
     this.options.fixedRowHeight = 40 * (this.zoomLevel / 100);
     
@@ -158,4 +158,3 @@ export class Dashboard implements OnInit {
     }
   }
 }
-
