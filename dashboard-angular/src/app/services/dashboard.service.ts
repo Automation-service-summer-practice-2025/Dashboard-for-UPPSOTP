@@ -28,15 +28,14 @@ export class DashboardService {
     this.dashboardItems.next([...this.dashboardItems.value, newItem]);
   }
 
-  addChart(chartType: 'bar' | 'scatter' = 'scatter') {
-    let newItem: Dashboard.ChartItem;
+  addScatterChart() {
+    const newItem = new Dashboard.ScatterItem();
+    newItem.id = this.getNextId();
+    this.dashboardItems.next([...this.dashboardItems.value, newItem]);
+  }
 
-    if (chartType === 'scatter') {
-      newItem = new Dashboard.ScatterItem();
-    } else {
-      newItem = new Dashboard.BarItem();
-    }
-
+  addBarChart() {
+    const newItem = new Dashboard.BarItem();
     newItem.id = this.getNextId();
     this.dashboardItems.next([...this.dashboardItems.value, newItem]);
   }
