@@ -12,7 +12,6 @@ export interface HasTitle {
 }
 
 export interface ChartItem extends DashboardItem {
-    chartType: string;
     data?: any;
     file?: File | null;
 }
@@ -39,25 +38,23 @@ export class TextItem implements DashboardItem {
 
 export class ScatterItem implements ChartItem, HasTitle {
     id: number = 0;
-    type: string = 'chart';
+    type: string = 'scatter-chart';
     x: number = 0;
     y: number = 0;
     rows: number = 7;
     cols: number = 17;
-    chartType: string = 'scatter';
     data?: any;
     file?: File | null;
     title?: string;
 }
 
-export class HistogramItem implements ChartItem, HasTitle {
+export class BarItem implements ChartItem, HasTitle {
     id: number = 0;
-    type: string = 'chart';
+    type: string = 'bar-chart';
     x: number = 0;
     y: number = 0;
     rows: number = 7;
     cols: number = 17;
-    chartType: string = 'histogram';
     data?: any;
     file?: File | null;
     title?: string;

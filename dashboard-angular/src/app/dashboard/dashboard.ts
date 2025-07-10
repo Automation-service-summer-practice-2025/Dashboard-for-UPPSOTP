@@ -7,7 +7,7 @@ import { Header } from '../header/header';
 import { TextBlock } from '../blocks/text-block/text-block';
 import { ImageBlock } from '../blocks/image-block/image-block';
 import { ScatterChart } from '../blocks/scatter-chart/scatter-chart';
-import { HistogramChart } from '../blocks/histogram-chart/histogram-chart';
+import { BarChart } from '../blocks/bar-chart/bar-chart';
 import { DashboardItem } from '../models/dashboard-item.model';
 
 @Component({
@@ -20,7 +20,7 @@ import { DashboardItem } from '../models/dashboard-item.model';
     ImageBlock, 
     Header,
     ScatterChart,
-    HistogramChart
+    BarChart
   ],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'

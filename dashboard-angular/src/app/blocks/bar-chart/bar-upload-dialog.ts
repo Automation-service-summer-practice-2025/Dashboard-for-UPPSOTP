@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 
 @Component({
-  selector: 'app-histogram-upload-dialog',
+  selector: 'app-bar-upload-dialog',
   standalone: true,
   imports: [
     CommonModule,
@@ -19,16 +19,16 @@ import { MatSelectModule } from '@angular/material/select';
     MatIconModule,
     MatSelectModule
   ],
-  templateUrl: './histogram-upload-dialog.html',
-  styleUrls: ['./histogram-upload-dialog.css']
+  templateUrl: './bar-upload-dialog.html',
+  styleUrls: ['./bar-upload-dialog.css']
 })
-export class HistogramUploadDialogComponent {
+export class BarUploadDialog {
   title = '';
   selectedFile: File | null = null;
   headers: string[] = [];
   selectedColumn: string = '';
 
-  constructor(private dialogRef: MatDialogRef<HistogramUploadDialogComponent>) {}
+  constructor(private dialogRef: MatDialogRef<BarUploadDialog>) {}
 
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
