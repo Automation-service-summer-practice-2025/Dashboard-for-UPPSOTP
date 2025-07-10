@@ -21,7 +21,10 @@
       <ng-container *ngIf="currentItem?.type === 'text'">
         <mat-form-field>
           <mat-label>Текст</mat-label>
-          <!-- <textarea matInput [(ngModel)]="currentItem?.content"></textarea> -->
+          <textarea matInput
+            [value]="getContent()"
+            (input)="updateProperty('content', $any($event).target.value)">
+          </textarea>
         </mat-form-field>
 
         <mat-form-field>

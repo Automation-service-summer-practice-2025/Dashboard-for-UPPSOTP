@@ -1,5 +1,8 @@
 import { Component, EventEmitter, Input, Output, HostListener } from '@angular/core';
-import { DashboardItem } from '../models/dashboard-item.model'
+import {
+  DashboardItem,
+  TextItem
+ } from '../models/dashboard-item.model'
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -38,6 +41,30 @@ export class EditSideBar {
   width = 300;
   private resizing = false;
   private lastDownX = 0;
+
+  // Обновление любого свойства элемента
+  updateProperty(property: string, value: any): void {
+    if (this.currentItem) {
+      (this.currentItem as any)[property] = value;
+    }
+  }
+
+  getContent(): string {
+    return this.isTextItem() ? (this.currentItem as TextItem).content || '' : '';
+  }
+
+  // Проверка типа элемента
+  isTextItem(): boolean {
+    return this.currentItem?.type === 'text';
+  }
+
+  isImageItem(): boolean {
+    return this.currentItem?.type === 'image';
+  }
+
+  isChartItem(): boolean {
+    return ['chart', 'bar-chart', 'scatter-chart'].includes(this.currentItem?.type || '');
+  }
 
   close() {
     this.closed.emit();
