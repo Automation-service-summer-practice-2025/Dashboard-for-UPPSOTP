@@ -21,7 +21,7 @@ import { HistogramUploadComponent } from './histogram-upload';
   templateUrl: './histogram-chart.html',
   styleUrls: ['./histogram-chart.css']
 })
-export class HistogramChartComponent {
+export class HistogramChart {
   @Input() data: any = null;
   @Input() isLocked: boolean = false;
   title: string = '';

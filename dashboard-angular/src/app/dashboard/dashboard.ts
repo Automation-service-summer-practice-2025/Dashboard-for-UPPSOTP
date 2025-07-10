@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { GridsterConfig, GridsterItem, GridsterModule } from 'angular-gridster2';
+import { GridsterConfig, GridsterModule } from 'angular-gridster2';
 import { FormsModule } from '@angular/forms';
 import { DashboardService } from '../services/dashboard.service';
 import { Header } from '../header/header';
 import { TextBlock } from '../blocks/text-block/text-block';
 import { ImageBlock } from '../blocks/image-block/image-block';
-import { ScatterChartComponent } from '../blocks/scatter-chart/scatter-chart';
-import { HistogramChartComponent } from '../blocks/histogram-chart/histogram-chart';
+import { ScatterChart } from '../blocks/scatter-chart/scatter-chart';
+import { HistogramChart } from '../blocks/histogram-chart/histogram-chart';
 import { DashboardItem } from '../services/dashboard.service';
 
 @Component({
@@ -19,8 +19,8 @@ import { DashboardItem } from '../services/dashboard.service';
     TextBlock, 
     ImageBlock, 
     Header,
-    ScatterChartComponent,
-    HistogramChartComponent
+    ScatterChart,
+    HistogramChart
   ],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
