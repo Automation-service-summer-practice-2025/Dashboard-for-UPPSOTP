@@ -1,4 +1,5 @@
 <app-header></app-header>
+<div class="dashboard-container">
 <gridster [options]="options" class="gridster">
   <gridster-item [item]="item" *ngFor="let item of dashboard;" class="gridster-item">
 
@@ -42,3 +43,5 @@
     </div>
   </gridster-item>
 </gridster>
+<app-zoom [options]="options"></app-zoom>
+</div>

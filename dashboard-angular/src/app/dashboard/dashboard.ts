@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GridsterConfig, GridsterModule } from 'angular-gridster2';
 import { FormsModule } from '@angular/forms';
@@ -9,18 +9,22 @@ import { ImageBlock } from '../blocks/image-block/image-block';
 import { ScatterChart } from '../blocks/scatter-chart/scatter-chart';
 import { BarChart } from '../blocks/bar-chart/bar-chart';
 import { DashboardItem } from '../models/dashboard-item.model';
+import { MatIconModule } from '@angular/material/icon';
+import { Zoom } from '../zoom/zoom';
 
 @Component({
   selector: 'app-dashboard',
   imports: [
-    CommonModule, 
-    GridsterModule, 
-    FormsModule, 
-    TextBlock, 
-    ImageBlock, 
+    CommonModule,
+    GridsterModule,
+    FormsModule,
+    TextBlock,
+    ImageBlock,
     Header,
     ScatterChart,
-    BarChart
+    BarChart,
+    MatIconModule,
+    Zoom
   ],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
@@ -38,7 +42,7 @@ export class Dashboard implements OnInit {
       this.updateGridDisplay();
     });
   }
-
+  
   ngOnInit(): void {
     this.options = {
       gridType: 'fixed',
