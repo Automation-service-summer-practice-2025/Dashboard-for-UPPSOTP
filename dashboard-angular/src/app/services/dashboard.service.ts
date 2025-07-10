@@ -8,10 +8,10 @@ export interface DashboardItem {
   y: number;
   x: number;
   content: string;
-  type?: 'text' | 'image' | 'chart'; // Добавляем тип элемента
-  chartType?: 'bar' | 'pie' | 'line' | 'scatter'; // Тип графика
-  data?: any; // Данные для графика
-  file?: File | null; // Загруженный файл
+  type?: 'text' | 'image' | 'chart';
+  chartType?: 'bar' | 'pie' | 'line' | 'scatter';
+  data?: any;
+  file?: File | null;
   title?: string;
 }
 
@@ -26,8 +26,15 @@ export class DashboardService {
   private lockStatus = new BehaviorSubject<boolean>(false);
   lockStatus$ = this.lockStatus.asObservable();
 
+  private zoomLevel = new BehaviorSubject<number>(100);
+  zoomLevel$ = this.zoomLevel.asObservable();
+  private readonly minZoom = 50;
+  private readonly maxZoom = 200;
+  private readonly zoomStep = 10;
+
   constructor() {}
 
+  // Методы для работы с элементами дашборда
   addTextBlock() {
     const newItem: DashboardItem = {
       id: this.getNextId(),
@@ -51,15 +58,14 @@ export class DashboardService {
       content: '',
       type: "image"
     }
-
     this.dashboardItems.next([...this.dashboardItems.value, newItem]);
   }
 
-    addChart(chartType: 'bar' | 'scatter' = 'scatter') {
+  addChart(chartType: 'bar' | 'scatter' = 'scatter') {
     const newItem: DashboardItem = {
       id: this.getNextId(),
-      cols: 17.5,
-      rows: 7.5,
+      cols: 17,
+      rows: 7,
       y: 0,
       x: 0,
       title: '',
@@ -81,6 +87,7 @@ export class DashboardService {
     }
   }
 
+  // Методы для блокировки/разблокировки
   toggleLock(isLocked: boolean) {
     this.lockStatus.next(isLocked);
   }
@@ -89,6 +96,28 @@ export class DashboardService {
     return this.lockStatus.value;
   }
 
+  setZoom(level: number): void {
+    const newLevel = Math.max(this.minZoom, Math.min(this.maxZoom, level));
+    this.zoomLevel.next(newLevel);
+  }
+
+  zoomIn(): void {
+    this.setZoom(this.zoomLevel.value + this.zoomStep);
+  }
+
+  zoomOut(): void {
+    this.setZoom(this.zoomLevel.value - this.zoomStep);
+  }
+
+  resetZoom(): void {
+    this.setZoom(100);
+  }
+
+  getCurrentZoom(): number {
+    return this.zoomLevel.value;
+  }
+
+  // Вспомогательные методы
   private getNextId(): number {
     return ++this.itemIdCounter;
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GridsterConfig, GridsterItem, GridsterModule } from 'angular-gridster2';
 import { FormsModule } from '@angular/forms';
@@ -37,6 +37,10 @@ export class Dashboard implements OnInit {
   options: GridsterConfig = {};
   dashboard: any[] = [];
   isLocked = false;
+  zoomLevel: number = 100; // Начальный уровень зума 100%
+  minZoom: number = 50;    // Минимальный зум 50%
+  maxZoom: number = 200;   // Максимальный зум 200%
+  zoomStep: number = 10;   // Шаг изменения зума
 
   constructor(private dashboardService: DashboardService) {
     this.dashboardService.lockStatus$.subscribe(isLocked => {
@@ -44,8 +48,13 @@ export class Dashboard implements OnInit {
       this.toggleDragResize();
       this.updateGridDisplay();
     });
-  }
 
+    this.dashboardService.zoomLevel$.subscribe(level => {
+    this.zoomLevel = level;
+    this.updateZoom();
+  });
+  }
+  
   ngOnInit(): void {
     this.options = {
       gridType: 'fixed',
@@ -58,8 +67,8 @@ export class Dashboard implements OnInit {
       minItemCols: 5,
       minItemRows: 5,
       minItemArea: 25,
-      fixedColWidth: 40,
-      fixedRowHeight: 40,
+      fixedColWidth: 40, // Учитываем зум
+      fixedRowHeight: 40, // Учитываем зум
       scrollSensitivity: 10,
       scrollSpeed: 20,
       dragHandleClass: 'drag-handle',
@@ -79,6 +88,7 @@ export class Dashboard implements OnInit {
     });
     
       this.updateGridDisplay();
+      this.updateZoom();
   }
 
   removeItem(item: DashboardItem): void {
@@ -102,4 +112,50 @@ export class Dashboard implements OnInit {
     this.options.displayGrid = this.isLocked ? 'none' : 'always';
     this.options.api?.optionsChanged?.();
   }
+
+  zoomIn(): void {
+    this.zoomLevel = Math.min(this.zoomLevel + this.zoomStep, this.maxZoom);
+    this.updateZoom();
+  }
+
+  zoomOut(): void {
+    this.zoomLevel = Math.max(this.zoomLevel - this.zoomStep, this.minZoom);
+    this.updateZoom();
+  }
+
+  resetZoom(): void {
+    this.zoomLevel = 100;
+    this.updateZoom();
+  }
+
+  private updateZoom(): void {
+    // Обновляем CSS переменную
+    document.documentElement.style.setProperty('--zoom-level', this.zoomLevel.toString());
+    
+    // Обновляем размеры ячеек
+    this.options.fixedColWidth = 40 * (this.zoomLevel / 100);
+    this.options.fixedRowHeight = 40 * (this.zoomLevel / 100);
+    
+    setTimeout(() => {
+      this.options.api?.resize?.();
+      this.options.api?.optionsChanged?.();
+    }, 100);
+  }
+
+  @HostListener('window:keydown', ['$event'])
+  handleKeyDown(event: KeyboardEvent) {
+    if (event.ctrlKey && event.key === '0') {
+      this.resetZoom();
+      event.preventDefault();
+    }
+    if (event.ctrlKey && event.key === '+') {
+      this.zoomIn();
+      event.preventDefault();
+    }
+    if (event.ctrlKey && event.key === '-') {
+      this.zoomOut();
+      event.preventDefault();
+    }
+  }
 }
+

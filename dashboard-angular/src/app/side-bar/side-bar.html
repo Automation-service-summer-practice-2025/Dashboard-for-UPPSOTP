@@ -48,6 +48,17 @@
           <mat-icon>bar_chart</mat-icon>
           Гистограмма
         </button>
+
+        <div class="zoom-controls">
+          <button mat-icon-button (click)="zoomOut()" title="Уменьшить">
+            <mat-icon>zoom_out</mat-icon>
+          </button>
+          <span>{{ zoomLevel$ | async }}%</span>
+          <button mat-icon-button (click)="zoomIn()" title="Увеличить">
+            <mat-icon>zoom_in</mat-icon>
+          </button>
+        </div>
+        
       </div>
     </div>
   </mat-sidenav>
