@@ -8,7 +8,7 @@ import { TextBlock } from '../blocks/text-block/text-block';
 import { ImageBlock } from '../blocks/image-block/image-block';
 import { ScatterChart } from '../blocks/scatter-chart/scatter-chart';
 import { HistogramChart } from '../blocks/histogram-chart/histogram-chart';
-import { DashboardItem } from '../services/dashboard.service';
+import { DashboardItem } from '../models/dashboard-item.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -71,7 +71,7 @@ export class Dashboard implements OnInit {
       this.dashboard = items;
     });
     
-      this.updateGridDisplay();
+    this.updateGridDisplay();
   }
 
   removeItem(item: DashboardItem): void {
