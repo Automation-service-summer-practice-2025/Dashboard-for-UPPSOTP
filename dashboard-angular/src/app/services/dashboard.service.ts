@@ -46,8 +46,8 @@ export class DashboardService {
     addChart(chartType: 'bar' | 'scatter' = 'scatter') {
     const newItem: DashboardItem = {
       id: this.getNextId(),
-      cols: 17.5,
-      rows: 7.5,
+      cols: 17,
+      rows: 7,
       y: 0,
       x: 0,
       title: '',
@@ -58,15 +58,6 @@ export class DashboardService {
       file: null
     };
     this.dashboardItems.next([...this.dashboardItems.value, newItem]);
-  }
-
-  updateItem(item: DashboardItem) {
-    const items = this.dashboardItems.value;
-    const index = items.findIndex(i => i.id === item.id);
-    if (index !== -1) {
-      items[index] = item;
-      this.dashboardItems.next([...items]);
-    }
   }
 
   toggleLock(isLocked: boolean) {
