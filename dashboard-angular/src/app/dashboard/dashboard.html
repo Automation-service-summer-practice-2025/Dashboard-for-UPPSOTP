@@ -3,11 +3,9 @@
 [currentItem]="selectedItem"
 (closed)="closeEditPanel()"
 (saved)="saveItem($event)">
-
   <app-header></app-header>
   <gridster [options]="options" class="gridster">
     <gridster-item [item]="item" *ngFor="let item of dashboard;" class="gridster-item">
-
       <div *ngIf="!isLocked" class="action-buttons">
         <div class="btn-block">
           <div
@@ -29,28 +27,29 @@
         </button>
       </div>
 
-      <div class="gridster-item-content">
-        <app-text-block
-          *ngIf="item.type === 'text'"
-          [item]="item"
-          [isLocked]="isLocked"
-          (onRemove)="removeItem($event)">
-        </app-text-block>
+    <div class="gridster-item-content">
+      <app-text-block
+        *ngIf="item.type === 'text'"
+        [item]="item"
+        [isLocked]="isLocked">
+      </app-text-block>
 
-        <app-image-block
-          *ngIf="item.type === 'image'"
-          [item]="item"
-          [isLocked]="isLocked"
-          (onRemove)="removeItem($event)">
-        </app-image-block>
+      <app-image-block
+        *ngIf="item.type === 'image'"
+        [item]="item"
+        [isLocked]="isLocked">
+      </app-image-block>
 
-        <div *ngIf="item.type === 'chart'" class="chart-container">
-          <app-chart
-            [chartType]="'line'"
-            [data]="item.data">
-          </app-chart>
-        </div>
-      </div>
-    </gridster-item>
-  </gridster>
+      <app-scatter-chart
+        *ngIf="item.type === 'scatter-chart'"
+        [isLocked]="isLocked">
+      </app-scatter-chart>
+
+      <app-bar-chart
+        *ngIf="item.type === 'bar-chart'"
+        [isLocked]="isLocked">
+      </app-bar-chart>
+    </div>
+  </gridster-item>
+</gridster>
 </app-edit-side-bar>

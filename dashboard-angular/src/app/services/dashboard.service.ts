@@ -1,25 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import * as Dashboard from '../models/dashboard-item.model';
 
-export interface DashboardItem {
-  id: number;
-  cols: number;
-  rows: number;
-  y: number;
-  x: number;
-  content: string;
-  type?: 'text' | 'image' | 'chart'; // Добавляем тип элемента
-  chartType?: 'bar' | 'pie' | 'line'; // Тип графика
-  data?: any; // Данные для графика
-  file?: File | null; // Загруженный файл
-  title?: string;
-}
 
 @Injectable({
   providedIn: 'root'
 })
 export class DashboardService {
-  private dashboardItems = new BehaviorSubject<DashboardItem[]>([]);
+  private dashboardItems = new BehaviorSubject<Dashboard.DashboardItem[]>([]);
   dashboardItems$ = this.dashboardItems.asObservable();
   private itemIdCounter = 0;
 
@@ -29,46 +17,26 @@ export class DashboardService {
   constructor() {}
 
   addTextBlock() {
-    const newItem: DashboardItem = {
-      id: this.getNextId(),
-      cols: 5,
-      rows: 5,
-      y: 0,
-      x: 0,
-      content: 'Текстовый блок',
-      type: "text",
-    };
+    const newItem = new Dashboard.TextItem();
+    newItem.id = this.getNextId();
     this.dashboardItems.next([...this.dashboardItems.value, newItem]);
   }
 
   addImageBlock() {
-    const newItem: DashboardItem = {
-      id: this.getNextId(),
-      cols: 5,
-      rows: 5,
-      y: 0,
-      x: 0,
-      content: '',
-      type: "image"
-    }
-
+    const newItem = new Dashboard.ImageItem();
+    newItem.id = this.getNextId();
     this.dashboardItems.next([...this.dashboardItems.value, newItem]);
   }
 
-  addChart() {
-    const newItem: DashboardItem = {
-      id: this.getNextId(),
-      cols: 5,
-      rows: 5,
-      y: 0,
-      x: 0,
-      title: 'Новый график',
-      content: '',
-      type: 'chart',
-      chartType: 'bar',
-      data: null,
-      file: null
-    };
+  addScatterChart() {
+    const newItem = new Dashboard.ScatterItem();
+    newItem.id = this.getNextId();
+    this.dashboardItems.next([...this.dashboardItems.value, newItem]);
+  }
+
+  addBarChart() {
+    const newItem = new Dashboard.BarItem();
+    newItem.id = this.getNextId();
     this.dashboardItems.next([...this.dashboardItems.value, newItem]);
   }
 

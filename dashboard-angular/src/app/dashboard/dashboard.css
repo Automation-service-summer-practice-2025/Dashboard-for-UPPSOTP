@@ -49,6 +49,16 @@
   transition: background-color 0.3s ease;
 }
 
+/* Для контейнера графика */
+.chart-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
 .action-button:hover {
   background-color: rgba(255, 255, 255, 0.6);
 }

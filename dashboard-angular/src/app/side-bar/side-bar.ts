@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, Output, EventEmitter, HostListener } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -27,6 +27,9 @@ import { CommonModule } from '@angular/common';
 })
 export class SideBar {
   isLocked = false;
+
+  @Output() addScatter = new EventEmitter<void>();
+  @Output() addHistogram = new EventEmitter<void>();
   width = 300;
   private resizing = false;
   private lastDownX = 0;
@@ -49,9 +52,15 @@ export class SideBar {
     }
   }
 
-  addChart() {
+  addScatterChart() {
     if (!this.isLocked) {
-      this.dashboardService.addChart();
+      this.dashboardService.addScatterChart();
+    }
+  }
+
+  addHistogramChart() {
+    if (!this.isLocked) {
+      this.dashboardService.addBarChart();
     }
   }
 
@@ -63,7 +72,7 @@ export class SideBar {
     this.isLocked = event.value === 'locked';
     this.dashboardService.toggleLock(this.isLocked);
   }
-
+  
   onResizeStart(event: MouseEvent) {
     this.resizing = true;
     this.lastDownX = event.clientX;

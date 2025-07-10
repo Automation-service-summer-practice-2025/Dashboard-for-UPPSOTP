@@ -6,8 +6,9 @@ import { DashboardService } from '../services/dashboard.service';
 import { Header } from '../header/header';
 import { TextBlock } from '../blocks/text-block/text-block';
 import { ImageBlock } from '../blocks/image-block/image-block';
-import { ChartComponent } from '../charts/chart.component';
-import { DashboardItem } from '../services/dashboard.service'
+import { ScatterChart } from '../blocks/scatter-chart/scatter-chart';
+import { BarChart } from '../blocks/bar-chart/bar-chart';
+import { DashboardItem } from '../models/dashboard-item.model';
 import { EditSideBar } from '../edit-side-bar/edit-side-bar';
 
 @Component({
@@ -18,13 +19,15 @@ import { EditSideBar } from '../edit-side-bar/edit-side-bar';
     FormsModule,
     TextBlock,
     ImageBlock,
-    ChartComponent,
     Header,
+    ScatterChart,
+    BarChart,
     EditSideBar
   ],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })
+
 export class Dashboard implements OnInit {
   options: GridsterConfig = {};
   dashboard: DashboardItem[] = [];
@@ -34,6 +37,7 @@ export class Dashboard implements OnInit {
     this.dashboardService.lockStatus$.subscribe(isLocked => {
       this.isLocked = isLocked;
       this.toggleDragResize();
+      this.updateGridDisplay();
     });
   }
 
@@ -62,12 +66,14 @@ export class Dashboard implements OnInit {
       },
       swap: false,
       pushItems: true,
-      displayGrid: 'none',
+      displayGrid: 'always',
     };
 
     this.dashboardService.dashboardItems$.subscribe(items => {
       this.dashboard = items;
     });
+
+    this.updateGridDisplay();
   }
 
   removeItem(item: DashboardItem): void {
@@ -85,6 +91,11 @@ export class Dashboard implements OnInit {
       this.options.resizable.enabled = !this.isLocked;
       this.options.api?.optionsChanged?.();
     }
+  }
+
+  updateGridDisplay(): void {
+    this.options.displayGrid = this.isLocked ? 'none' : 'always';
+    this.options.api?.optionsChanged?.();
   }
 
   isEditPanelOpen = false;
