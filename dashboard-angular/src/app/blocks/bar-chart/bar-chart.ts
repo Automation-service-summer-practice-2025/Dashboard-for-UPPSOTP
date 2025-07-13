@@ -55,13 +55,17 @@ export class BarChart implements OnInit{
 
   private updateChartOptions() {
     this.chartOptions = {
+      responsive: true,
+      maintainAspectRatio: false,
       scales: {
         x: {
-          ...this.chartOptions.scales?.['x'],
+          type: 'category',
+          title: { display: true, text: 'Значения' },
           grid: { display: this.item.showGrid }
         },
         y: {
-          ...this.chartOptions.scales?.['y'],
+          title: { display: true, text: 'Частота' },
+          beginAtZero: true,
           grid: { display: this.item.showGrid }
         }
       },
