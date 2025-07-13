@@ -13,7 +13,6 @@ import { ImageItem } from '../../models/dashboard-item.model';
 export class ImageBlock {
   @Input() item!: ImageItem;
   @Input() isLocked: boolean = false;
-  @Output() onRemove = new EventEmitter<any>();
 
   get imageUrl(): string | null {
     return this.item.file ? URL.createObjectURL(this.item.file) : null;
