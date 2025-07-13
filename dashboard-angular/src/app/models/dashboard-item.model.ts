@@ -36,7 +36,7 @@ export abstract class ChartItem extends DashboardItem implements HasTitle {
 @DashboardBlock('text')
 export class TextItem extends DashboardItem {
   override type = 'text';
-  content: string = 'Текстовый блок';
+  content?: string = 'Текстовый блок';
 }
 
 @DashboardBlock('image')
