@@ -26,11 +26,15 @@ export interface HasTitle {
 }
 
 export abstract class ChartItem extends DashboardItem implements HasTitle {
-	data?: any;
-	file?: File | null;
-	title?: string;
 	override rows: number = 7;
 	override cols: number = 15;
+  data?: any;
+	file?: File | null;
+	title?: string;
+  lineColor?: string = '#4bc0c0';
+  lineWidth?: number = 3;
+  showGrid?: boolean = true;
+  showLegend?: boolean = true;
 }
 
 @DashboardBlock('text')
@@ -46,11 +50,11 @@ export class ImageItem extends DashboardItem {
 }
 
 @DashboardBlock('scatter-chart')
-export class ScatterItem extends ChartItem {
+export class ScatterChartItem extends ChartItem {
   override type = 'scatter-chart';
 }
 
 @DashboardBlock('bar-chart')
-export class BarItem extends ChartItem {
+export class BarChartItem extends ChartItem {
   override type = 'bar-chart';
 }
