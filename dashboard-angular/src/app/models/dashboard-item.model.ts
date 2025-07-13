@@ -1,62 +1,40 @@
-export interface DashboardItem {
-  id: number;
-  type: string;
-  x: number;
-  y: number;
-  rows: number;
-  cols: number;
+import { GridsterItem } from "angular-gridster2";
+
+export abstract class DashboardItem implements GridsterItem {
+  id: number = 0;
+  abstract type: string;
+  x: number = 0;
+  y: number = 0;
+  rows: number = 5;
+  cols: number = 5;
 }
 
 export interface HasTitle {
     title?: string;
 }
 
-export interface ChartItem extends DashboardItem {
+export abstract class ChartItem extends DashboardItem implements HasTitle {
     data?: any;
     file?: File | null;
+    title?: string;
+    override rows: number = 7;
+    override cols: number = 15;
 }
   
-export class ImageItem implements DashboardItem {
-    id: number = 0;
-    type: string = 'image';
-    x: number = 0;
-    y: number = 0;
-    rows: number = 5;
-    cols: number = 5;
-    file?: File | null;
+export class ImageItem extends DashboardItem {
+  override type = 'image';
+  file?: File | null;
 }
 
-export class TextItem implements DashboardItem {
-    id: number = 0;
-    type: string = 'text';
-    x: number = 0;
-    y: number = 0;
-    rows: number = 5;
-    cols: number = 5;
-    content: string = 'Текстовый блок';
+export class TextItem extends DashboardItem {
+  override type = 'text';
+  content: string = 'Текстовый блок';
 }
 
-export class ScatterItem implements ChartItem, HasTitle {
-    id: number = 0;
-    type: string = 'scatter-chart';
-    x: number = 0;
-    y: number = 0;
-    rows: number = 7;
-    cols: number = 17;
-    data?: any;
-    file?: File | null;
-    title?: string;
+export class ScatterItem extends ChartItem {
+  override type = 'scatter-chart';
 }
 
-export class BarItem implements ChartItem, HasTitle {
-    id: number = 0;
-    type: string = 'bar-chart';
-    x: number = 0;
-    y: number = 0;
-    rows: number = 7;
-    cols: number = 17;
-    data?: any;
-    file?: File | null;
-    title?: string;
+export class BarItem extends ChartItem {
+  override type = 'bar-chart';
 }
-
