@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import * as Dashboard from '../models/dashboard-item.model';
+import { DashboardItem, DashboardItemRegistry } from '../models/dashboard-item.model';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class DashboardService {
-  private dashboardItems = new BehaviorSubject<Dashboard.DashboardItem[]>([]);
+  private dashboardItems = new BehaviorSubject<DashboardItem[]>([]);
   dashboardItems$ = this.dashboardItems.asObservable();
   private itemIdCounter = 0;
 
@@ -16,28 +16,15 @@ export class DashboardService {
 
   constructor() {}
 
-  addTextBlock() {
-    const newItem = new Dashboard.TextItem();
-    newItem.id = this.getNextId();
-    this.dashboardItems.next([...this.dashboardItems.value, newItem]);
-  }
-
-  addImageBlock() {
-    const newItem = new Dashboard.ImageItem();
-    newItem.id = this.getNextId();
-    this.dashboardItems.next([...this.dashboardItems.value, newItem]);
-  }
-
-  addScatterChart() {
-    const newItem = new Dashboard.ScatterItem();
-    newItem.id = this.getNextId();
-    this.dashboardItems.next([...this.dashboardItems.value, newItem]);
-  }
-
-  addBarChart() {
-    const newItem = new Dashboard.BarItem();
-    newItem.id = this.getNextId();
-    this.dashboardItems.next([...this.dashboardItems.value, newItem]);
+  addBlock(type: string) {
+    const ItemClass = DashboardItemRegistry[type];
+    if (ItemClass) {
+      const newItem = new ItemClass();
+      newItem.id = ++this.itemIdCounter;
+      this.dashboardItems.next([...this.dashboardItems.value, newItem]);
+    } else {
+      console.error(`Unknown dashboard item type: ${type}`);
+    }
   }
 
   toggleLock(isLocked: boolean) {
@@ -46,9 +33,5 @@ export class DashboardService {
 
   isLocked(): boolean {
     return this.lockStatus.value;
-  }
-
-  private getNextId(): number {
-    return ++this.itemIdCounter;
   }
 }

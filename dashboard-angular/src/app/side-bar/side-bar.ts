@@ -28,36 +28,15 @@ import { CommonModule } from '@angular/common';
 export class SideBar {
   isLocked = false;
   
-  @Output() addScatter = new EventEmitter<void>();
-  @Output() addHistogram = new EventEmitter<void>();
-
   constructor(private dashboardService: DashboardService) {
     this.dashboardService.lockStatus$.subscribe(isLocked => {
       this.isLocked = isLocked;
     });
   }
 
-  addTextBlock() {
+  addBlock(type: string) {
     if (!this.isLocked) {
-      this.dashboardService.addTextBlock();
-    }
-  }
-
-  addImageBlock() {
-    if (!this.isLocked) {
-      this.dashboardService.addImageBlock();
-    }
-  }
-
-  addScatterChart() {
-    if (!this.isLocked) {
-      this.dashboardService.addScatterChart();
-    }
-  }
-
-  addHistogramChart() {
-    if (!this.isLocked) {
-      this.dashboardService.addBarChart();
+      this.dashboardService.addBlock(type);
     }
   }
 
