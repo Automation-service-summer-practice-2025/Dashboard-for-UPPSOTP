@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ImageItem } from '../../models/dashboard-item.model';
 
 @Component({
   selector: 'app-image-block',
@@ -10,11 +11,13 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './image-block.css'
 })
 export class ImageBlock {
-  @Input() item: any;
+  @Input() item!: ImageItem;
   @Input() isLocked: boolean = false;
   @Output() onRemove = new EventEmitter<any>();
 
-  imageSrc: string | null = null;
+  get imageUrl(): string | null {
+    return this.item.file ? URL.createObjectURL(this.item.file) : null;
+  }
 
   @HostListener('paste', ['$event'])
   onPaste(event: ClipboardEvent) {
@@ -24,16 +27,13 @@ export class ImageBlock {
     if (!items) return;
 
     for (let i = 0; i < items.length; i++) {
-      if (items[i].type.indexOf('image') === 0) {
-        const blob = items[i].getAsFile();
-        if (blob && blob.size <= 50 * 1024 * 1024) {
-          const reader = new FileReader();
-          reader.onload = () => {
-            this.imageSrc = reader.result as string;
-          };
-          reader.readAsDataURL(blob);
+      const item = items[i];
+      if (item.type.startsWith('image')) {
+        const file = item.getAsFile();
+        if (file) {
+          this.item.file = file;
         } else {
-          alert("Файл слишком большой или недопустимый формат.");
+          alert("Недопустимый формат.");
         }
         event.preventDefault();
         break;
@@ -45,14 +45,10 @@ export class ImageBlock {
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0];
 
-    if (file && file.size <= 50 * 1024 * 1024) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.imageSrc = reader.result as string;
-      };
-      reader.readAsDataURL(file);
+    if (file) {
+      this.item.file = file;
     } else {
-      alert("Файл слишком большой или недопустимый формат.");
+      alert("Недопустимый формат.");
     }
   }
 
