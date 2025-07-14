@@ -31,22 +31,22 @@
       <h3 class="constructor-title">Конструктор</h3>
 
       <div class="constructor-buttons">
-        <button mat-raised-button class="constructor-button" (click)="addTextBlock()" [disabled]="isLocked">
+        <button mat-raised-button class="constructor-button" (click)="addBlock('text')" [disabled]="isLocked">
           <mat-icon>text_fields</mat-icon>
           Текст
         </button>
 
-        <button mat-raised-button class="constructor-button" (click)="addImageBlock()" [disabled]="isLocked">
+        <button mat-raised-button class="constructor-button" (click)="addBlock('image')" [disabled]="isLocked">
           <mat-icon>image</mat-icon>
           Картинка
         </button>
 
-        <button mat-raised-button class="constructor-button" (click)="addScatterChart()" [disabled]="isLocked">
+        <button mat-raised-button class="constructor-button" (click)="addBlock('scatter-chart')" [disabled]="isLocked">
           <mat-icon>scatter_plot</mat-icon>
           Точечный график
         </button>
-
-        <button mat-raised-button class="constructor-button" (click)="addHistogramChart()" [disabled]="isLocked">
+  
+        <button mat-raised-button class="constructor-button" (click)="addBlock('bar-chart')" [disabled]="isLocked">
           <mat-icon>bar_chart</mat-icon>
           Гистограмма
         </button>
