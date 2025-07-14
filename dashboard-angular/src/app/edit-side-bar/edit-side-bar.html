@@ -46,16 +46,31 @@
         </mat-form-field>
       </ng-container>
 
-      <!-- Для графика -->
-      <ng-container *ngIf="currentItem?.type === 'chart'">
+      <!-- Для графиков -->
+      <ng-container *ngIf="isChartItem()">
         <mat-form-field>
-          <mat-label>Тип графика</mat-label>
-          <!-- <mat-select [(ngModel)]="currentItem.chartType"> -->
-            <mat-option value="line">Линейный</mat-option>
-            <mat-option value="bar">Столбчатый</mat-option>
-            <mat-option value="pie">Круговой</mat-option>
-          <!-- </mat-select> -->
+          <mat-label>Цвет графика</mat-label>
+          <input matInput type="color" 
+                [value]="chartItem?.chartOptions?.color || '#4bc0c0'"
+                (input)="updateChartOption('color', $any($event).target.value)">
         </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Толщина линии</mat-label>
+          <input matInput type="number" min="1" max="10"
+                [value]="chartItem?.chartOptions?.lineWidth || 2"
+                (input)="updateChartOption('lineWidth', $any($event).target.value)">
+        </mat-form-field>
+
+        <mat-checkbox [checked]="chartItem?.chartOptions?.showGrid !== false" 
+                      (change)="updateChartOption('showGrid', $event.checked)">
+          Показывать сетку
+        </mat-checkbox>
+
+        <mat-checkbox [checked]="chartItem?.chartOptions?.showLegend !== false"
+                      (change)="updateChartOption('showLegend', $event.checked)">
+          Показывать легенду
+        </mat-checkbox>
       </ng-container>
     </div>
 

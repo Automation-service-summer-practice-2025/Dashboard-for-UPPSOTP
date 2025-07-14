@@ -1,8 +1,5 @@
 import { Component, EventEmitter, Input, Output, HostListener } from '@angular/core';
-import {
-  DashboardItem,
-  TextItem
- } from '../models/dashboard-item.model'
+import { DashboardItem, TextItem, BarItem, ScatterItem, ChartOptions} from '../models/dashboard-item.model'
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -14,6 +11,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-edit-side-bar',
@@ -28,7 +26,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatSelectModule,
     MatOptionModule,
     MatDividerModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatCheckboxModule
   ],
   templateUrl: './edit-side-bar.html',
   styleUrl: './edit-side-bar.css'
@@ -42,18 +41,32 @@ export class EditSideBar {
   private resizing = false;
   private lastDownX = 0;
 
-  // Обновление любого свойства элемента
+  get chartItem(): BarItem | ScatterItem | null {
+    return this.isChartItem() ? this.currentItem as BarItem | ScatterItem : null;
+  }
+
+  updateChartOption(option: keyof ChartOptions, value: any): void {
+    const item = this.chartItem;
+    if (item) {
+      if (!item.chartOptions) {
+        item.chartOptions = {};
+      }
+      item.chartOptions[option] = value;
+    }
+  }
+
+    // Обновление любого свойства элемента
   updateProperty(property: string, value: any): void {
     if (this.currentItem) {
       (this.currentItem as any)[property] = value;
     }
   }
 
+
   getContent(): string {
     return this.isTextItem() ? (this.currentItem as TextItem).content || '' : '';
   }
 
-  // Проверка типа элемента
   isTextItem(): boolean {
     return this.currentItem?.type === 'text';
   }
@@ -63,7 +76,7 @@ export class EditSideBar {
   }
 
   isChartItem(): boolean {
-    return ['chart', 'bar-chart', 'scatter-chart'].includes(this.currentItem?.type || '');
+    return this.currentItem?.type === 'bar-chart';
   }
 
   close() {

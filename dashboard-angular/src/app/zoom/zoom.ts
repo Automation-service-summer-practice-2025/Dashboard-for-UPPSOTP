@@ -35,8 +35,8 @@ export class Zoom {
     document.documentElement.style.setProperty('--zoom-level', this.zoomLevel.toString());
     
     if (this.options) {
-      this.options.fixedColWidth = 40 * (this.zoomLevel / 100);
-      this.options.fixedRowHeight = 40 * (this.zoomLevel / 100);
+      this.options.fixedColWidth = 40;
+      this.options.fixedRowHeight = 40;
       
       setTimeout(() => {
         this.options.api?.resize?.();

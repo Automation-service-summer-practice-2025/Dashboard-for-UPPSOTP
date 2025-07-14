@@ -46,6 +46,7 @@ export class ScatterItem implements ChartItem, HasTitle {
     data?: any;
     file?: File | null;
     title?: string;
+    chartOptions?: ChartOptions;
 }
 
 export class BarItem implements ChartItem, HasTitle {
@@ -58,5 +59,12 @@ export class BarItem implements ChartItem, HasTitle {
     data?: any;
     file?: File | null;
     title?: string;
+    chartOptions?: ChartOptions | undefined;
 }
 
+export interface ChartOptions {
+  color?: string;
+  lineWidth?: number;
+  showGrid?: boolean;
+  showLegend?: boolean;
+}

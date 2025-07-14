@@ -55,6 +55,20 @@ export class BarChart {
     }
   };
 
+  @Input() set editChartOptions(options: any) {
+    if (options) {
+      this.barColor  = options.color || this.barColor ;
+      this.barWidth  = options.lineWidth || this.barWidth ;
+      this.showGrid = options.showGrid !== false;
+      this.showLegend = options.showLegend !== false;
+      this.updateChartOptions();
+    }
+  }
+
+  get getChartOptions(): ChartOptions {
+    return this.chartOptions;
+  }
+
   onDataLoaded(event: {data: any, title: string}) {
     this.data = event.data;
     this.title = event.title;
