@@ -72,7 +72,7 @@ export class SideBar {
     this.isLocked = event.value === 'locked';
     this.dashboardService.toggleLock(this.isLocked);
   }
-  
+
   onResizeStart(event: MouseEvent) {
     this.resizing = true;
     this.lastDownX = event.clientX;
