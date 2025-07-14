@@ -20,6 +20,7 @@
   
   <img *ngIf="imageSrc" 
        [src]="imageSrc" 
-       class="preview" 
-       (click)="focusContainer()" />
+       class="preview"
+       [style.object-fit]="fitMode" 
+       (click)="toggleFitMode()" />
 </div>
