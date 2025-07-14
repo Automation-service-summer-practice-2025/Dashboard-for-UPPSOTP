@@ -66,8 +66,8 @@ export class Dashboard implements OnInit, AfterViewInit {
       resizable: {
         enabled: true,
       },
-      swap: false,
-      pushItems: true,
+      swap: true,
+      swapWhileDragging: true,
       displayGrid: 'always',
     };
 

@@ -30,12 +30,9 @@ export class DashboardService {
       newItem.id = ++this.itemIdCounter;
 
       if (this.gridsterOptions?.api?.getFirstPossiblePosition) {
-        const itemWithPosition = this.gridsterOptions.api?.getFirstPossiblePosition(newItem);
-        newItem.x = itemWithPosition.x;
-        newItem.y = itemWithPosition.y;
-        newItem.cols = itemWithPosition.cols;
-        newItem.rows = itemWithPosition.rows;
-        console.log(`Added new item of type ${type} at position (${newItem.x}, ${newItem.y}) with size (${newItem.cols} cols, ${newItem.rows} rows)`);
+        const position = this.gridsterOptions.api.getFirstPossiblePosition(newItem);
+        newItem.x = position.x;
+        newItem.y = position.y;
       }
       this.dashboardItems.next([...this.dashboardItems.value, newItem]);
     } else {
