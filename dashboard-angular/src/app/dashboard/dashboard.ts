@@ -9,6 +9,8 @@ import { ImageBlock } from '../blocks/image-block/image-block';
 import { ScatterChart } from '../blocks/scatter-chart/scatter-chart';
 import { BarChart } from '../blocks/bar-chart/bar-chart';
 import { DashboardItem } from '../models/dashboard-item.model';
+import { MatIconModule } from '@angular/material/icon';
+import { Zoom } from '../zoom/zoom';
 import { EditSideBar } from '../edit-side-bar/edit-side-bar';
 
 @Component({
@@ -22,6 +24,8 @@ import { EditSideBar } from '../edit-side-bar/edit-side-bar';
     Header,
     ScatterChart,
     BarChart,
+    MatIconModule,
+    Zoom,
     EditSideBar
   ],
   templateUrl: './dashboard.html',
