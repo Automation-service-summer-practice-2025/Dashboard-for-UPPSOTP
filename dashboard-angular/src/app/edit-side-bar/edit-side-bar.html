@@ -1,0 +1,78 @@
+<mat-sidenav-container>
+  <mat-sidenav #editSidenav
+               mode="side"
+               position="end"
+               [fixedInViewport]="true"
+               [style.width.px]="width"
+               [opened]="isOpen"
+               class="no-scroll">
+    <div class="sidebar-content">
+
+    <div class="user-block">
+      <h3 class="constructor-title">Редактирование</h3>
+      <button class="btn-close" mat-icon-button (click)="close()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <mat-divider class="divider"></mat-divider>
+
+    <div class="edit-content">
+      <!-- Для текстового блока -->
+      <ng-container *ngIf="currentItem?.type === 'text'">
+        <mat-form-field>
+          <mat-label>Текст</mat-label>
+          <textarea matInput
+            [value]="getContent()"
+            (input)="updateProperty('content', $any($event).target.value)">
+          </textarea>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Размер шрифта</mat-label>
+          <!-- <input matInput type="number" [(ngModel)]="currentItem.fontSize"> -->
+        </mat-form-field>
+      </ng-container>
+
+      <!-- Для изображения -->
+      <ng-container *ngIf="currentItem?.type === 'image'">
+        <mat-form-field>
+          <mat-label>URL изображения</mat-label>
+          <!-- <input matInput [(ngModel)]="currentItem.src"> -->
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Альтернативный текст</mat-label>
+          <!-- <input matInput [(ngModel)]="currentItem.alt"> -->
+        </mat-form-field>
+      </ng-container>
+
+      <!-- Для графика -->
+      <ng-container *ngIf="currentItem?.type === 'chart'">
+        <mat-form-field>
+          <mat-label>Тип графика</mat-label>
+          <!-- <mat-select [(ngModel)]="currentItem.chartType"> -->
+            <mat-option value="line">Линейный</mat-option>
+            <mat-option value="bar">Столбчатый</mat-option>
+            <mat-option value="pie">Круговой</mat-option>
+          <!-- </mat-select> -->
+        </mat-form-field>
+      </ng-container>
+    </div>
+
+    <div class="edit-actions">
+      <button mat-raised-button color="primary" (click)="save()">Сохранить</button>
+      <button mat-button (click)="close()">Отмена</button>
+    </div>
+
+    </div>
+    <div
+      class="resize-handle"
+      (mousedown)="onResizeStart($event)">
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content [style.margin-right.px]="editSidenav.opened ? width : 0">
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

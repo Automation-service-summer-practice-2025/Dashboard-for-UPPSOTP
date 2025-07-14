@@ -30,13 +30,11 @@
   justify-content: space-between;
   opacity: 0;
   transition: opacity 0.3s ease;
-  pointer-events: none;
   z-index: 10;
 }
 
 .gridster-item:hover .action-buttons {
   opacity: 1;
-  pointer-events: auto;
 }
 
 .action-button {
@@ -68,8 +66,14 @@
   background-color: rgba(255, 255, 255, 0.6);
 }
 
-.drag-handle-btn {
+.btn-block {
+  display: flex;
+  justify-content: right;
+}
+
+.drag-handle {
   cursor: move;
+  pointer-events: auto;
 }
 
 .gridster-item-content {

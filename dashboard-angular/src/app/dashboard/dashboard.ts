@@ -11,6 +11,7 @@ import { BarChart } from '../blocks/bar-chart/bar-chart';
 import { DashboardItem } from '../models/dashboard-item.model';
 import { MatIconModule } from '@angular/material/icon';
 import { Zoom } from '../zoom/zoom';
+import { EditSideBar } from '../edit-side-bar/edit-side-bar';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,7 +25,8 @@ import { Zoom } from '../zoom/zoom';
     ScatterChart,
     BarChart,
     MatIconModule,
-    Zoom
+    Zoom,
+    EditSideBar
   ],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
@@ -42,7 +44,7 @@ export class Dashboard implements OnInit, AfterViewInit {
       this.updateGridDisplay();
     });
   }
-  
+
   ngOnInit(): void {
     this.options = {
       gridType: 'fixed',
@@ -74,7 +76,7 @@ export class Dashboard implements OnInit, AfterViewInit {
     this.dashboardService.dashboardItems$.subscribe(items => {
       this.dashboard = items;
     });
-    
+
     this.updateGridDisplay();
   }
 
@@ -102,5 +104,30 @@ export class Dashboard implements OnInit, AfterViewInit {
   updateGridDisplay(): void {
     this.options.displayGrid = this.isLocked ? 'none' : 'always';
     this.options.api?.optionsChanged?.();
+  }
+
+  isEditPanelOpen = false;
+  selectedItem: DashboardItem | null = null;
+
+  editItem(item: DashboardItem) {
+    if (this.isEditPanelOpen && this.selectedItem?.id === item.id) {
+      this.closeEditPanel();
+    } else {
+      this.selectedItem = {...item};
+      this.isEditPanelOpen = true;
+    }
+  }
+
+  closeEditPanel() {
+    this.isEditPanelOpen = false;
+    this.selectedItem = null;
+  }
+
+  saveItem(updatedItem: DashboardItem) {
+    const index = this.dashboard.findIndex(i => i.id === updatedItem.id);
+    if (index !== -1) {
+      this.dashboard[index] = updatedItem;
+    }
+    this.closeEditPanel();
   }
 }
