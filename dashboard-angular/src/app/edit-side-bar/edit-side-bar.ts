@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, HostListener } from '@angular/core';
+import { Component, EventEmitter, Input, Output, HostListener, OnInit, OnDestroy } from '@angular/core';
 import {
   DashboardItem,
   TextItem
@@ -14,6 +14,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { NgxEditorMenuComponent, Editor } from 'ngx-editor';
 
 @Component({
   selector: 'app-edit-side-bar',
@@ -28,7 +29,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatSelectModule,
     MatOptionModule,
     MatDividerModule,
-    MatToolbarModule
+    MatToolbarModule,
+    NgxEditorMenuComponent
   ],
   templateUrl: './edit-side-bar.html',
   styleUrl: './edit-side-bar.css'
@@ -42,6 +44,8 @@ export class EditSideBar {
   private resizing = false;
   private lastDownX = 0;
 
+  @Output() editor = new Editor();
+
   // Обновление любого свойства элемента
   updateProperty(property: string, value: any): void {
     if (this.currentItem) {
@@ -49,8 +53,8 @@ export class EditSideBar {
     }
   }
 
-  getContent(): string {
-    return this.isTextItem() ? (this.currentItem as TextItem).content || '' : '';
+  getEditor(): Editor {
+    return this.isTextItem() ? (this.currentItem as TextItem).editor: new Editor;
   }
 
   // Проверка типа элемента

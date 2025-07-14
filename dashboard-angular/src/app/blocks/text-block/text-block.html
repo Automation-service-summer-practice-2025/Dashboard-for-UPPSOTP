@@ -1,3 +1,9 @@
 <div class="item-body">
   {{ item.content }}
 </div>
+<ngx-editor
+  [editor]=item.editor
+  [(ngModel)]="htmlContent"
+  [disabled]="isLocked"
+  [placeholder]="'Введите текст...'"
+></ngx-editor>

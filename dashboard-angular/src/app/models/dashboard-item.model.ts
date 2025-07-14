@@ -1,3 +1,5 @@
+import { Editor } from "ngx-editor";
+
 export interface DashboardItem {
   id: number;
   type: string;
@@ -15,7 +17,7 @@ export interface ChartItem extends DashboardItem {
     data?: any;
     file?: File | null;
 }
-  
+
 export class ImageItem implements DashboardItem {
     id: number = 0;
     type: string = 'image';
@@ -34,6 +36,7 @@ export class TextItem implements DashboardItem {
     rows: number = 5;
     cols: number = 5;
     content: string = 'Текстовый блок';
+    editor: Editor = new Editor;
 }
 
 export class ScatterItem implements ChartItem, HasTitle {
