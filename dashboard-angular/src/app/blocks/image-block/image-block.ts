@@ -16,6 +16,8 @@ export class ImageBlock {
 
   imageSrc: string | null = null;
 
+  fitMode: 'cover' | 'contain' = 'contain';
+
   @HostListener('paste', ['$event'])
   onPaste(event: ClipboardEvent) {
     if (this.isLocked) return;
@@ -59,5 +61,9 @@ export class ImageBlock {
   focusContainer() {
     const container = document.querySelector('.upload-container');
     (container as HTMLElement)?.focus();
+  }
+
+  toggleFitMode() {
+    this.fitMode = this.fitMode === 'contain' ? 'cover' : 'contain';
   }
 }
