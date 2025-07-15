@@ -35,7 +35,7 @@ export class TextItem implements DashboardItem {
     y: number = 0;
     rows: number = 5;
     cols: number = 5;
-    content: string = 'Текстовый блок';
+    content: string = '';
     editor: Editor = new Editor;
 }
 

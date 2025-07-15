@@ -12,7 +12,5 @@ import { NgxEditorComponent } from 'ngx-editor';
 export class TextBlock {
   @Input() item: any;
   @Input() isLocked: boolean = false;
-  htmlContent= '';
 
-  @Output() onRemove = new EventEmitter<any>();
 }

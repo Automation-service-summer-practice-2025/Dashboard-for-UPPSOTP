@@ -14,7 +14,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { NgxEditorMenuComponent, Editor } from 'ngx-editor';
+import { NgxEditorMenuComponent, Editor, Toolbar } from 'ngx-editor';
 
 @Component({
   selector: 'app-edit-side-bar',
@@ -30,31 +30,39 @@ import { NgxEditorMenuComponent, Editor } from 'ngx-editor';
     MatOptionModule,
     MatDividerModule,
     MatToolbarModule,
-    NgxEditorMenuComponent
+    NgxEditorMenuComponent,
   ],
   templateUrl: './edit-side-bar.html',
   styleUrl: './edit-side-bar.css'
 })
+
 export class EditSideBar {
   @Input() isOpen = false;
   @Input() currentItem: DashboardItem | null = null;
-  @Output() closed = new EventEmitter<void>();
+  @Output() closed = new EventEmitter<DashboardItem>();
   @Output() saved = new EventEmitter<DashboardItem>();
   width = 300;
   private resizing = false;
   private lastDownX = 0;
 
-  @Output() editor = new Editor();
-
-  // Обновление любого свойства элемента
-  updateProperty(property: string, value: any): void {
-    if (this.currentItem) {
-      (this.currentItem as any)[property] = value;
-    }
-  }
+  toolbar: Toolbar = [
+    // default value
+    ['undo', 'redo'],
+    ['bold', 'italic'],
+    ['underline', 'strike'],
+    ['indent', 'outdent'],
+    ['code', 'blockquote'],
+    ['ordered_list', 'bullet_list'],
+    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
+    ['text_color', 'background_color'],
+    ['align_left', 'align_center', 'align_right', 'align_justify'],
+    ['link'],
+    ['horizontal_rule', 'format_clear'],
+    ['superscript', 'subscript'],
+  ];
 
   getEditor(): Editor {
-    return this.isTextItem() ? (this.currentItem as TextItem).editor: new Editor;
+    return this.isTextItem() ? (this.currentItem as TextItem).editor : new Editor;
   }
 
   // Проверка типа элемента
@@ -71,14 +79,15 @@ export class EditSideBar {
   }
 
   close() {
-    this.closed.emit();
+    if (this.currentItem) {
+      this.closed.emit(this.currentItem);
+    }
   }
 
   save() {
     if (this.currentItem) {
       this.saved.emit(this.currentItem);
     }
-    this.close();
   }
 
   onResizeStart(event: MouseEvent) {

@@ -9,7 +9,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+}
+
+.divider {
+  margin: 20px 0px;
 }
 
 .btn-close {
@@ -20,16 +23,14 @@
 
 .edit-actions {
   display: flex;
-  justify-content: flex-end;
+  justify-content: right;
   gap: 10px;
   margin-top: 20px;
+  margin-bottom: 30px;
 }
 
 .edit-content {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 10px 0;
+  overflow: auto;
 }
 
 .sidebar-content {

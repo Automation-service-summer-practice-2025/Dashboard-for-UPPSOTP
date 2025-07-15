@@ -1,9 +1,9 @@
-<div class="item-body">
-  {{ item.content }}
-</div>
-<ngx-editor
+<div class="text-item-body">
+  <ngx-editor
+  class="text-area"
   [editor]=item.editor
-  [(ngModel)]="htmlContent"
+  [(ngModel)]=item.content
   [disabled]="isLocked"
   [placeholder]="'Введите текст...'"
-></ngx-editor>
+  ></ngx-editor>
+</div>
