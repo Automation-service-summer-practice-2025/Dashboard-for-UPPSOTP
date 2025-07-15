@@ -1,6 +1,8 @@
-import { Component, Input, Output, EventEmitter  } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+
+import { TextItem } from '../../models/dashboard-item.model';
 
 @Component({
   selector: 'app-text-block',
@@ -9,7 +11,6 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './text-block.css'
 })
 export class TextBlock {
-  @Input() item: any;
+  @Input() item!: TextItem;
   @Input() isLocked: boolean = false;
-  @Output() onRemove = new EventEmitter<any>();
 }

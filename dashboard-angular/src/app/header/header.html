@@ -1,16 +1,6 @@
 <div class="header">
   <button
     mat-raised-button
-    *ngIf="hasChanges && isAdminPage()"
-    color="primary"
-    class="btn-redirect"
-    (click)="save()">
-    <mat-icon>save</mat-icon>
-    <span class="btn-text">Сохранить</span>
-  </button>
-
-  <button
-    mat-raised-button
     *ngIf="isHomePage()"
     color="primary"
     class="btn-redirect"
@@ -18,7 +8,6 @@
     <mat-icon>login</mat-icon>
     <span class="btn-text">Вход</span>
   </button>
-
   <button
     mat-raised-button
     *ngIf="isAdminPage()"

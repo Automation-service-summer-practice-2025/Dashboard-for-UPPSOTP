@@ -1,12 +1,12 @@
 <div class="chart-container">
   <div class="chart-header">
-    <h3>{{title}}</h3>
+    <h3>{{item.title}}</h3>
   </div>
     
   <div class="chart-content">
-    <div class="chart-wrapper" *ngIf="data; else uploadTemplate">
+    <div class="chart-wrapper" *ngIf="item.data; else uploadTemplate">
       <canvas baseChart
-          [data]="data"
+          [data]="item.data"
           [options]="chartOptions"
           type="scatter">
       </canvas>

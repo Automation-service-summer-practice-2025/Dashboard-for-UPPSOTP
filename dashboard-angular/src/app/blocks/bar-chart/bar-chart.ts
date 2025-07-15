@@ -5,25 +5,25 @@ import { ChartOptions } from 'chart.js';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import { ScatterUploadComponent } from './scatter-upload';
-import { ScatterChartItem } from '../../models/dashboard-item.model';
+import { BarUpload } from './bar-upload';
+import { BarChartItem } from '../../models/dashboard-item.model';
 
 @Component({
-  selector: 'app-scatter-chart',
+  selector: 'app-bar-chart',
   standalone: true,
   imports: [
     CommonModule, 
     BaseChartDirective, 
-    ScatterUploadComponent, 
+    BarUpload, 
     MatIconModule, 
     FormsModule, 
     MatInputModule, 
   ],
-  templateUrl: './scatter-chart.html',
-  styleUrls: ['./scatter-chart.css']
+  templateUrl: './bar-chart.html',
+  styleUrls: ['./bar-chart.css']
 })
-export class ScatterChart implements OnInit {
-  @Input() item!: ScatterChartItem;
+export class BarChart implements OnInit{
+  @Input() item!: BarChartItem;
   @Input() isLocked: boolean = false;
 
   showEditor = false;
@@ -59,20 +59,13 @@ export class ScatterChart implements OnInit {
       maintainAspectRatio: false,
       scales: {
         x: {
-          type: 'linear',
-          position: 'bottom',
-          title: { 
-            display: true, 
-            text: this.item.data?.datasets?.[0]?.label?.split(' по ')[1] || 'X Axis' 
-          },
+          type: 'category',
+          title: { display: true, text: 'Значения' },
           grid: { display: this.item.showGrid }
         },
         y: {
-          title: { 
-            display: true, 
-            text: this.item.data?.datasets?.[0]?.label?.split(' по ')[0] || 'Y Axis' 
-          },
-          beginAtZero: false,
+          title: { display: true, text: 'Частота' },
+          beginAtZero: true,
           grid: { display: this.item.showGrid }
         }
       },
@@ -80,9 +73,10 @@ export class ScatterChart implements OnInit {
         legend: { display: this.item.showLegend }
       }
     };
-
+    
     if (this.item.data?.datasets?.length) {
       this.item.data.datasets[0].borderColor = this.item.lineColor;
+      this.item.data.datasets[0].backgroundColor = this.item.lineColor?.replace('1)', '0.2)');
       this.item.data.datasets[0].borderWidth = this.item.lineWidth;
       this.item.data = {...this.item.data};
     }

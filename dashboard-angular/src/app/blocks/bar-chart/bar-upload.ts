@@ -2,17 +2,17 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
-import { HistogramUploadDialogComponent } from './histogram-upload-dialog';
+import { BarUploadDialog } from './bar-upload-dialog';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-histogram-upload',
+  selector: 'app-bar-upload',
   standalone: true,
   imports: [CommonModule, MatButtonModule, MatIconModule],
-  templateUrl: './histogram-upload.html',
-  styleUrls: ['./histogram-upload.css']
+  templateUrl: './bar-upload.html',
+  styleUrls: ['./bar-upload.css']
 })
-export class HistogramUploadComponent {
+export class BarUpload {
   @Output() fileLoaded = new EventEmitter<{data: any, title: string}>();
   @Input() isLocked: boolean = false;
   
@@ -21,7 +21,7 @@ export class HistogramUploadComponent {
   openUploadDialog() {
     if (this.isLocked) return;
 
-    const dialogRef = this.dialog.open(HistogramUploadDialogComponent, {
+    const dialogRef = this.dialog.open(BarUploadDialog, {
       width: '500px'
     });
 
