@@ -6,3 +6,13 @@
   width: calc(100% + 5px);
   overflow: auto;
 }
+
+::ng-deep app-text-block .NgxEditor {
+  border: none !important;
+  overflow: auto !important;
+}
+
+::ng-deep app-text-block .NgxEditor__Content--Disabled {
+    overflow-wrap: break-word;
+    word-break: break-word;
+}

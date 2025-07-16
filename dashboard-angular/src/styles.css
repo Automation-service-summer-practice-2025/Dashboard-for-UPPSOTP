@@ -28,13 +28,3 @@ gridster-preview {
   --ngx-editor-menu-item-hover-bg-color: #b5b5b5;
   --ngx-editor-popup-bg-color: #f5f5f5;
 }
-
-.NgxEditor {
-  border: none !important;
-  overflow: auto !important;
-}
-
-.NgxEditor__Content--Disabled {
-    overflow-wrap: break-word;
-    word-break: break-word;
-}
