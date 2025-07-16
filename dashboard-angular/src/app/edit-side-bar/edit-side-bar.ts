@@ -1,8 +1,5 @@
 import { Component, EventEmitter, Input, Output, HostListener, OnInit, OnDestroy } from '@angular/core';
-import {
-  DashboardItem,
-  TextItem
- } from '../models/dashboard-item.model'
+import { DashboardItem, TextItem } from '../models/dashboard-item.model'
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -38,7 +35,7 @@ import { NgxEditorMenuComponent, Editor, Toolbar } from 'ngx-editor';
 
 export class EditSideBar {
   @Input() isOpen: boolean = false;
-  @Input() currentItem: DashboardItem | null = null;
+  @Input() currentItem?: DashboardItem;
   @Output() closed = new EventEmitter<DashboardItem>();
   width = 300;
   private resizing = false;
@@ -59,11 +56,16 @@ export class EditSideBar {
   ];
 
   getEditor(): Editor {
-    return this.isTextItem() ? (this.currentItem as TextItem).editor : new Editor;
+    if (this.currentItem && this.isTextItem()) {
+      return (this.currentItem as TextItem).editor!;
+    }
+    else {
+      return new Editor;
+    }
   }
 
   isTextItem(): boolean {
-    return this.currentItem?.type === 'text';
+    return this.currentItem?.type === 'text' ;
   }
 
   isImageItem(): boolean {

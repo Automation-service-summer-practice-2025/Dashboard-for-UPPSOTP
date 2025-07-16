@@ -1,4 +1,5 @@
 import { GridsterItem } from "angular-gridster2";
+import { Editor } from "ngx-editor";
 
 export abstract class DashboardItem implements GridsterItem {
   id: number = 0;
@@ -41,6 +42,7 @@ export abstract class ChartItem extends DashboardItem implements HasTitle {
 export class TextItem extends DashboardItem {
   override type = 'text';
   content?: string = '';
+  editor?: Editor = new Editor;
 }
 
 @DashboardBlock('image')

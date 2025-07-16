@@ -108,7 +108,7 @@ export class Dashboard implements OnInit, AfterViewInit {
   }
 
   isEditPanelOpen: boolean = false;
-  selectedItem: DashboardItem | null = null;
+  selectedItem: DashboardItem | undefined = undefined;
 
   editItem(item: DashboardItem) {
     if (this.isEditPanelOpen && this.selectedItem?.id === item.id) {
@@ -122,6 +122,6 @@ export class Dashboard implements OnInit, AfterViewInit {
 
   closeEditPanel() {
     this.isEditPanelOpen = false;
-    this.selectedItem = null;
+    this.selectedItem = undefined;
   }
 }

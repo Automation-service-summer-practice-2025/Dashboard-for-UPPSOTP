@@ -24,9 +24,6 @@ gridster-preview {
 }
 
 .NgxEditor__MenuBar {
-  flex-direction: column;
-  background-color: none !important;
-  padding: none;
   --ngx-editor-menubar-bg-color: #f5f5f5;
   --ngx-editor-menu-item-hover-bg-color: #b5b5b5;
   --ngx-editor-popup-bg-color: #f5f5f5;
@@ -35,9 +32,4 @@ gridster-preview {
 .NgxEditor {
   border: none !important;
   overflow: auto !important;
-}
-
-.NgxEditor__MenuItem--Icon {
-  width: 100% !important;
-
 }
