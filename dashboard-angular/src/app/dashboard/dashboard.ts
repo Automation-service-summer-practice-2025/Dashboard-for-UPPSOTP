@@ -99,6 +99,7 @@ export class Dashboard implements OnInit, AfterViewInit {
       this.options.draggable.enabled = !this.isLocked;
       this.options.resizable.enabled = !this.isLocked;
       this.options.api?.optionsChanged?.();
+      this.closeEditPanel();
     }
   }
 
