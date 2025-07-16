@@ -40,27 +40,9 @@ export class SideBar {
     });
   }
 
-  addTextBlock() {
+  addBlock(type: string) {
     if (!this.isLocked) {
-      this.dashboardService.addTextBlock();
-    }
-  }
-
-  addImageBlock() {
-    if (!this.isLocked) {
-      this.dashboardService.addImageBlock();
-    }
-  }
-
-  addScatterChart() {
-    if (!this.isLocked) {
-      this.dashboardService.addScatterChart();
-    }
-  }
-
-  addHistogramChart() {
-    if (!this.isLocked) {
-      this.dashboardService.addBarChart();
+      this.dashboardService.addBlock(type);
     }
   }
 

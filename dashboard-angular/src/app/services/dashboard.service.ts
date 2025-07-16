@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import * as Dashboard from '../models/dashboard-item.model';
+import { GridsterConfig } from 'angular-gridster2';
+import { DashboardItem, DashboardItemRegistry } from '../models/dashboard-item.model';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class DashboardService {
-  private dashboardItems = new BehaviorSubject<Dashboard.DashboardItem[]>([]);
+  private gridsterOptions: GridsterConfig | null = null;
+
+  private dashboardItems = new BehaviorSubject<DashboardItem[]>([]);
   dashboardItems$ = this.dashboardItems.asObservable();
   private itemIdCounter = 0;
 
@@ -16,28 +19,25 @@ export class DashboardService {
 
   constructor() {}
 
-  addTextBlock() {
-    const newItem = new Dashboard.TextItem();
-    newItem.id = this.getNextId();
-    this.dashboardItems.next([...this.dashboardItems.value, newItem]);
+  setGridsterOptions(options: GridsterConfig) {
+    this.gridsterOptions = options;
   }
 
-  addImageBlock() {
-    const newItem = new Dashboard.ImageItem();
-    newItem.id = this.getNextId();
-    this.dashboardItems.next([...this.dashboardItems.value, newItem]);
-  }
+  addBlock(type: string) {
+    const ItemClass = DashboardItemRegistry[type];
+    if (ItemClass) {
+      const newItem = new ItemClass();
+      newItem.id = ++this.itemIdCounter;
 
-  addScatterChart() {
-    const newItem = new Dashboard.ScatterItem();
-    newItem.id = this.getNextId();
-    this.dashboardItems.next([...this.dashboardItems.value, newItem]);
-  }
-
-  addBarChart() {
-    const newItem = new Dashboard.BarItem();
-    newItem.id = this.getNextId();
-    this.dashboardItems.next([...this.dashboardItems.value, newItem]);
+      if (this.gridsterOptions?.api?.getFirstPossiblePosition) {
+        const position = this.gridsterOptions.api.getFirstPossiblePosition(newItem);
+        newItem.x = position.x;
+        newItem.y = position.y;
+      }
+      this.dashboardItems.next([...this.dashboardItems.value, newItem]);
+    } else {
+      console.error(`Unknown dashboard item type: ${type}`);
+    }
   }
 
   toggleLock(isLocked: boolean) {
@@ -46,9 +46,5 @@ export class DashboardService {
 
   isLocked(): boolean {
     return this.lockStatus.value;
-  }
-
-  private getNextId(): number {
-    return ++this.itemIdCounter;
   }
 }

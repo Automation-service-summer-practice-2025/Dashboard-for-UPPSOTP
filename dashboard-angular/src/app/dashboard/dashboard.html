@@ -13,9 +13,10 @@
               title="Переместить">
               ☰
             </div>
-            <button class="action-button"
-                (click)="editItem(item)"
-                title="Редактировать">
+            <button
+              class="action-button"
+              (click)="editItem(item)"
+              title="Редактировать">
               ✎
             </button>
           </div>
@@ -42,11 +43,13 @@
 
           <app-scatter-chart
             *ngIf="item.type === 'scatter-chart'"
+            [item]="item"
             [isLocked]="isLocked">
           </app-scatter-chart>
 
           <app-bar-chart
             *ngIf="item.type === 'bar-chart'"
+            [item]="item"
             [isLocked]="isLocked">
           </app-bar-chart>
         </div>

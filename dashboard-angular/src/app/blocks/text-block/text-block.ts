@@ -1,6 +1,8 @@
-import { Component, Input, Output, EventEmitter  } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+
+import { TextItem } from '../../models/dashboard-item.model';
 import { NgxEditorComponent } from 'ngx-editor';
 
 @Component({
@@ -10,7 +12,7 @@ import { NgxEditorComponent } from 'ngx-editor';
   styleUrl: './text-block.css'
 })
 export class TextBlock {
-  @Input() item: any;
+  @Input() item!: TextItem;
   @Input() isLocked: boolean = false;
 
 }

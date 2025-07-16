@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GridsterConfig, GridsterModule } from 'angular-gridster2';
 import { FormsModule } from '@angular/forms';
@@ -32,7 +32,7 @@ import { EditSideBar } from '../edit-side-bar/edit-side-bar';
   styleUrl: './dashboard.css'
 })
 
-export class Dashboard implements OnInit {
+export class Dashboard implements OnInit, AfterViewInit {
   options: GridsterConfig = {};
   dashboard: DashboardItem[] = [];
   isLocked = false;
@@ -68,8 +68,8 @@ export class Dashboard implements OnInit {
       resizable: {
         enabled: true,
       },
-      swap: false,
-      pushItems: true,
+      swap: true,
+      swapWhileDragging: true,
       displayGrid: 'always',
     };
 
@@ -78,6 +78,10 @@ export class Dashboard implements OnInit {
     });
 
     this.updateGridDisplay();
+  }
+
+  ngAfterViewInit(): void {
+    this.dashboardService.setGridsterOptions(this.options);
   }
 
   removeItem(item: DashboardItem): void {
