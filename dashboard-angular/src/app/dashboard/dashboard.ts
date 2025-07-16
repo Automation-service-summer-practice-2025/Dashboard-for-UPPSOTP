@@ -8,7 +8,7 @@ import { TextBlock } from '../blocks/text-block/text-block';
 import { ImageBlock } from '../blocks/image-block/image-block';
 import { ScatterChart } from '../blocks/scatter-chart/scatter-chart';
 import { BarChart } from '../blocks/bar-chart/bar-chart';
-import { DashboardItem } from '../models/dashboard-item.model';
+import { BarItem, ChartOptions, DashboardItem } from '../models/dashboard-item.model';
 import { MatIconModule } from '@angular/material/icon';
 import { Zoom } from '../zoom/zoom';
 import { EditSideBar } from '../edit-side-bar/edit-side-bar';
@@ -109,7 +109,7 @@ export class Dashboard implements OnInit {
     if (this.isEditPanelOpen && this.selectedItem?.id === item.id) {
       this.closeEditPanel();
     } else {
-      this.selectedItem = {...item};
+      this.selectedItem = item;
       this.isEditPanelOpen = true;
     }
   }
@@ -126,4 +126,21 @@ export class Dashboard implements OnInit {
     }
     this.closeEditPanel();
   }
+
+  // onChartOptionsChanged(options: ChartOptions) {
+  //   if (this.selectedItem && this.selectedItem.type === 'bar-chart') {
+  //     // Обновляем опции выбранного элемента
+  //     const barItem = this.selectedItem as BarItem;
+  //     barItem.chartOptions = options;
+      
+  //     // Находим и обновляем элемент в массиве dashboard
+  //     const index = this.dashboard.findIndex(i => i.id === this.selectedItem?.id);
+  //     if (index !== -1) {
+  //       this.dashboard[index] = {
+  //         ...this.dashboard[index],
+  //         chartOptions: options
+  //       };
+  //     }
+  //   }
+  // }
 }

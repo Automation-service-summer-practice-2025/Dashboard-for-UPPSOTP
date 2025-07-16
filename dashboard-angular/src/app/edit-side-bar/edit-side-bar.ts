@@ -41,20 +41,6 @@ export class EditSideBar {
   private resizing = false;
   private lastDownX = 0;
 
-  get chartItem(): BarItem | ScatterItem | null {
-    return this.isChartItem() ? this.currentItem as BarItem | ScatterItem : null;
-  }
-
-  updateChartOption(option: keyof ChartOptions, value: any): void {
-    const item = this.chartItem;
-    if (item) {
-      if (!item.chartOptions) {
-        item.chartOptions = {};
-      }
-      item.chartOptions[option] = value;
-    }
-  }
-
     // Обновление любого свойства элемента
   updateProperty(property: string, value: any): void {
     if (this.currentItem) {
@@ -62,9 +48,40 @@ export class EditSideBar {
     }
   }
 
+  updateChartOptions(property: keyof ChartOptions, value: any): void {
+    if (this.currentItem && this.isChartItem()) {
+      // Создаем новый объект chartOptions (или используем существующий)
+      const newOptions = {
+        ...(this.currentItem as BarItem).chartOptions,
+        [property]: value
+      };
+      // Обновляем currentItem
+      (this.currentItem as BarItem)= {
+        ...this.currentItem,
+        chartOptions: newOptions
+      };
+    }
+  }
 
   getContent(): string {
     return this.isTextItem() ? (this.currentItem as TextItem).content || '' : '';
+  }
+
+  getColorChart(): string {
+    if (!this.isChartItem()) return '#4bc07eff';
+    return (this.currentItem as BarItem).chartOptions?.color || '#4bc07eff';
+  }
+
+  getLineWidthChart(): number {
+    return this.isChartItem() ? (this.currentItem as BarItem).chartOptions?.lineWidth || 3 : 1;
+  }
+  
+  getShowGridChart(): boolean {
+    return this.isChartItem() ? (this.currentItem as BarItem).chartOptions?.showGrid || true: false;
+  }
+
+  getShowLegendChart(): boolean {
+    return this.isChartItem() ? (this.currentItem as BarItem).chartOptions?.showLegend || true: false;
   }
 
   isTextItem(): boolean {

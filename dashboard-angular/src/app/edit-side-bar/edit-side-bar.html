@@ -15,8 +15,13 @@
       </button>
     </div>
     <mat-divider class="divider"></mat-divider>
-
+    <!-- <div>
+      {{currentItem?.id}}
+    </div> -->
     <div class="edit-content">
+       <div> 
+      {{currentItem}}
+    </div>
       <!-- Для текстового блока -->
       <ng-container *ngIf="currentItem?.type === 'text'">
         <mat-form-field>
@@ -47,28 +52,28 @@
       </ng-container>
 
       <!-- Для графиков -->
-      <ng-container *ngIf="isChartItem()">
+      <ng-container *ngIf="currentItem?.type === 'bar-chart'">
         <mat-form-field>
           <mat-label>Цвет графика</mat-label>
-          <input matInput type="color" 
-                [value]="chartItem?.chartOptions?.color || '#4bc0c0'"
-                (input)="updateChartOption('color', $any($event).target.value)">
+            <input matInput type="color" 
+                  [value]="getColorChart()"
+                  (input)="updateChartOptions('color', $any($event).target.value)">
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>Толщина линии</mat-label>
-          <input matInput type="number" min="1" max="10"
-                [value]="chartItem?.chartOptions?.lineWidth || 2"
-                (input)="updateChartOption('lineWidth', $any($event).target.value)">
+            <input matInput type="number" min="1" max="10"
+                  [value]="getLineWidthChart()"
+                  (input)="updateChartOptions('lineWidth', +$any($event).target.value)">
         </mat-form-field>
 
-        <mat-checkbox [checked]="chartItem?.chartOptions?.showGrid !== false" 
-                      (change)="updateChartOption('showGrid', $event.checked)">
+        <mat-checkbox [checked]="getShowGridChart()" 
+                      (change)="updateChartOptions('showGrid', $any($event).checked)">
           Показывать сетку
         </mat-checkbox>
 
-        <mat-checkbox [checked]="chartItem?.chartOptions?.showLegend !== false"
-                      (change)="updateChartOption('showLegend', $event.checked)">
+        <mat-checkbox [checked]="getShowLegendChart()"
+                      (change)="updateChartOptions('showLegend', $any($event).checked)">
           Показывать легенду
         </mat-checkbox>
       </ng-container>
