@@ -1,9 +1,8 @@
 <div class="text-item-body">
   <ngx-editor
-  class="text-area"
-  [editor]=item.editor
-  [(ngModel)]=item.content
+  [editor]="item.editor"
+  [(ngModel)]="item.content"
   [disabled]="isLocked"
-  [placeholder]="'Введите текст...'"
+  [placeholder]="'Введите текст... '"
   ></ngx-editor>
 </div>

@@ -86,7 +86,6 @@ export class Dashboard implements OnInit {
     const index = this.dashboard.findIndex(d => d.id === item.id);
     if (index !== -1) {
       this.dashboard.splice(index, 1);
-      this.closeItem(item);
       this.closeEditPanel();
     }
   }
@@ -104,33 +103,21 @@ export class Dashboard implements OnInit {
     this.options.api?.optionsChanged?.();
   }
 
-  isEditPanelOpen = false;
+  isEditPanelOpen: boolean = false;
   selectedItem: DashboardItem | null = null;
 
   editItem(item: DashboardItem) {
     if (this.isEditPanelOpen && this.selectedItem?.id === item.id) {
-      this.closeItem(item);
       this.closeEditPanel();
     } else {
-      this.selectedItem = {...item};
+      this.closeEditPanel();
+      this.selectedItem = item;
       this.isEditPanelOpen = true;
     }
-  }
-
-  closeItem(updatedItem: DashboardItem) {
-    // Предупреждение о сохранении
-    console.log("Отменено сохранение:", updatedItem);
-    this.closeEditPanel();
   }
 
   closeEditPanel() {
     this.isEditPanelOpen = false;
     this.selectedItem = null;
-  }
-
-  saveItem(updatedItem: DashboardItem) {
-    // Сохранение в БД
-    console.log("Сохранено:", updatedItem);
-    this.closeEditPanel();
   }
 }

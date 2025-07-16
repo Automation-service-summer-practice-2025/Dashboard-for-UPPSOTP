@@ -1,8 +1,7 @@
 <app-edit-side-bar
-[isOpen]="isEditPanelOpen"
-[currentItem]="selectedItem"
-(closed)="closeItem($event)"
-(saved)="saveItem($event)">
+  [isOpen]="isEditPanelOpen"
+  [currentItem]="selectedItem"
+  (closed)="closeEditPanel()">
   <app-header></app-header>
   <div class="dashboard-container">
     <gridster [options]="options" class="gridster">

@@ -37,16 +37,14 @@ import { NgxEditorMenuComponent, Editor, Toolbar } from 'ngx-editor';
 })
 
 export class EditSideBar {
-  @Input() isOpen = false;
+  @Input() isOpen: boolean = false;
   @Input() currentItem: DashboardItem | null = null;
   @Output() closed = new EventEmitter<DashboardItem>();
-  @Output() saved = new EventEmitter<DashboardItem>();
   width = 300;
   private resizing = false;
   private lastDownX = 0;
 
   toolbar: Toolbar = [
-    // default value
     ['undo', 'redo'],
     ['bold', 'italic'],
     ['underline', 'strike'],
@@ -56,7 +54,6 @@ export class EditSideBar {
     [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
     ['text_color', 'background_color'],
     ['align_left', 'align_center', 'align_right', 'align_justify'],
-    ['link'],
     ['horizontal_rule', 'format_clear'],
     ['superscript', 'subscript'],
   ];
@@ -65,7 +62,6 @@ export class EditSideBar {
     return this.isTextItem() ? (this.currentItem as TextItem).editor : new Editor;
   }
 
-  // Проверка типа элемента
   isTextItem(): boolean {
     return this.currentItem?.type === 'text';
   }
@@ -76,18 +72,6 @@ export class EditSideBar {
 
   isChartItem(): boolean {
     return ['chart', 'bar-chart', 'scatter-chart'].includes(this.currentItem?.type || '');
-  }
-
-  close() {
-    if (this.currentItem) {
-      this.closed.emit(this.currentItem);
-    }
-  }
-
-  save() {
-    if (this.currentItem) {
-      this.saved.emit(this.currentItem);
-    }
   }
 
   onResizeStart(event: MouseEvent) {
