@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output, HostListener } from '@angular/core';
-import { DashboardItem, TextItem, BarItem, ScatterItem, ChartOptions} from '../models/dashboard-item.model'
+import { DashboardItem, TextItem, BarChartItem, ScatterChartItem} from '../models/dashboard-item.model'
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -41,7 +41,6 @@ export class EditSideBar {
   private resizing = false;
   private lastDownX = 0;
 
-    // Обновление любого свойства элемента
   updateProperty(property: string, value: any): void {
     if (this.currentItem) {
       (this.currentItem as any)[property] = value;
@@ -52,11 +51,11 @@ export class EditSideBar {
     if (this.currentItem && this.isChartItem()) {
       // Создаем новый объект chartOptions (или используем существующий)
       const newOptions = {
-        ...(this.currentItem as BarItem).chartOptions,
+        ...(this.currentItem as BarChartItem).chartOptions,
         [property]: value
       };
       // Обновляем currentItem
-      (this.currentItem as BarItem)= {
+      (this.currentItem as BarChartItem)= {
         ...this.currentItem,
         chartOptions: newOptions
       };
@@ -69,19 +68,19 @@ export class EditSideBar {
 
   getColorChart(): string {
     if (!this.isChartItem()) return '#4bc07eff';
-    return (this.currentItem as BarItem).chartOptions?.color || '#4bc07eff';
+    return (this.currentItem as BarChartItem).chartOptions?.color || '#4bc07eff';
   }
 
   getLineWidthChart(): number {
-    return this.isChartItem() ? (this.currentItem as BarItem).chartOptions?.lineWidth || 3 : 1;
+    return this.isChartItem() ? (this.currentItem as BarChartItem).chartOptions?.lineWidth || 3 : 1;
   }
   
   getShowGridChart(): boolean {
-    return this.isChartItem() ? (this.currentItem as BarItem).chartOptions?.showGrid || true: false;
+    return this.isChartItem() ? (this.currentItem as BarChartItem).chartOptions?.showGrid || true: false;
   }
 
   getShowLegendChart(): boolean {
-    return this.isChartItem() ? (this.currentItem as BarItem).chartOptions?.showLegend || true: false;
+    return this.isChartItem() ? (this.currentItem as BarChartItem).chartOptions?.showLegend || true: false;
   }
 
   isTextItem(): boolean {
