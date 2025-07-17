@@ -27,4 +27,6 @@ gridster-preview {
   --ngx-editor-menubar-bg-color: #f5f5f5;
   --ngx-editor-menu-item-hover-bg-color: #b5b5b5;
   --ngx-editor-popup-bg-color: #f5f5f5;
+  margin-bottom: 300px;
+  gap: 1rem .3rem !important;
 }

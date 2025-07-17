@@ -18,7 +18,6 @@
       <mat-divider class="divider"></mat-divider>
 
       <div class="edit-content">
-        <div>{{currentItem?.id}}</div>
         <!-- Для текстового блока -->
         <ng-container *ngIf="currentItem?.type === 'text'">
           <ngx-editor-menu [editor]="getEditor()" [toolbar]="toolbar"></ngx-editor-menu>
