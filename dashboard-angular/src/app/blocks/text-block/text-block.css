@@ -1,7 +1,18 @@
-.item-body {
-  padding: 20px 5px 5px 5px;
-  flex: 1;
+.text-item-body {
+  margin: 20px 5px 5px 5px;
   color: #666;
   font-size: 14px;
-  line-height: 1.5;
+  height: calc(100% - 15px);
+  width: calc(100% + 5px);
+  overflow: auto;
+}
+
+::ng-deep app-text-block .NgxEditor {
+  border: none !important;
+  overflow: auto !important;
+}
+
+::ng-deep app-text-block .NgxEditor__Content--Disabled {
+    overflow-wrap: break-word;
+    word-break: break-word;
 }

@@ -1,8 +1,5 @@
-import { Component, EventEmitter, Input, Output, HostListener } from '@angular/core';
-import {
-  DashboardItem,
-  TextItem
- } from '../models/dashboard-item.model'
+import { Component, EventEmitter, Input, Output, HostListener, OnInit, OnDestroy } from '@angular/core';
+import { DashboardItem, TextItem } from '../models/dashboard-item.model'
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -14,6 +11,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { NgxEditorMenuComponent, Editor, Toolbar } from 'ngx-editor';
 
 @Component({
   selector: 'app-edit-side-bar',
@@ -28,34 +26,46 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatSelectModule,
     MatOptionModule,
     MatDividerModule,
-    MatToolbarModule
+    MatToolbarModule,
+    NgxEditorMenuComponent,
   ],
   templateUrl: './edit-side-bar.html',
   styleUrl: './edit-side-bar.css'
 })
+
 export class EditSideBar {
-  @Input() isOpen = false;
-  @Input() currentItem: DashboardItem | null = null;
-  @Output() closed = new EventEmitter<void>();
-  @Output() saved = new EventEmitter<DashboardItem>();
+  @Input() isOpen: boolean = false;
+  @Input() currentItem?: DashboardItem;
+  @Output() closed = new EventEmitter<DashboardItem>();
   width = 300;
   private resizing = false;
   private lastDownX = 0;
 
-  // Обновление любого свойства элемента
-  updateProperty(property: string, value: any): void {
-    if (this.currentItem) {
-      (this.currentItem as any)[property] = value;
+  toolbar: Toolbar = [
+    ['undo', 'redo'],
+    ['bold', 'italic'],
+    ['underline', 'strike'],
+    ['indent', 'outdent'],
+    ['code', 'blockquote'],
+    ['ordered_list', 'bullet_list'],
+    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
+    ['text_color', 'background_color'],
+    ['align_left', 'align_center', 'align_right', 'align_justify'],
+    ['horizontal_rule', 'format_clear'],
+    ['superscript', 'subscript'],
+  ];
+
+  getEditor(): Editor {
+    if (this.currentItem && this.isTextItem()) {
+      return (this.currentItem as TextItem).editor!;
+    }
+    else {
+      return new Editor;
     }
   }
 
-  getContent(): string {
-    return this.isTextItem() ? (this.currentItem as TextItem).content || '' : '';
-  }
-
-  // Проверка типа элемента
   isTextItem(): boolean {
-    return this.currentItem?.type === 'text';
+    return this.currentItem?.type === 'text' ;
   }
 
   isImageItem(): boolean {
@@ -64,17 +74,6 @@ export class EditSideBar {
 
   isChartItem(): boolean {
     return ['chart', 'bar-chart', 'scatter-chart'].includes(this.currentItem?.type || '');
-  }
-
-  close() {
-    this.closed.emit();
-  }
-
-  save() {
-    if (this.currentItem) {
-      this.saved.emit(this.currentItem);
-    }
-    this.close();
   }
 
   onResizeStart(event: MouseEvent) {

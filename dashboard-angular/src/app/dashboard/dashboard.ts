@@ -90,6 +90,7 @@ export class Dashboard implements OnInit, AfterViewInit {
     const index = this.dashboard.findIndex(d => d.id === item.id);
     if (index !== -1) {
       this.dashboard.splice(index, 1);
+      this.closeEditPanel();
     }
   }
 
@@ -98,6 +99,7 @@ export class Dashboard implements OnInit, AfterViewInit {
       this.options.draggable.enabled = !this.isLocked;
       this.options.resizable.enabled = !this.isLocked;
       this.options.api?.optionsChanged?.();
+      this.closeEditPanel();
     }
   }
 
@@ -106,28 +108,21 @@ export class Dashboard implements OnInit, AfterViewInit {
     this.options.api?.optionsChanged?.();
   }
 
-  isEditPanelOpen = false;
-  selectedItem: DashboardItem | null = null;
+  isEditPanelOpen: boolean = false;
+  selectedItem: DashboardItem | undefined = undefined;
 
   editItem(item: DashboardItem) {
     if (this.isEditPanelOpen && this.selectedItem?.id === item.id) {
       this.closeEditPanel();
     } else {
-      this.selectedItem = {...item};
+      this.closeEditPanel();
+      this.selectedItem = item;
       this.isEditPanelOpen = true;
     }
   }
 
   closeEditPanel() {
     this.isEditPanelOpen = false;
-    this.selectedItem = null;
-  }
-
-  saveItem(updatedItem: DashboardItem) {
-    const index = this.dashboard.findIndex(i => i.id === updatedItem.id);
-    if (index !== -1) {
-      this.dashboard[index] = updatedItem;
-    }
-    this.closeEditPanel();
+    this.selectedItem = undefined;
   }
 }

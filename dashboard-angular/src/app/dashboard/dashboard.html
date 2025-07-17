@@ -1,8 +1,7 @@
 <app-edit-side-bar
   [isOpen]="isEditPanelOpen"
   [currentItem]="selectedItem"
-  (closed)="closeEditPanel()"
-  (saved)="saveItem($event)">
+  (closed)="closeEditPanel()">
   <app-header></app-header>
   <div class="dashboard-container">
     <gridster [options]="options" class="gridster">
@@ -14,7 +13,7 @@
               title="Переместить">
               ☰
             </div>
-            <button 
+            <button
               class="action-button"
               (click)="editItem(item)"
               title="Редактировать">
@@ -47,7 +46,7 @@
             [item]="item"
             [isLocked]="isLocked">
           </app-scatter-chart>
-  
+
           <app-bar-chart
             *ngIf="item.type === 'bar-chart'"
             [item]="item"
